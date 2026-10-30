@@ -4,7 +4,7 @@ import { eventsForTile, ALL_GAME_EVENTS } from '../eventRegistry';
 import type { GameSnapshot } from './model';
 import type { GameEvent, Player } from '../types';
 
-export function initialGame():GameSnapshot{return {mapId:MAP_ID,mapVersion:MAP_VERSION,rulesVersion:RULES_VERSION,revision:0,players:[],currentPlayerIndex:0,round:1,phase:'SETUP',diceValue:1,selectedEvent:null,eventResultText:null};}
+export function initialGame():GameSnapshot{return {mapId:MAP_ID,mapVersion:MAP_VERSION,rulesVersion:RULES_VERSION,revision:0,players:[],currentPlayerIndex:0,round:1,phase:'SETUP',diceValue:1,selectedEvent:null,eventResultText:null,eventLesson:undefined,eventOutcome:undefined};}
 const changed=(s:GameSnapshot,patch:Partial<GameSnapshot>):GameSnapshot=>({...s,...patch,revision:s.revision+1});
 export function startGame(s:GameSnapshot,names:string[]):GameSnapshot{
   if(!Array.isArray(names)||names.length<1||names.length>4||names.some(n=>typeof n!=='string'||n.length>100))return s;

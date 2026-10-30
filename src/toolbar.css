@@ -1,0 +1,18 @@
+.city-toolbar-actions{display:contents}
+.city-world .city-toolbar .city-toolbar-toggle{display:none}
+@media(max-width:900px){
+  .city-world .city-toolbar{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-start;gap:6px;width:min(480px,calc(100% - 24px));max-width:calc(100% - 24px);padding:4px;background:#fffaf0;border-radius:14px}
+  .city-world .city-toolbar-actions{display:flex;flex:1 1 auto;align-items:center;flex-wrap:nowrap;gap:12px;min-width:0;padding:2px 4px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-padding-inline:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .city-world .city-toolbar-actions::-webkit-scrollbar{display:none}
+  .city-world .city-toolbar-actions>button{flex:0 0 auto;min-width:48px;min-height:48px;margin:0;padding:6px 10px;white-space:nowrap;font-size:14px;line-height:1.6;color:#164b39}
+  .city-world .city-toolbar-actions>button:focus-visible{outline:2px solid #182c25;outline-offset:0}
+  .city-world .city-toolbar .city-toolbar-help{display:inline-flex;align-items:center;justify-content:center;flex:0 0 48px;min-width:48px;min-height:48px;margin:0;padding:4px;border:1px solid #43554d;border-radius:10px;background:#fff;color:#164b39;font-size:20px;font-weight:700;line-height:1.6}
+  .city-world .city-toolbar .city-toolbar-help:focus-visible{outline:3px solid #182c25;outline-offset:2px}
+  .city-world .city-toolbar .city-toolbar-toggle{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;min-width:48px;min-height:48px;padding:4px;border:2px solid #43554d;border-radius:10px;background:#fff;color:#164b39;font-family:system-ui,sans-serif;font-size:24px;font-weight:700;line-height:1.6;cursor:pointer;touch-action:manipulation}
+  .city-world .city-toolbar .city-toolbar-toggle span{display:inline}
+  .city-world .city-toolbar .city-toolbar-toggle:hover{background:#edf3ef}
+  .city-world .city-toolbar .city-toolbar-toggle:active{background:#dce8df}
+  .city-world .city-toolbar .city-toolbar-toggle:focus-visible{outline:3px solid #182c25;outline-offset:3px}
+  .city-world .city-toolbar.is-toolbar-collapsed{left:12px!important;right:auto!important;transform:none!important;width:auto!important;min-width:0;max-width:calc(100% - 24px)}
+  .city-world .city-toolbar.is-toolbar-collapsed .city-toolbar-actions,.city-world .city-toolbar.is-toolbar-collapsed .city-toolbar-help{display:none}
+}

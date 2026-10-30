@@ -5,25 +5,29 @@
 @media(max-width:540px){.education-launch{top:525px}.education-launch button{font-size:10.5px}.island-main .island-zoom{bottom:90px}}
 /* Fifty-stop city controls */
 .camera-modes{position:absolute;bottom:205px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:5px;background:#fffbeded;border:1px solid #fff9e8;border-radius:13px}.camera-modes button{border:0;border-radius:9px;background:transparent;padding:9px 17px;color:#31594f;cursor:pointer;font-size:11.55px}.camera-modes button[aria-pressed=true]{background:#dbe7d1}.camera-modes button:disabled{opacity:.4;cursor:default}.city-performance{position:absolute;left:25px;bottom:185px;color:#5e7e67;font-size:9.45px;pointer-events:none}.quality-control{position:absolute;z-index:8;right:205px;top:190px;display:flex;align-items:center;gap:10px;border:1px solid white;border-radius:10px;padding:8px 12px;background:#fffbedeb;color:#55755e;font-size:10.5px}.quality-control select{border:0;border-radius:5px;background:#e5ecdb;color:#31594f;padding:4px 7px}.center-education{z-index:11!important;width:330px!important;padding:22px!important;bottom:210px!important}.center-education .center-theme{font-size:13.923px;color:#4e785c;margin:10px 0}.center-education p{font-size:13.23756px;line-height:1.8;color:#68816d}.center-education small{font-size:10.71px;line-height:1.7;color:#8a917d;display:block;margin:10px 0}.center-education>div{display:flex;gap:8px;flex-wrap:wrap}.center-education button{border:0;border-radius:9px;padding:9px 11px;background:#e2ebd6;color:#416a54;font-size:11.55px;cursor:pointer}.center-education button:disabled{opacity:.4;cursor:default}.center-education .center-close{position:absolute;top:8px;right:8px;background:transparent;font-size:22.05px;padding:4px 8px}.island-navigation>small{display:block;font-size:9.639px;line-height:1.7;padding:10px;color:#829279}.skip-animation{padding:2px 4px;border:0;background:transparent;color:#31594f;text-decoration:underline;font-size:10.5px;cursor:pointer}.fallback-notice{position:absolute;z-index:8;top:190px;left:30px;max-width:300px;border-radius:10px;background:#fffbece8;padding:10px;color:#587b65;font-size:11.55px}.city-map-50 [role=button]{cursor:pointer}.city-map-50 [role=button]:focus-visible{outline:3px solid #d5a569}.migration-notice{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:130;width:min(560px,92vw);padding:14px 18px;border:1px solid #c6d7b8;background:#fff9e8;box-shadow:0 8px 35px #31594f33;border-radius:15px;color:#31594f;font-size:12.6px;line-height:1.8}.migration-notice p{margin:0 0 8px}.migration-notice button{margin-right:10px;border:0;border-radius:7px;padding:6px 10px;color:#31594f;background:#e2ebd6;cursor:pointer}.city-zoom{z-index:9}
-@media(max-width:900px){.camera-modes{bottom:90px;left:18px;transform:none;gap:2px}.camera-modes button{font-size:10.5px;padding:8px 12px}.quality-control{top:193px;right:14px;font-size:9.45px;padding:6px 9px}.city-performance{bottom:65px;left:18px;font-size:8.4px}.center-education{position:absolute!important;bottom:145px!important;left:12px!important;width:calc(100% - 24px)!important;max-width:350px;padding:18px!important}.center-education>strong{font-size:21px}.center-education p{font-size:12.13443px}.center-education small{font-size:9.639px}.fallback-notice{top:193px;left:12px;font-size:9.45px;max-width:225px}.island-main .city-zoom{bottom:90px;right:15px}}
+@media(max-width:900px){.camera-modes{bottom:90px;left:18px;transform:none;gap:2px;width:180px;box-sizing:border-box}.camera-modes button{font-size:10.5px;padding:8px 12px}.quality-control{top:193px;right:14px;font-size:9.45px;padding:6px 9px}.city-performance{bottom:65px;left:18px;font-size:8.4px}.center-education{position:absolute!important;bottom:145px!important;left:12px!important;width:calc(100% - 24px)!important;max-width:350px;padding:18px!important}.center-education>strong{font-size:21px}.center-education p{font-size:12.13443px}.center-education small{font-size:9.639px}.fallback-notice{top:193px;left:12px;font-size:9.45px;max-width:225px}.island-main .city-zoom{bottom:90px;right:15px}}
 @media(max-width:900px){.quality-control{top:auto;bottom:145px}.center-education>strong{padding-right:18px}.island-main .city-legend{display:none}}
 
 /* Place the existing mobile roll control above the lower-left camera controls. */
 .dice-label-compact{display:none}
 @media(max-width:900px){
   .game-app .journey-hud .turn-panel{
-    position:absolute!important;top:-220px!important;left:12px!important;right:auto!important;bottom:auto!important;
-    width:min(180px,calc(50vw - 24px))!important;height:80px!important;min-height:80px!important;
+    position:absolute!important;top:-264px!important;left:18px!important;right:auto!important;bottom:auto!important;
+    width:180px!important;height:90px!important;min-height:90px!important;
     max-width:none!important;margin:0!important;padding:8px!important;transform:none!important;
-    display:grid!important;grid-area:auto!important;grid-template-columns:36px minmax(0,1fr);grid-template-rows:44px 14px;gap:4px 6px;
+    display:grid!important;grid-area:auto!important;grid-template-columns:36px minmax(0,1fr);grid-template-rows:55px 14px;gap:4px 6px;
     z-index:9;pointer-events:auto;border-radius:16px;
   }
   .game-app .journey-hud .turn-panel .illustrated-dice{grid-column:1;grid-row:1;width:36px;height:42px;margin:0!important;align-self:center}
-  .game-app .journey-hud .turn-panel .dice-button{grid-column:2;grid-row:1;min-width:0;min-height:44px;margin:0!important;padding:6px 5px;border-radius:11px;font-size:11.55px;line-height:1.3;gap:4px;white-space:nowrap}
+  .game-app .journey-hud .turn-panel .dice-button{grid-column:2;grid-row:1;min-width:0;min-height:55px;margin:0!important;padding:6px 5px;border-radius:11px;font-size:11.55px;line-height:1.3;gap:4px;white-space:nowrap}
   .game-app .journey-hud .turn-panel .dice-button svg{width:14px;height:14px;flex-shrink:0}
   .game-app .journey-hud .turn-panel .dice-label-full{display:none}
   .game-app .journey-hud .turn-panel .dice-label-compact{display:inline}
   .game-app .journey-hud .turn-panel>p{grid-column:1/-1;grid-row:2;display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;margin:0;font-size:9.92817px;line-height:14px}
   .game-app .journey-hud .turn-panel .turn-player-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .game-app .journey-hud .turn-panel .skip-animation{flex-shrink:0;padding:0;font-size:9.45px;line-height:14px;white-space:nowrap}
+}
+@media(max-width:600px){
+  .camera-modes{width:min(180px,calc(50vw - 9px))}
+  .game-app .journey-hud .turn-panel{left:22.5px!important;width:min(225px,calc(62.5vw - 11.25px))!important}
 }

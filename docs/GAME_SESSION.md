@@ -2,6 +2,8 @@
 
 目前只有 LocalGameSession，沒有多人伺服器或網路同步。
 
+介面上的「本機在線」僅以瀏覽器本機儲存心跳估算同一瀏覽器近期開啟的本站分頁數，不是全站訪客數或線上玩家數。
+
 資料流：UI → Zustand 投影 → GameSessionAdapter.dispatch → 規則純函式 → 不可變 snapshot → UI／城市。自動存檔由 Session 呼叫 GameSaveRepository，再交給 StorageAdapter。瀏覽器儲存與分頁 ID 僅在 browserSession 組裝。
 
 ## 穩定邊界

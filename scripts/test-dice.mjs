@@ -6,6 +6,8 @@ const {createIslandDice,DICE_NORMALS,DICE_PATTERNS,diceResultQuaternion}=await i
 const {LocalGameSession}=await import('../src/game/session/LocalGameSession.ts');
 const {initialGame,startGame}=await import('../src/game/rules/engine.ts');
 const {decodeSave}=await import('../src/game/storage/saveCodec.ts');
+const {chooseEvent}=await import('../src/game/rules/engine.ts');
+const {ALL_GAME_EVENTS}=await import('../src/game/eventRegistry.ts');
 function clock(){const tasks=new Map();let id=0;return{set(fn){tasks.set(++id,fn);return id;},clear(id){tasks.delete(id);},flush(){const callbacks=[...tasks.values()];tasks.clear();callbacks.forEach(fn=>fn());},get count(){return tasks.size;}};}
 const die=createIslandDice(),geometryIds=new Set(),materialIds=new Set();
 die.root.traverse(o=>{if(o.isMesh){geometryIds.add(o.geometry.uuid);materialIds.add(o.material.uuid);}});
@@ -40,4 +42,9 @@ for(let value=1;value<=6;value++){
 die.root.traverse(o=>{if(o.isMesh){assert.ok(geometryIds.has(o.geometry.uuid));assert.ok(materialIds.has(o.material.uuid));}});die.dispose();
 const invalid=new DiceAnimationController();assert.equal(invalid.start(0,'bad',0,'standard'),false);assert.equal(invalid.start(7,'bad',0,'standard'),false);
 const saved=startGame(initialGame(),['甲','乙']);saved.phase='ROLLING';saved.diceValue=6;const restored=decodeSave({version:3,state:saved}).state;assert.equal(restored.phase,'MOVING');assert.equal(restored.diceValue,6,'reload reuses authoritative result');
+for(const event of ALL_GAME_EVENTS)for(const [index] of (event.options??[{}]).entries()){
+ const state=startGame(initialGame(),['旅人']);state.phase='EVENT';state.selectedEvent=event;state.players[0]={...state.players[0],money:0,health:100,stress:0};
+ const result=chooseEvent(state,event.id,event.options?index:undefined),p=result.players[0];assert.deepEqual(result.eventOutcome,{money:p.money,health:p.health-100,stress:p.stress},'reveal reports actual bounded delta');
+ assert.deepEqual(decodeSave({version:3,state:result}).state.eventOutcome,result.eventOutcome,'revealed outcome survives reload without another choice');
+}
 console.log('PASS: six fixed faces/opposites, exact final orientations, reusable resources, standard/quick/reduced phases, skip, single dice sample, stale/forged/duplicate protection, one movement/event/turn, fallback cancellation and saved-roll recovery.');

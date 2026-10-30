@@ -38,6 +38,11 @@ try{
    Object.defineProperty(navigator,'vibrate',{value:pattern=>{window.__feedbackProbe.vibrations.push(pattern);return true;},configurable:true});
  `});
  await call('Page.navigate',{url:'http://127.0.0.1:4178'+testBase});await waitFor('開始人生旅程');
+ assert.equal(await evaluate(`document.querySelector('.online-count strong')?.textContent`),'1','online count is visible on the setup screen');
+ await evaluate(`(()=>{const key='lohas-islands:online-tab:browser-test';localStorage.setItem(key,String(Date.now()));window.dispatchEvent(new StorageEvent('storage',{key,newValue:localStorage.getItem(key)}));})()`);await delay(50);
+ assert.equal(await evaluate(`document.querySelector('.online-count strong')?.textContent`),'2','online count includes another active browser tab');
+ await evaluate(`(()=>{const key='lohas-islands:online-tab:browser-test';localStorage.removeItem(key);window.dispatchEvent(new StorageEvent('storage',{key,oldValue:String(Date.now())}));})()`);await delay(50);
+ assert.equal(await evaluate(`document.querySelector('.online-count strong')?.textContent`),'1','online count drops after the other tab closes');
  await click('A 個管新進人員訓練');await waitFor('A 個管情境工作坊');
  await click('與家庭討論照顧計畫');await waitFor('判斷正確');
  await click('四包錢試算');await waitFor('估計自付');
@@ -49,6 +54,7 @@ try{
  await evaluate(`document.querySelector('[aria-label="關閉學習中心"]').click()`);await delay(100);
  await click('增加玩家');await click('增加玩家');
  await click('開始人生旅程');await waitFor('儲存進度');await delay(1200);
+ assert.ok(await evaluate(`document.querySelector('.online-count')!==null`),'online count remains visible during gameplay');
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players.length`),4);
  assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),50);
  if(process.argv.includes('--night-titles')){
@@ -64,6 +70,30 @@ try{
    }
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
    console.log('PASS: desktop/mobile night title, version, subtitle and brand turn white; day colors restore.');
+ }else if(process.argv.includes('--toolbar')){
+   const toggleToolbar=async()=>{await evaluate(`document.querySelector('.city-toolbar-toggle').click()`);await delay(50);};
+   const saved=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
+   for(const [width,height] of [[320,740],[390,844],[768,1024]]){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:true});await delay(100);
+     const info=await evaluate(`(()=>{const button=document.querySelector('.city-toolbar-toggle'),r=button.getBoundingClientRect();return{width:r.width,height:r.height,expanded:button.getAttribute('aria-expanded')};})()`);assert.ok(info.width>=48&&info.height>=48);assert.equal(info.expanded,'true');
+     const toolbar=await evaluate(`(()=>{const rect=e=>{const r=e.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};return{nav:rect(document.querySelector('.city-toolbar')),toggle:rect(document.querySelector('.city-toolbar-toggle')),help:rect(document.querySelector('.city-toolbar-help')),actions:rect(document.querySelector('.city-toolbar-actions')),buttons:[...document.querySelectorAll('.city-toolbar-actions>button')].filter(b=>getComputedStyle(b).display!=='none').map(rect)};})()`);
+     assert.ok(Math.abs(toolbar.help.y-toolbar.toggle.y)<2,'help stays on the toggle row');assert.ok(toolbar.nav.height<=64,'compact single-row toolbar');assert.ok(toolbar.help.right<=width,'help remains inside viewport');
+     for(const b of toolbar.buttons){assert.ok(Math.abs(b.y-toolbar.help.y)<2,'action stays on one row');assert.ok(b.width>=48&&b.height>=48,'large action touch targets');}
+     await evaluate(`document.querySelector('.city-toolbar-actions').scrollLeft=9999`);await delay(50);assert.ok(await evaluate(`document.querySelector('.city-toolbar-actions').scrollLeft>0`),'actions scroll horizontally on mobile');
+     const helpHit=await evaluate(`(()=>{const b=document.querySelector('.city-toolbar-help'),r=b.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===b;})()`);assert.equal(helpHit,true,'help remains visible and tappable');
+     await evaluate(`document.querySelector('.city-toolbar-help').click()`);await delay(50);assert.equal(await evaluate(`!!document.querySelector('.city-help')`),true);await evaluate(`document.querySelector('.city-toolbar-help').click()`);
+     await click('白天');await toggleToolbar();
+     assert.equal(await evaluate(`getComputedStyle(document.querySelector('.city-toolbar-actions')).display`),'none');
+     assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'false');
+     await call('Page.bringToFront');await evaluate(`document.querySelector('.city-toolbar-toggle').focus()`);assert.equal(await evaluate(`document.activeElement===document.querySelector('.city-toolbar-toggle')`),true,'toggle accepts keyboard focus');await call('Input.dispatchKeyEvent',{type:'keyDown',key:'Enter',code:'Enter',windowsVirtualKeyCode:13,text:'\r'});await call('Input.dispatchKeyEvent',{type:'keyUp',key:'Enter',code:'Enter',windowsVirtualKeyCode:13});await delay(100);
+     assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'true');assert.equal(await evaluate(`document.querySelector('.city-world').classList.contains('city-night')`),true,'toolbar preserves settings');
+     await click('夜晚');await screenshot('toolbar-expanded-'+width);await toggleToolbar();await screenshot('toolbar-collapsed-'+width);
+     await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});await delay(50);assert.equal(await evaluate(`getComputedStyle(document.querySelector('.city-toolbar-actions')).display`),'contents','desktop toolbar stays visible');assert.equal(await evaluate(`getComputedStyle(document.querySelector('.city-toolbar-toggle')).display`),'none');
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:true});await delay(50);await toggleToolbar();
+     assert.ok(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`),'no horizontal overflow');
+   }
+   assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),saved,'toolbar never changes game state');assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   console.log('PASS: toolbar collapses/reopens at 320/390/768px; 48px toggle, keyboard activation, settings/state preserved, desktop visible and no horizontal overflow.');
  }else if(process.argv.includes('--dice')){
    const state=()=>evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state`);
    const until=async expression=>{for(let n=0;n<240;n++){if(await evaluate(expression))return;await delay(25);}throw Error('Timed out: '+expression);};
@@ -159,6 +189,8 @@ try{
      await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:true});await delay(350);
      const layout=await evaluate(`(()=>{const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height};};const button=document.querySelector('.dice-button'),r=button.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{panel:rect('.turn-panel'),roll:rect('.dice-button'),camera:rect('.camera-modes'),quality:rect('.quality-control'),scene:rect('.scene-city'),clickable:!!hit?.closest('.dice-button'),pageWidth:document.documentElement.scrollWidth};})()`);
      assert.ok(layout.panel.left>=10&&layout.panel.right<=width/2+12,'roll control is in the left half: '+JSON.stringify({width,layout}));
+     assert.ok(Math.abs(layout.panel.left-layout.camera.left)<=1,'roll panel aligns with camera controls: '+JSON.stringify({width,layout}));
+     assert.ok(Math.abs(layout.panel.width-layout.camera.width)<=1,'roll panel matches camera control width: '+JSON.stringify({width,layout}));
      assert.ok(layout.panel.top>=layout.scene.top+layout.scene.height*.5,'roll control is in the lower city area');
      assert.ok(layout.panel.bottom+4<=layout.camera.top,'roll control does not overlap camera buttons');
      assert.ok(layout.panel.right<layout.quality.left,'roll control does not overlap quality settings');

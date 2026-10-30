@@ -5,6 +5,9 @@
 .ambient-one { width: 34rem; height: 28rem; right: -14rem; top: -18rem; background: radial-gradient(ellipse, rgba(213,184,106,.2), transparent 68%); }
 .ambient-two { width: 27rem; height: 24rem; left: -14rem; bottom: -16rem; background: radial-gradient(ellipse, rgba(137,181,173,.2), transparent 70%); }
 .disclaimer { position: absolute; bottom: 8px; left: 50%; z-index: 2; transform: translateX(-50%); padding: 5px 12px; border: 1px solid rgba(129,100,75,.12); border-radius: 999px; background: rgba(246,240,229,.84); color: #756354; font-size: 0.937125rem; letter-spacing: .04em; white-space: nowrap; backdrop-filter: blur(12px); }
+.online-count { position: absolute; top: 20px; right: 100px; z-index: 12; display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.82); border-radius: 999px; background: rgba(255,250,240,.95); box-shadow: 0 7px 20px rgba(75,58,41,.12); color: #58463b; font-size: .875rem; font-weight: 750; backdrop-filter: blur(12px); }
+.online-count strong { min-width: 1.25em; color: #3f7468; font-size: 1rem; text-align: center; font-variant-numeric: tabular-nums; }
+.online-count-indicator { width: 8px; height: 8px; border-radius: 50%; background: #64a76b; box-shadow: 0 0 0 3px rgba(100,167,107,.16); }
 
 /* World labels */
 .tile-copy { width: 42px; height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 1px; color: #58463b; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,.8); font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
@@ -291,6 +294,9 @@
 button:focus-visible, input:focus-visible { outline: 3px solid #397c70; outline-offset: 4px; }
 @media (max-width: 900px) {
   .game-app { height: auto; min-height: 100svh; overflow: visible; padding: 5rem 1rem 2.5rem; }
+  .game-app:not(.is-setup) { padding-top: 7rem; }
+  .online-count { top: 4.5rem; right: 1rem; }
+  .is-setup .online-count { top: .75rem; }
   .scene { position: relative; inset: auto; width: 100%; height: clamp(19rem, 58vw, 32rem); border-radius: 20px; }
   .hud-layer { position: static; }
   .hud-header { top: .75rem; left: 1rem; right: 1rem; }
@@ -318,7 +324,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid #397c70; outline-
   .journey-footer { position: relative; inset: auto; order: 3; width: 100%; margin: 1rem 0; }
   .is-setup { height: 100svh; min-height: 100svh; padding: 0; overflow: hidden; }
   .is-setup .scene { position: absolute; height: 100%; }
-  .setup-layer { padding: 1.25rem; }
+  .setup-layer { padding: 4.5rem 1.25rem 1.25rem; }
   .setup-card { margin: auto; }
 }
 @media (max-width: 600px) {
@@ -328,7 +334,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid #397c70; outline-
   .setup-card h1 { font-size: 2.1rem; }
   .setup-subtitle { margin-top: .5rem; font-size: 0.937125rem; }
   .setup-form { padding: 1.25rem; }
-  .setup-layer { display: flex; align-items: flex-start; }
+  .setup-layer { display: flex; align-items: flex-start; padding: 4.5rem 1rem 1.25rem; }
   .name-row { min-height: 66px; }
   .setup-actions { margin-top: .875rem; }
   .setup-note { font-size: 0.80325rem; }
@@ -451,6 +457,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid #397c70; outline-
   .is-setup .scene { height: 100%; }
 }
 @media (max-width: 600px) {
+  .turn-panel { zoom: .8; align-self: flex-start; }
   .board-toolbar { padding: .375rem; }
   .view-switch button, .book-button { padding: .375rem .625rem; }
   .community-board { gap: 1px; padding: 2px; }
