@@ -5,6 +5,8 @@ import { CENTERS, centerWorld } from '../../game/cityLayout';
 import type { CenterId } from '../../game/cityLayout';
 import { useGameStore } from '../../game/store/useGameStore';
 import { useJourney } from '../../game/journey';
+import { CharacterPortrait } from '../Characters/CharacterPortrait';
+import { resolveCharacter, CHARACTERS } from '../../game/characters';
 const project=(x:number,z:number)=>[640+(x-z)*23,440+(x+z)*14];
 export function CityMap({selected,onSelect,labels,night,zoom,resetKey,onCenter}:{selected:number|null;onSelect:(id:number)=>void;labels:boolean;night:boolean;zoom:number;resetKey:number;onCenter?:(id:CenterId,point:{x:number;y:number})=>void}){
   const players=useGameStore(s=>s.players),current=useGameStore(s=>s.currentPlayerIndex);
@@ -34,7 +36,7 @@ export function CityMap({selected,onSelect,labels,night,zoom,resetKey,onCenter}:
       <ellipse cx="640" cy="440" rx="65" ry="37" fill="#8cc8ca"/><path d="M600 429L686 455" stroke="#c3a37d" strokeWidth="20"/>
       <polyline points={CITY_ROUTE} fill="none" stroke="#f1e5cb" strokeWidth="22" strokeLinejoin="round"/>
       {BOARD_DATA.map(tile=>{const[x,y]=cityPoint(tile.id),active=players[current]?.position===tile.id;return <g key={tile.id} data-tile-id={tile.id} role="button" tabIndex={0} aria-label={`${tile.id+1} ${tile.name}`} aria-pressed={selected===tile.id} transform={`translate(${x} ${y})`} onClick={()=>onSelect(tile.id)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onSelect(tile.id);}}}><title>{tile.id+1} {tile.name} · {tile.role}</title><circle r="13" fill={tile.color} stroke={active||selected===tile.id?'#fff4ad':'#fffaf0'} strokeWidth={active||selected===tile.id?4:1}/><text textAnchor="middle" y="4" fill="#31594f" fontSize="11.55" fontWeight="700">{tile.id+1}</text>{labels&&<g><rect x="-37" y="16" width="74" height="18" rx="6" fill="#fffaf0"/><text y="29" textAnchor="middle" fill="#31594f" fontSize="9.45">{tile.name}</text></g>}</g>;})}
-      {players.map(p=>{const[x,y]=cityPoint(moving===p.id&&visual!==null?visual:p.position);return <g key={p.id} transform={`translate(${x+(p.id%2-.5)*21} ${y-20-Math.floor(p.id/2)*21})`}><circle r="9" fill={p.color} stroke="#fff9e8" strokeWidth="2"/><text y="4" textAnchor="middle" fill="white" fontSize="11.55">{p.id+1}</text></g>;})}
+      {players.map(p=>{const[x,y]=cityPoint(moving===p.id&&visual!==null?visual:p.position);return <g key={p.id} transform={`translate(${x+(p.id%2-.5)*21} ${y-20-Math.floor(p.id/2)*21})`}><title>{p.name} {CHARACTERS[resolveCharacter(p.characterId,p.id)].name}</title><CharacterPortrait characterId={resolveCharacter(p.characterId,p.id)} color={p.color} x="-12" y="-22" width="24" height="28" data-character-id={resolveCharacter(p.characterId,p.id)}/><circle cy="13" r="7" fill={p.color}/><text y="16" textAnchor="middle" fill="white" fontSize="9">{p.id+1}</text></g>;})}
     </g>
   </svg>;
 }

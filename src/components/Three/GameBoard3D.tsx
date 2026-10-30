@@ -9,6 +9,10 @@ import type { Player } from '../../game/types';
 import { BOARD_DATA, BOARD_SIZE } from '../../game/board';
 import { cityPosition } from '../../game/city';
 import { useGameStore } from '../../game/store/useGameStore';
+import { createCharacterActor } from '../Characters/actor';
+import { resolveCharacter } from '../../game/characters';
+import { useJourney } from '../../game/journey';
+import { useDicePresentation } from '../../game/dice/presentation';
 
 const tilePosition = cityPosition;
 
@@ -64,93 +68,17 @@ export const GameBoard3D = ({ onSelect, selected, labels, night, resetKey }: Cit
   </>;
 };
 
-function PlayerMiniature({ player, index, active }: { player: Player; index: number; active: boolean }) {
-  const group = useRef<THREE.Group>(null);
-  const lastPosition = useRef(player.position);
-  const movingSince = useRef(0);
-  const offsets: [number, number][] = [[-0.24, -0.23], [0.24, -0.23], [-0.24, 0.23], [0.24, 0.23]];
-  const [offsetX, offsetZ] = offsets[index % offsets.length];
-
-  useFrame((state, delta) => {
-    if (!group.current) return;
-    if (lastPosition.current !== player.position) {
-      lastPosition.current = player.position;
-      movingSince.current = state.clock.elapsedTime;
-    }
-    const [x, , z] = tilePosition(player.position);
-    const targetX = x + offsetX;
-    const targetZ = z + offsetZ + .55;
-    group.current.position.x = THREE.MathUtils.damp(group.current.position.x, targetX, 5, delta);
-    group.current.position.z = THREE.MathUtils.damp(group.current.position.z, targetZ, 5, delta);
-    const elapsed = state.clock.elapsedTime - movingSince.current;
-    const jumping = elapsed < 0.8 && movingSince.current > 0;
-    const bob = jumping ? Math.abs(Math.sin((elapsed / 0.8) * Math.PI * 2)) * 0.42 : Math.sin(state.clock.elapsedTime * 1.8 + index) * 0.025;
-    group.current.position.y = 0.38 + bob + (active ? 0.06 : 0);
-    if (jumping && elapsed >= 0.8) movingSince.current = 0;
+function PlayerMiniature({player}:{player:Player;index:number;active:boolean}){
+  const group=useRef<THREE.Group>(null),actor=useRef<ReturnType<typeof createCharacterActor>|null>(null),reduced=useRef(false);
+  useEffect(()=>{
+    const parent=group.current;if(!parent)return;
+    const instance=createCharacterActor({characterId:resolveCharacter(player.characterId,player.id),color:player.color,playerId:player.id,quality:'medium'});parent.add(instance.root);actor.current=instance;
+    const media=window.matchMedia('(prefers-reduced-motion: reduce)'),changed=()=>{reduced.current=media.matches;};changed();media.addEventListener('change',changed);
+    return()=>{media.removeEventListener('change',changed);parent.remove(instance.root);instance.dispose();actor.current=null;};
+  },[player.id,player.color,player.characterId]);
+  useFrame((_,delta)=>{
+    if(!actor.current)return;const game=useGameStore.getState(),journey=useJourney.getState(),current=game.players.find(p=>p.id===player.id);if(!current)return;
+    actor.current.update({delta,position:current.position,visualPosition:journey.position,moving:journey.playerId===player.id,active:game.players[game.currentPlayerIndex]?.id===player.id,phase:game.phase,dicePhase:useDicePresentation.getState().phase,reducedMotion:reduced.current,worldPosition:index=>{const p=tilePosition(index);return[p[0],p[1]+.38,p[2]+.55];}});
   });
-
-  return (
-    <group ref={group} position={[0, 0.38, 0]} scale={.65}>
-      {active && (
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.26, 0]}>
-          <torusGeometry args={[0.38, 0.035, 8, 30]} />
-          <meshBasicMaterial color={player.color} transparent opacity={0.82} />
-        </mesh>
-      )}
-      <mesh position={[0, -0.16, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.31, 0.35, 0.16, 24]} />
-        <meshStandardMaterial color="#fff9eb" roughness={0.42} />
-      </mesh>
-      <mesh position={[0, -0.065, 0]}>
-        <cylinderGeometry args={[0.26, 0.29, 0.055, 24]} />
-        <meshStandardMaterial color={player.color} roughness={0.52} />
-      </mesh>
-      <mesh position={[0, 0.18, 0]} castShadow>
-        <capsuleGeometry args={[0.14, 0.34, 4, 8]} />
-        <meshStandardMaterial color={player.color} roughness={0.74} flatShading />
-      </mesh>
-      <mesh position={[0, 0.56, 0]} castShadow>
-        <icosahedronGeometry args={[0.19, 2]} />
-        <meshStandardMaterial color="#efc6a5" roughness={0.75} flatShading />
-      </mesh>
-      {index === 0 && <PlayerHair color="#58463b" />}
-      {index === 1 && <PlayerHat color="#d5b86a" />}
-      {index === 2 && <PlayerScarf color="#f6e7c7" />}
-      {index === 3 && <PlayerCap color="#89b5ad" />}
-      <mesh position={[-0.055, 0.58, 0.16]}>
-        <sphereGeometry args={[0.018, 8, 6]} />
-        <meshStandardMaterial color="#58463b" />
-      </mesh>
-      <mesh position={[0.055, 0.58, 0.16]}>
-        <sphereGeometry args={[0.018, 8, 6]} />
-        <meshStandardMaterial color="#58463b" />
-      </mesh>
-    </group>
-  );
-}
-
-function PlayerHair({ color }: { color: string }) {
-  return (
-    <mesh position={[0, 0.68, -0.035]}>
-      <sphereGeometry args={[0.2, 10, 7, 0, Math.PI * 2, 0, Math.PI / 2]} />
-      <meshStandardMaterial color={color} roughness={0.88} flatShading />
-    </mesh>
-  );
-}
-
-function PlayerHat({ color }: { color: string }) {
-  return (
-    <group position={[0, 0.72, 0]}>
-      <mesh><cylinderGeometry args={[0.18, 0.2, 0.11, 12]} /><meshStandardMaterial color={color} roughness={0.8} /></mesh>
-      <mesh position={[0, -0.045, 0]}><cylinderGeometry args={[0.24, 0.24, 0.035, 16]} /><meshStandardMaterial color="#b77a56" roughness={0.85} /></mesh>
-    </group>
-  );
-}
-
-function PlayerScarf({ color }: { color: string }) {
-  return <mesh position={[0, 0.3, 0.12]} rotation={[0.18, 0, 0]}><torusGeometry args={[0.145, 0.04, 6, 12]} /><meshStandardMaterial color={color} roughness={0.78} /></mesh>;
-}
-
-function PlayerCap({ color }: { color: string }) {
-  return <mesh position={[0, 0.71, 0.02]} rotation={[0.1, 0, 0]}><sphereGeometry args={[0.2, 10, 7, 0, Math.PI * 2, 0, Math.PI / 2]} /><meshStandardMaterial color={color} roughness={0.78} flatShading /></mesh>;
+  return <group ref={group} dispose={null}/>;
 }

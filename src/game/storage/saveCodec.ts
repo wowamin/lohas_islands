@@ -1,6 +1,7 @@
 import { BOARD_SIZE, LEGACY_TO_CURRENT, MAP_ID, MAP_VERSION, RULES_VERSION } from '../mapDefinition';
 import { ALL_GAME_EVENTS } from '../eventRegistry';
 import type { GameSnapshot } from '../rules/model';
+import { isCharacterId, defaultCharacter } from '../characters';
 export const SAVE_VERSION=3;
 export const AUTO_KEY='long-care-game-save-v3';
 export const MANUAL_KEY='lohas-manual-save-v3';
@@ -17,10 +18,11 @@ export function decodeSave(envelope:unknown):{version:number;state:GameSnapshot;
   if(!s||!Array.isArray(s.players)||s.players.length>4||!phases.includes(String(s.phase))||!integer(s.round,1,12)||!integer(s.diceValue,1,6)||!integer(s.currentPlayerIndex,0,Math.max(0,s.players.length-1))||(s.phase!=='SETUP'&&s.players.length<(input.version===3?1:2)))throw new Error('存檔狀態無效');
   if(input.version===3&&(s.mapId!==MAP_ID||s.mapVersion!==MAP_VERSION||s.rulesVersion!==RULES_VERSION||!integer(s.revision,0,Number.MAX_SAFE_INTEGER)))throw new Error('地圖或規則版本不相容');
   const players=s.players.map((p,i)=>{
+    if(p.characterId!==undefined&&!isCharacterId(p.characterId))throw new Error('無法辨識角色，原存檔已保留');
     if(!p||p.id!==i||typeof p.name!=='string'||p.name.length>100||!/^#[0-9a-f]{6}$/i.test(p.color)||!integer(p.position,0,size-1)||!Number.isFinite(p.money)||p.money<0||!Number.isFinite(p.health)||p.health<0||p.health>100||!Number.isFinite(p.stress)||p.stress<0||p.stress>100)throw new Error('玩家資料無效');
     if(p.learnedServices!==undefined&&(!Array.isArray(p.learnedServices)||p.learnedServices.some(k=>!['care','transport','equipment','respite','meal','community'].includes(k))))throw new Error('服務紀錄無效');
     if(p.completedActivities!==undefined&&(!Array.isArray(p.completedActivities)||p.completedActivities.some(k=>!['meal','respite'].includes(k))))throw new Error('任務紀錄無效');
-    return {id:p.id,name:p.name,color:p.color,position:oldBoard?LEGACY_TO_CURRENT[p.position]:p.position,money:p.money,health:p.health,stress:p.stress,learnedServices:p.learnedServices,completedActivities:p.completedActivities};
+    return {id:p.id,name:p.name,color:p.color,characterId:p.characterId??defaultCharacter(i),position:oldBoard?LEGACY_TO_CURRENT[p.position]:p.position,money:p.money,health:p.health,stress:p.stress,learnedServices:p.learnedServices,completedActivities:p.completedActivities};
   });
   const event=s.selectedEvent?ALL_GAME_EVENTS.find(e=>e.id===s.selectedEvent?.id):null;
   if(s.selectedEvent&&!event)throw new Error('未知事件');

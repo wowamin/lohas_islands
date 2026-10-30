@@ -1,7 +1,9 @@
+import type { CharacterId } from './characters';
 export type Player = {
   id: number;
   name: string;
   color: string;
+  characterId?: CharacterId;
   position: number;
   money: number;
   health: number;

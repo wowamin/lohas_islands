@@ -7,6 +7,7 @@ import './city.css'
 import '../public/senior-ui/senior-ui.css'
 import './dice.css'
 import './toolbar.css'
+import './characters.css'
 
 ReactDOM.createRoot(document.querySelector('.app-root')!).render(
   <React.StrictMode>

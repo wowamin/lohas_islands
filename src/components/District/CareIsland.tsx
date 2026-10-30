@@ -12,6 +12,8 @@ import { useJourney } from '../../game/journey';
 import { createPawn, createIslandDice } from './gamePieces';
 import { buildLandscape } from './landscape';
 import { diceAnimation, useDicePresentation } from '../../game/dice/presentation';
+import { resolveCharacter } from '../../game/characters';
+import type { createCharacterActor } from '../Characters/actor';
 
 export default function CareIsland({night,resetKey,selected,labels,brightness,shadow,onSelect,onCenter,centerId,onUnavailable}:{night:boolean;resetKey:number;brightness:number;shadow:number;selected:number|null;labels:boolean;onSelect:(n:number)=>void;onCenter:(id:CenterId,point:{x:number;y:number})=>void;centerId:CenterId|null;onUnavailable:()=>void}){
   const host=useRef<HTMLDivElement>(null),stats=useRef<HTMLOutputElement>(null);
@@ -36,11 +38,11 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     const controls=new OrbitControls(camera,canvas);controls.target.set(0,.2,0);controls.enableDamping=true;controls.dampingFactor=.12;controls.rotateSpeed=.45;
     const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');let reduced=motionPreference.matches;
     const pawns=new Map<number,T.Group>();
-    function disposePawn(pawn:T.Group){pawn.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});}
-    function syncPlayers(){const state=useGameStore.getState();for(const[id,pawn]of pawns)if(!state.players.some(p=>p.id===id&&p.color===pawn.userData.color)){scene.remove(pawn);disposePawn(pawn);pawns.delete(id);}for(const p of state.players){if(!pawns.has(p.id)){const pawn=createPawn(p.color);pawn.userData.color=p.color;pawns.set(p.id,pawn);scene.add(pawn);}}dirty=true;}
+    function disposePawn(pawn:T.Group){(pawn.userData.characterActor as ReturnType<typeof createCharacterActor>).dispose();}
+    function syncPlayers(){const state=useGameStore.getState();for(const[id,pawn]of pawns)if(!state.players.some(p=>p.id===id&&p.color===pawn.userData.color&&resolveCharacter(p.characterId,p.id)===pawn.userData.characterId)){scene.remove(pawn);disposePawn(pawn);pawns.delete(id);}for(const p of state.players){if(!pawns.has(p.id)){const pawn=createPawn(p.color,resolveCharacter(p.characterId,p.id),quality,p.id);pawns.set(p.id,pawn);scene.add(pawn);}}dirty=true;}
     const dice=createIslandDice();scene.add(dice.root);
     const halo=new T.Mesh(new T.RingGeometry(.32,.43,20),new T.MeshBasicMaterial({color:'#fff1a4',side:T.DoubleSide}));halo.rotation.x=-Math.PI/2;scene.add(halo);
-    const vector=new T.Vector3(),target=new T.Vector3(),followTarget=new T.Vector3(),cameraTarget=new T.Vector3(),offset=new T.Vector3(21,27,30);
+    const vector=new T.Vector3(),followTarget=new T.Vector3(),cameraTarget=new T.Vector3(),offset=new T.Vector3(21,27,30);
     let dirty=true,frame=0,lastTime=0,lastRender=0,statSince=0,rendered=0,flight:{at:T.Vector3;camera:T.Vector3;zoom:number}|null=null;
     const updateMotionPreference=()=>{reduced=motionPreference.matches;dirty=true;};motionPreference.addEventListener('change',updateMotionPreference);
     const focus=(at?:readonly number[])=>{const atVector=at?new T.Vector3(at[0],.3,at[2]):new T.Vector3(0,.2,0);const targetCamera=atVector.clone().add(offset);flight={at:atVector,camera:targetCamera,zoom:at?(parent.clientWidth<800?1.5:1.7):1};dirty=true;};
@@ -62,7 +64,7 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
       const smooth=reduced?1:1-Math.exp(-dt*6);
       if(journey.mode==='follow'&&current){const p=BOARD_DATA[journey.position??current.position].position;followTarget.set(p[0],.3,p[2]);cameraTarget.copy(followTarget).add(offset);camera.position.lerp(cameraTarget,smooth);controls.target.lerp(followTarget,smooth);camera.zoom=T.MathUtils.lerp(camera.zoom,parent.clientWidth<800?1.4:1.6,smooth);camera.updateProjectionMatrix();dirty=true;flight=null;}
       else if(flight){camera.position.lerp(flight.camera,smooth);controls.target.lerp(flight.at,smooth);camera.zoom=T.MathUtils.lerp(camera.zoom,flight.zoom,smooth);camera.updateProjectionMatrix();dirty=true;if(camera.position.distanceToSquared(flight.camera)<.0004&&Math.abs(camera.zoom-flight.zoom)<.002)flight=null;}
-      for(const p of game.players){const pawn=pawns.get(p.id);if(!pawn)continue;const at=journey.playerId===p.id&&journey.position!==null?journey.position:p.position,pos=BOARD_DATA[at].position;target.set(pos[0]+(p.id%2)*.25,pos[1],pos[2]+Math.floor(p.id/2)*.25);if(!pawn.userData.placed){pawn.position.copy(target);pawn.userData.placed=true;dirty=true;}if(pawn.position.distanceToSquared(target)>.00001){pawn.position.lerp(target,reduced?1:1-Math.exp(-dt*14));dirty=true;}if(journey.playerId===p.id&&!reduced){pawn.position.y=target.y+Math.abs(Math.sin(now*.012))*.1;dirty=true;}place(playerNodes.current.get(p.id),pawn.position.x,pawn.position.y+.9,pawn.position.z,(p.id%2)*24-12,-Math.floor(p.id/2)*27);}
+      for(const p of game.players){const pawn=pawns.get(p.id);if(!pawn)continue;const actor=pawn.userData.characterActor as ReturnType<typeof createCharacterActor>;actor.update({delta:dt,position:p.position,visualPosition:journey.position,moving:journey.playerId===p.id,active:current?.id===p.id,phase:game.phase,dicePhase:useDicePresentation.getState().phase,reducedMotion:reduced,worldPosition:routeIndex=>BOARD_DATA[routeIndex].position});if(!reduced||game.phase==='MOVING')dirty=true;place(playerNodes.current.get(p.id),pawn.position.x,pawn.position.y+actor.model.height+.12,pawn.position.z,(p.id%2)*24-12,-Math.floor(p.id/2)*27);}
       halo.visible=!!current;if(current){const p=BOARD_DATA[journey.position??current.position].position;halo.position.set(p[0],.25,p[2]);}
       const presentation=useDicePresentation.getState();
       const showDice=game.phase==='ROLLING'||presentation.phase==='revealing';
