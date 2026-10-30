@@ -13,7 +13,7 @@ export const DICE_NORMALS:Readonly<Record<number,readonly [number,number,number]
 const UP=new T.Vector3(0,1,0);
 export function diceResultQuaternion(value:number){return new T.Quaternion().setFromUnitVectors(new T.Vector3(...DICE_NORMALS[value]),UP);}
 export function createIslandDice(){
-  const root=new T.Group();root.name='HealingDice';root.position.set(0,.12,0);root.scale.setScalar(1.3);
+  const root=new T.Group();root.name='HealingDice';root.position.set(0,.12,4.2);root.scale.setScalar(1.3);
   const body=new T.Group();body.name='FixedSixFaces';root.add(body);
   const geometries=new Set<T.BufferGeometry>(),materials=new Set<T.Material>();
   const g=<G extends T.BufferGeometry>(shape:G)=>{geometries.add(shape);return shape;};

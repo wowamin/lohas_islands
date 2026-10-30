@@ -15,6 +15,7 @@ import type { ModuleId } from './game/education/content';
 import { SaveNotice } from './components/UI/SaveNotice';
 import { DiceController } from './components/DiceController';
 import { DiceResult } from './components/UI/DiceResult';
+import { OnlineCount } from './components/UI/OnlineCount';
 
 
 
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <main className={'game-app' + (phase === 'SETUP' ? ' is-setup' : '')}>
+      <OnlineCount />
       <DiceController />
       <MovementController />
       <DiceResult />

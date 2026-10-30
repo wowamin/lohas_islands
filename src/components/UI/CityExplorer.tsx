@@ -45,6 +45,7 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
   const [brightness,setBrightness]=useState(1);
   const [shadow,setShadow]=useState(.65);
   const [help,setHelp]=useState(false);
+  const [toolbarCollapsed,setToolbarCollapsed]=useState(false);
   const current=useGameStore(s=>s.players[s.currentPlayerIndex]);
   const phase=useGameStore(s=>s.phase);
   useEffect(()=>{if(phase==='ROLLING'){setSelected(null);setCenter(null);}if(phase==='WAITING_ROLL')setMode('overview');},[phase,setMode]);
@@ -55,7 +56,9 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
   const map=<CityMap onCenter={openCenter} selected={selected} onSelect={selectTile} labels={labels} night={night} zoom={zoom} resetKey={resetKey}/>;
   return <section className={'city-world'+(night?' city-night':'')+(district?' district-mode':island?' island-main':'')} aria-label="長照城市探索">
     <div className="city-viewport" style={(!has3D||!island)&&!district?{filter:`brightness(${brightness})`}:undefined}>{district?<Suspense fallback={<p className="scene-loading">正在走進日照街區…</p>}><CareDistrict brightness={brightness} shadow={shadow} gpu={has3D} night={night} resetKey={resetKey} onResource={onResource}/></Suspense>:island&&has3D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={<p className="scene-loading">正在建造五區庭院城市…</p>}><CareIsland onUnavailable={()=>setHas3D(false)} centerId={center} onCenter={openCenter} brightness={brightness} shadow={shadow} night={night} resetKey={resetKey} selected={selected} labels={labels} onSelect={selectTile}/></Suspense></SceneBoundary>:!island&&view==='3d'&&has3D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={null}><Scene3D onSelect={selectTile} selected={selected} labels={labels} night={night} resetKey={resetKey}/></Suspense></SceneBoundary>:map}</div>
-    <nav className="city-toolbar" aria-label="城市操作">
+    <nav className={'city-toolbar'+(toolbarCollapsed?' is-toolbar-collapsed':'')} aria-label="城市操作">
+      <button type="button" className="city-toolbar-toggle" aria-label={toolbarCollapsed?'展開城市工具列':'收合城市工具列'} aria-expanded={!toolbarCollapsed} aria-controls="city-toolbar-actions city-toolbar-help" onClick={()=>{if(!toolbarCollapsed){setList(false);setLightOpen(false);setHelp(false);}setToolbarCollapsed(!toolbarCollapsed);}}><span aria-hidden="true">{toolbarCollapsed?'>':'<'}</span></button>
+      <div id="city-toolbar-actions" className="city-toolbar-actions" role="group" aria-label="城市工具，手機可左右滑動">
       <button aria-label="回到城市全景" onClick={reset} title="重設視角">⌂ <span>全景</span></button>
       <button className="district-toggle" aria-pressed={district} onClick={()=>{setDistrict(!district);setList(false);setSelected(null);}}>{district?'← 返回遊戲城市':'日照示範街區 ↗'}</button>
       <button disabled={district} aria-label="50 站清單" aria-expanded={list} onClick={()=>{setList(!list);setSelected(null);}}>☷ <span>50 站清單</span></button>
@@ -63,7 +66,8 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
       <button aria-pressed={night} onClick={()=>setNight(!night)}>{night?'☾ 夜晚':'☀ 白天'}</button>
       <button disabled={district} onClick={()=>{setIsland(!island);setSelected(null);setResetKey(k=>k+1);}}>{island?'簡易棋盤':'立體島嶼'}</button>
       <button aria-expanded={lightOpen} onClick={()=>setLightOpen(!lightOpen)}>☀ 光影</button>
-      <button aria-label="城市操作說明" aria-expanded={help} onClick={()=>setHelp(!help)}>?</button>
+      </div>
+      <button id="city-toolbar-help" className="city-toolbar-help" aria-label="城市操作說明" aria-expanded={help} onClick={()=>setHelp(!help)}>?</button>
     </nav>
     {!has3D&&<div className="fallback-notice" role="status">WebGL 不可用，已切換可操作的 50 格 2D 棋盤。</div>}
     {center&&!district&&<CenterInfo id={center} onClose={()=>{setCenter(null);setMode('overview');}} onResource={()=>onResource('care')} onLearn={onLearn}/>}
