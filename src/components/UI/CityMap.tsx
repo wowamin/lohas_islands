@@ -17,7 +17,7 @@ export function CityMap({selected,onSelect,labels,night,zoom,resetKey,onCenter}:
       <ellipse cx="640" cy="449" rx="540" ry="325" fill={night?'#526d60':'#d9d7b4'}/><ellipse cx="640" cy="440" rx="530" ry="315" fill={night?'#74866a':'#c1d3aa'}/>
       {CENTERS.map(c=>{const[px,py]=project(c.position[0],c.position[1]);const[yx,,yz]=centerWorld(c,0,2);const[cx,cy]=project(yx,yz);return <g key={c.id}>
         <ellipse cx={cx} cy={cy} rx="130" ry="80" fill={night?'#879883':'#dedec0'} stroke={c.color} strokeWidth="4"/>
-        <g role="button" tabIndex={0} aria-label={`${c.title}庭院教育區`} onClick={()=>onCenter?.(c.id)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onCenter?.(c.id);}}}><rect x={cx-40} y={cy-25} width="80" height="40" rx="12" fill="#fff9eb"/><text x={cx} y={cy} textAnchor="middle" fontSize="13" fill="#31594f" aria-hidden="true">✧</text></g>
+        <g role="button" tabIndex={0} aria-label={`${c.title}庭院教育區`} onClick={()=>onCenter?.(c.id)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onCenter?.(c.id);}}}><rect x={cx-40} y={cy-25} width="80" height="40" rx="12" fill="transparent"/></g>
         <g role="button" tabIndex={0} aria-label={c.title} onClick={()=>onCenter?.(c.id)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onCenter?.(c.id);}}}>
           <path d={`M${px-66} ${py-25}L${px} ${py-53}L${px+68} ${py-24}V${py+22}L${px} ${py+52}L${px-66} ${py+22}Z`} fill="#f5f0e5" stroke="#c3cdb7"/>
           <path d={`M${px-76} ${py-26}L${px-8} ${py-72}L${px+77} ${py-28}L${px} ${py+5}Z`} fill={c.color}/>

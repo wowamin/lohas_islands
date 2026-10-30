@@ -113,7 +113,7 @@ try{
  }else{
  const unchanged=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
  for(let i=0;i<5;i++){
-   await evaluate(`document.querySelectorAll('.activity-pins>button')[${i}].click()`);await delay(100);
+   await evaluate(`document.querySelectorAll('.island-center-pins>button')[${i}].click()`);await delay(100);
    assert.ok(await evaluate(`document.querySelector('.center-education').innerText.includes('遊戲場景主題')`));
    await evaluate(`document.querySelector('[aria-label="關閉中心介紹並返回城市"]').click()`);await delay(50);
  }

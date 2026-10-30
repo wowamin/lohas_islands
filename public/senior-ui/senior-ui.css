@@ -1,8 +1,8 @@
 /* Opt-in UI system: wrap a surface in .senior-ui; use explicit component classes. */
 :root {
   --senior-font-family: system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --senior-text-sm: 1rem;       /* 16px at the default root size */
-  --senior-text-body: 1.125rem; /* 18px */
+  --senior-text-sm: 1.02rem;       /* 16.32px: secondary text +2% */
+  --senior-text-body: 1.181925rem; /* 18.9108px: previous body size increased a further 3% */
   --senior-text-lg: 1.25rem;    /* 20px */
   --senior-text-title: 1.5rem;  /* 24px */
   --senior-text-value: 1.75rem; /* 28px */
