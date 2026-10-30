@@ -13,6 +13,14 @@ export function CityMap({selected,onSelect,labels,night,zoom,resetKey,onCenter}:
   const offset=pan.key===resetKey?pan:{x:0,y:0};const focus=selected===null?[640,440]:cityPoint(selected),scale=selected===null?zoom:Math.max(1.4,zoom);
   return <svg className="city-svg city-map-50" viewBox="0 0 1280 900" aria-label="50 格五區城市 2D 棋盤，可點選中心與格子" onPointerDown={e=>{if((e.target as Element).closest('[role="button"]'))return;drag.current={x:e.clientX,y:e.clientY,px:offset.x,py:offset.y};e.currentTarget.setPointerCapture(e.pointerId);}} onPointerMove={e=>{const d=drag.current;if(!d)return;const ratio=1280/e.currentTarget.getBoundingClientRect().width;setPan({x:d.px+(e.clientX-d.x)*ratio,y:d.py+(e.clientY-d.y)*ratio,key:resetKey});}} onPointerUp={()=>{drag.current=null;}} onPointerCancel={()=>{drag.current=null;}}>
     <rect width="1280" height="900" fill={night?'#233e48':'#d8eae7'}/>
+    <g aria-hidden="true" pointerEvents="none">
+      <path d="M0 140L90 34L178 106L282 12L410 111L520 51L654 126L786 26L921 108L1058 16L1164 97L1280 40V900H0Z" fill={night?'#31495d':'#91adb9'}/>
+      <path d="M0 216L128 96L261 188L373 114L522 218L675 132L806 198L946 110L1090 195L1193 121L1280 182V900H0Z" fill={night?'#3b5756':'#789d91'}/>
+      <path d="M0 286Q138 166 278 265T551 252T846 257T1114 260L1280 214V900H0Z" fill={night?'#49624e':'#a8bd90'}/>
+      <path d="M-40 365C98 334 60 581 124 681S396 822 652 805S1035 770 1325 928" fill="none" stroke={night?'#67776a':'#ddd5b0'} strokeWidth="58"/>
+      <path d="M-40 365C98 334 60 581 124 681S396 822 652 805S1035 770 1325 928" fill="none" stroke={night?'#427b8c':'#78b9c4'} strokeWidth="38"/>
+      <path d="M-40 365C98 334 60 581 124 681S396 822 652 805S1035 770 1325 928" fill="none" stroke={night?'#6296a4':'#c2e4df'} strokeWidth="2"/>
+    </g>
     <g transform={`translate(${640+offset.x} ${440+offset.y}) scale(${scale}) translate(${-focus[0]} ${-focus[1]})`}>
       <ellipse cx="640" cy="449" rx="540" ry="325" fill={night?'#526d60':'#d9d7b4'}/><ellipse cx="640" cy="440" rx="530" ry="315" fill={night?'#74866a':'#c1d3aa'}/>
       {CENTERS.map(c=>{const[px,py]=project(c.position[0],c.position[1]);const[yx,,yz]=centerWorld(c,0,2);const[cx,cy]=project(yx,yz);return <g key={c.id}>

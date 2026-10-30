@@ -15,6 +15,14 @@ const {CITY_BASE,CITY_SURFACE,createCityBoxGeometry}=await import('../src/compon
 for(const layer of [CITY_BASE,CITY_SURFACE]){const g=createCityBoxGeometry(layer.size,layer.radius);g.computeBoundingBox();assert.ok(g.boundingBox.max.y+layer.y<.1);assert.ok(Math.abs(g.boundingBox.max.y-g.boundingBox.min.y-layer.size[1])<.0001);g.dispose();}
 const thin=createCityBoxGeometry([2,.14,2],.8);thin.computeBoundingBox();assert.ok(thin.boundingBox.max.y<.071);thin.dispose();
 const {buildCareIsland}=await import('../src/components/District/islandModel.ts');
+const {buildLandscape}=await import('../src/components/District/landscape.ts');
+for(const night of [false,true])for(const quality of ['low','medium','high']){
+ const a=buildLandscape(night,quality),b=buildLandscape(night,quality);
+ assert.equal(a.root.userData.boardClearRadius,16.7);assert.ok(a.root.userData.riverClearance>16.7,'river banks remain outside board');
+ const matrices=root=>{const result=[];root.traverse(o=>{if(o.isInstancedMesh)result.push([...o.instanceMatrix.array]);});return result;};
+ assert.deepEqual(matrices(a.root),matrices(b.root),'landscape uses a fixed independent seed');
+ let calls=0;a.root.traverse(o=>{if(o.isMesh){calls++;assert.equal(o.castShadow,false);assert.equal(o.userData.centerIds,undefined);assert.ok([...o.geometry.attributes.position.array].every(Number.isFinite));}});assert.ok(calls<=11,'bounded landscape draw calls');a.dispose();b.dispose();
+}
 const {buildCareDistrict,DISTRICT_STOPS}=await import('../src/components/District/model.ts');
 for(const stop of DISTRICT_STOPS)assert.ok(BOARD_DATA[stop.tileId]);
 const {createLightingRig,upgradeLightingMaterials}=await import('../src/components/District/lighting.ts');
