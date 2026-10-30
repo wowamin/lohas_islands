@@ -24,3 +24,13 @@
 @media(max-width:900px){.island-main .city-toolbar{top:140px}.is-setup:has(.island-main) .city-toolbar{top:16px}}
 .lighting-panel{position:absolute;z-index:14;top:190px;right:202px;width:265px;padding:19px;border:1px solid #fffde9;border-radius:19px;background:#fffcefef;box-shadow:0 12px 35px #45674326;backdrop-filter:blur(12px);color:#54735b}.lighting-panel header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.lighting-panel header strong{font-size:14.7px;font-weight:700}.lighting-panel header button{border:0;background:transparent;color:#759278;font-size:23.1px;cursor:pointer}.lighting-panel label{display:block;margin:16px 0}.lighting-panel label span{display:flex;justify-content:space-between;font-size:11.55px;margin-bottom:10px}.lighting-panel label b{font-weight:500;color:#90a083}.lighting-panel input{width:100%;accent-color:#769b75;cursor:pointer}.lighting-panel input:disabled{opacity:.4;cursor:default}.lighting-panel small{font-size:9.639px;color:#93a087;display:block;margin:8px 0}.light-reset{width:100%;border:0;border-radius:9px;padding:10px;background:#e7edda;color:#7a9477;font-size:10.5px;cursor:pointer}.district-mode .lighting-panel{top:85px;right:24px}
 @media(max-width:900px){.lighting-panel{top:193px;right:18px;width:250px}.district-mode .lighting-panel{top:110px;right:14px}}
+/* The title and brand sit beside the city, so follow its night state across the HUD. */
+.game-app:has(.city-world.city-night) .journey-title h1,
+.game-app:has(.city-world.city-night) .journey-title h1 small,
+.game-app:has(.city-world.city-night) .journey-title p,
+.game-app:has(.city-world.city-night) .journey-hud .brand-lockup strong,
+.game-app:has(.city-world.city-night) .journey-hud .brand-lockup small,
+.game-app:has(.city-world.city-night) .journey-hud .brand-lockup em {
+  color: #fff;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 65%);
+}
