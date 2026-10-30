@@ -1,5 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
+  "mapId": "lohas-city-50",
+  "mapVersion": 1,
+  "rulesVersion": 1,
   "seed": 3050,
   "notice": "中心主題是遊戲場景設計，不代表真實服務。",
   "centers": [
@@ -161,16 +164,16 @@
       "serviceKey": "community",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -10.2,
-        0.24,
-        4.500000000000001
-      ],
       "previous": 49,
       "next": 1,
       "educationModule": "C",
       "role": "入口",
-      "legacyId": 0
+      "legacyId": 0,
+      "position": [
+        -10.2,
+        0.24,
+        4.500000000000001
+      ]
     },
     {
       "id": 1,
@@ -183,16 +186,16 @@
       "serviceKey": "equipment",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -8.8,
-        0.24,
-        3.7000000000000006
-      ],
       "previous": 0,
       "next": 2,
       "educationModule": "C",
       "role": "庭院步道",
-      "legacyId": 1
+      "legacyId": 1,
+      "position": [
+        -8.8,
+        0.24,
+        3.7000000000000006
+      ]
     },
     {
       "id": 2,
@@ -205,16 +208,16 @@
       "serviceKey": "meal",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -7.7,
-        0.24,
-        2.6000000000000005
-      ],
       "previous": 1,
       "next": 3,
       "educationModule": "C",
       "role": "活動區",
-      "legacyId": 2
+      "legacyId": 2,
+      "position": [
+        -7.7,
+        0.24,
+        2.6000000000000005
+      ]
     },
     {
       "id": 3,
@@ -227,16 +230,16 @@
       "serviceKey": "care",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -7,
-        0.24,
-        1.4000000000000008
-      ],
       "previous": 2,
       "next": 4,
       "educationModule": "C",
       "role": "活動區",
-      "legacyId": 3
+      "legacyId": 3,
+      "position": [
+        -7,
+        0.24,
+        1.4000000000000008
+      ]
     },
     {
       "id": 4,
@@ -249,16 +252,16 @@
       ],
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -6.8,
-        0.24,
-        8.694992273946208e-16
-      ],
       "previous": 3,
       "next": 5,
       "educationModule": "C",
       "role": "休憩區",
-      "legacyId": 4
+      "legacyId": 4,
+      "position": [
+        -6.8,
+        0.24,
+        8.694992273946208e-16
+      ]
     },
     {
       "id": 5,
@@ -271,16 +274,16 @@
       "serviceKey": "care",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -7,
-        0.24,
-        -1.399999999999999
-      ],
       "previous": 4,
       "next": 6,
       "educationModule": "C",
       "role": "庭院活動",
-      "legacyId": 5
+      "legacyId": 5,
+      "position": [
+        -7,
+        0.24,
+        -1.399999999999999
+      ]
     },
     {
       "id": 6,
@@ -292,16 +295,16 @@
       ],
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -7.7,
-        0.24,
-        -2.5999999999999996
-      ],
       "previous": 5,
       "next": 7,
       "educationModule": "C",
       "role": "生活事件",
-      "legacyId": 6
+      "legacyId": 6,
+      "position": [
+        -7.7,
+        0.24,
+        -2.5999999999999996
+      ]
     },
     {
       "id": 7,
@@ -313,16 +316,16 @@
       ],
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -8.6,
-        0.24,
-        -3.4999999999999996
-      ],
       "previous": 6,
       "next": 8,
       "educationModule": "C",
       "role": "機會探索",
-      "legacyId": 7
+      "legacyId": 7,
+      "position": [
+        -8.6,
+        0.24,
+        -3.4999999999999996
+      ]
     },
     {
       "id": 8,
@@ -335,16 +338,16 @@
       "serviceKey": "community",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -9.5,
-        0.24,
-        -3.9999999999999996
-      ],
       "previous": 7,
       "next": 9,
       "educationModule": "C",
       "role": "知識格",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        -9.5,
+        0.24,
+        -3.9999999999999996
+      ]
     },
     {
       "id": 9,
@@ -355,16 +358,16 @@
       "serviceKey": "community",
       "centerId": "dahe",
       "color": "#A9CCE2",
-      "position": [
-        -10.2,
-        0.24,
-        -4.499999999999999
-      ],
       "previous": 8,
       "next": 10,
       "educationModule": "C",
       "role": "出口轉場",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        -10.2,
+        0.24,
+        -4.499999999999999
+      ]
     },
     {
       "id": 10,
@@ -377,16 +380,16 @@
       "serviceKey": "equipment",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -7.431727665952655,
-        0.24,
-        -8.310199991523302
-      ],
       "previous": 9,
       "next": 11,
       "educationModule": "A",
       "role": "入口",
-      "legacyId": 8
+      "legacyId": 8,
+      "position": [
+        -7.431727665952655,
+        0.24,
+        -8.310199991523302
+      ]
     },
     {
       "id": 11,
@@ -399,16 +402,16 @@
       "serviceKey": "community",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -6.238258660791606,
-        0.24,
-        -7.225934464210045
-      ],
       "previous": 10,
       "next": 12,
       "educationModule": "A",
       "role": "庭院步道",
-      "legacyId": 9
+      "legacyId": 9,
+      "position": [
+        -6.238258660791606,
+        0.24,
+        -7.225934464210045
+      ]
     },
     {
       "id": 12,
@@ -420,16 +423,16 @@
       ],
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -4.852177799054495,
-        0.24,
-        -6.5196909900978195
-      ],
       "previous": 11,
       "next": 13,
       "educationModule": "A",
       "role": "活動區",
-      "legacyId": 10
+      "legacyId": 10,
+      "position": [
+        -4.852177799054495,
+        0.24,
+        -6.5196909900978195
+      ]
     },
     {
       "id": 13,
@@ -442,16 +445,16 @@
       "serviceKey": "community",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -3.4945980834378476,
-        0.24,
-        -6.224771821941147
-      ],
       "previous": 12,
       "next": 14,
       "educationModule": "A",
       "role": "活動區",
-      "legacyId": 11
+      "legacyId": 11,
+      "position": [
+        -3.4945980834378476,
+        0.24,
+        -6.224771821941147
+      ]
     },
     {
       "id": 14,
@@ -464,16 +467,16 @@
       ],
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -2.1013155617496433,
-        0.24,
-        -6.467184310807044
-      ],
       "previous": 13,
       "next": 15,
       "educationModule": "A",
       "role": "休憩區",
-      "legacyId": 12
+      "legacyId": 12,
+      "position": [
+        -2.1013155617496433,
+        0.24,
+        -6.467184310807044
+      ]
     },
     {
       "id": 15,
@@ -486,16 +489,16 @@
       "serviceKey": "transport",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        -0.831639837811418,
-        0.24,
-        -7.090019406191001
-      ],
       "previous": 14,
       "next": 16,
       "educationModule": "A",
       "role": "庭院活動",
-      "legacyId": 13
+      "legacyId": 13,
+      "position": [
+        -0.831639837811418,
+        0.24,
+        -7.090019406191001
+      ]
     },
     {
       "id": 16,
@@ -508,16 +511,16 @@
       "serviceKey": "care",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        0.09331608568030314,
-        0.24,
-        -8.126579360847545
-      ],
       "previous": 15,
       "next": 17,
       "educationModule": "A",
       "role": "生活事件",
-      "legacyId": 14
+      "legacyId": 14,
+      "position": [
+        0.09331608568030314,
+        0.24,
+        -8.126579360847545
+      ]
     },
     {
       "id": 17,
@@ -530,16 +533,16 @@
       "serviceKey": "meal",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        0.6711516554084886,
-        0.24,
-        -9.260645520450636
-      ],
       "previous": 16,
       "next": 18,
       "educationModule": "A",
       "role": "機會探索",
-      "legacyId": 15
+      "legacyId": 15,
+      "position": [
+        0.6711516554084886,
+        0.24,
+        -9.260645520450636
+      ]
     },
     {
       "id": 18,
@@ -552,16 +555,16 @@
       "serviceKey": "community",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        0.8685646186186129,
-        0.24,
-        -10.271104882303748
-      ],
       "previous": 17,
       "next": 19,
       "educationModule": "A",
       "role": "知識格",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        0.8685646186186129,
+        0.24,
+        -10.271104882303748
+      ]
     },
     {
       "id": 19,
@@ -572,16 +575,16 @@
       "serviceKey": "community",
       "centerId": "annan",
       "color": "#C8B9D9",
-      "position": [
-        1.127780980703726,
-        0.24,
-        -11.091352940897828
-      ],
       "previous": 18,
       "next": 20,
       "educationModule": "A",
       "role": "出口轉場",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        1.127780980703726,
+        0.24,
+        -11.091352940897828
+      ]
     },
     {
       "id": 20,
@@ -594,16 +597,16 @@
       "serviceKey": "respite",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        5.606939707308334,
-        0.24,
-        -9.63598604807049
-      ],
       "previous": 19,
       "next": 21,
       "educationModule": "B",
       "role": "入口",
-      "legacyId": 16
+      "legacyId": 16,
+      "position": [
+        5.606939707308334,
+        0.24,
+        -9.63598604807049
+      ]
     },
     {
       "id": 21,
@@ -615,16 +618,16 @@
       ],
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        4.9445441170173865,
-        0.24,
-        -8.165873099361072
-      ],
       "previous": 20,
       "next": 22,
       "educationModule": "B",
       "role": "庭院步道",
-      "legacyId": 17
+      "legacyId": 17,
+      "position": [
+        4.9445441170173865,
+        0.24,
+        -8.165873099361072
+      ]
     },
     {
       "id": 22,
@@ -637,16 +640,16 @@
       "serviceKey": "respite",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        4.701189200726665,
-        0.24,
-        -6.6293906280269095
-      ],
       "previous": 21,
       "next": 23,
       "educationModule": "B",
       "role": "活動區",
-      "legacyId": 18
+      "legacyId": 18,
+      "position": [
+        4.701189200726665,
+        0.24,
+        -6.6293906280269095
+      ]
     },
     {
       "id": 23,
@@ -658,16 +661,16 @@
       ],
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        4.84021960741517,
-        0.24,
-        -5.24712055817224
-      ],
       "previous": 22,
       "next": 24,
       "educationModule": "B",
       "role": "活動區",
-      "legacyId": 19
+      "legacyId": 19,
+      "position": [
+        4.84021960741517,
+        0.24,
+        -5.24712055817224
+      ]
     },
     {
       "id": 24,
@@ -680,16 +683,16 @@
       "serviceKey": "community",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        5.501315561749642,
-        0.24,
-        -3.9969397155888187
-      ],
       "previous": 23,
       "next": 25,
       "educationModule": "B",
       "role": "休憩區",
-      "legacyId": 20
+      "legacyId": 20,
+      "position": [
+        5.501315561749642,
+        0.24,
+        -3.9969397155888187
+      ]
     },
     {
       "id": 25,
@@ -702,16 +705,16 @@
       "serviceKey": "equipment",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        6.486018313834094,
-        0.24,
-        -2.9818729739223873
-      ],
       "previous": 24,
       "next": 26,
       "educationModule": "B",
       "role": "庭院活動",
-      "legacyId": 21
+      "legacyId": 21,
+      "position": [
+        6.486018313834094,
+        0.24,
+        -2.9818729739223873
+      ]
     },
     {
       "id": 26,
@@ -724,16 +727,16 @@
       "serviceKey": "community",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        7.757672512647526,
-        0.24,
-        -2.422502257277181
-      ],
       "previous": 25,
       "next": 27,
       "educationModule": "B",
       "role": "生活事件",
-      "legacyId": 22
+      "legacyId": 22,
+      "position": [
+        7.757672512647526,
+        0.24,
+        -2.422502257277181
+      ]
     },
     {
       "id": 27,
@@ -746,16 +749,16 @@
       "serviceKey": "meal",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        9.014794534648203,
-        0.24,
-        -2.2233936894029545
-      ],
       "previous": 26,
       "next": 28,
       "educationModule": "B",
       "role": "機會探索",
-      "legacyId": 23
+      "legacyId": 23,
+      "position": [
+        9.014794534648203,
+        0.24,
+        -2.2233936894029545
+      ]
     },
     {
       "id": 28,
@@ -768,16 +771,16 @@
       "serviceKey": "community",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        10.036802455731895,
-        0.24,
-        -2.347891919278706
-      ],
       "previous": 27,
       "next": 29,
       "educationModule": "B",
       "role": "知識格",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        10.036802455731895,
+        0.24,
+        -2.347891919278706
+      ]
     },
     {
       "id": 29,
@@ -788,16 +791,16 @@
       "serviceKey": "community",
       "centerId": "xinying",
       "color": "#E8B29B",
-      "position": [
-        10.897006977940592,
-        0.24,
-        -2.354833098695964
-      ],
       "previous": 28,
       "next": 30,
       "educationModule": "B",
       "role": "出口轉場",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        10.897006977940592,
+        0.24,
+        -2.354833098695964
+      ]
     },
     {
       "id": 30,
@@ -810,16 +813,16 @@
       ],
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        10.897006977940594,
-        0.24,
-        2.3548330986959605
-      ],
       "previous": 29,
       "next": 31,
       "educationModule": "E",
       "role": "入口",
-      "legacyId": 24
+      "legacyId": 24,
+      "position": [
+        10.897006977940594,
+        0.24,
+        2.3548330986959605
+      ]
     },
     {
       "id": 31,
@@ -832,16 +835,16 @@
       "serviceKey": "care",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        9.29415498398169,
-        0.24,
-        2.179147340986456
-      ],
       "previous": 30,
       "next": 32,
       "educationModule": "E",
       "role": "庭院步道",
-      "legacyId": 25
+      "legacyId": 25,
+      "position": [
+        9.29415498398169,
+        0.24,
+        2.179147340986456
+      ]
     },
     {
       "id": 32,
@@ -854,16 +857,16 @@
       "serviceKey": "care",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        7.757672512647527,
-        0.24,
-        2.422502257277178
-      ],
       "previous": 31,
       "next": 33,
       "educationModule": "E",
       "role": "活動區",
-      "legacyId": 26
+      "legacyId": 26,
+      "position": [
+        7.757672512647527,
+        0.24,
+        2.422502257277178
+      ]
     },
     {
       "id": 33,
@@ -875,16 +878,16 @@
       ],
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        6.486018313834096,
-        0.24,
-        2.981872973922384
-      ],
       "previous": 32,
       "next": 34,
       "educationModule": "E",
       "role": "活動區",
-      "legacyId": 27
+      "legacyId": 27,
+      "position": [
+        6.486018313834096,
+        0.24,
+        2.981872973922384
+      ]
     },
     {
       "id": 34,
@@ -897,16 +900,16 @@
       "serviceKey": "community",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        5.501315561749644,
-        0.24,
-        3.9969397155888156
-      ],
       "previous": 33,
       "next": 35,
       "educationModule": "E",
       "role": "休憩區",
-      "legacyId": 28
+      "legacyId": 28,
+      "position": [
+        5.501315561749644,
+        0.24,
+        3.9969397155888156
+      ]
     },
     {
       "id": 35,
@@ -919,16 +922,16 @@
       "serviceKey": "transport",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        4.840219607415172,
-        0.24,
-        5.247120558172236
-      ],
       "previous": 34,
       "next": 36,
       "educationModule": "E",
       "role": "庭院活動",
-      "legacyId": 29
+      "legacyId": 29,
+      "position": [
+        4.840219607415172,
+        0.24,
+        5.247120558172236
+      ]
     },
     {
       "id": 36,
@@ -941,16 +944,16 @@
       "serviceKey": "meal",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        4.701189200726667,
-        0.24,
-        6.629390628026906
-      ],
       "previous": 35,
       "next": 37,
       "educationModule": "E",
       "role": "生活事件",
-      "legacyId": 30
+      "legacyId": 30,
+      "position": [
+        4.701189200726667,
+        0.24,
+        6.629390628026906
+      ]
     },
     {
       "id": 37,
@@ -963,16 +966,16 @@
       "serviceKey": "community",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        4.900297768600895,
-        0.24,
-        7.886512650027583
-      ],
       "previous": 36,
       "next": 38,
       "educationModule": "E",
       "role": "機會探索",
-      "legacyId": 31
+      "legacyId": 31,
+      "position": [
+        4.900297768600895,
+        0.24,
+        7.886512650027583
+      ]
     },
     {
       "id": 38,
@@ -985,16 +988,16 @@
       "serviceKey": "community",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        5.3345204373921105,
-        0.24,
-        8.820027874278281
-      ],
       "previous": 37,
       "next": 39,
       "educationModule": "E",
       "role": "知識格",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        5.3345204373921105,
+        0.24,
+        8.820027874278281
+      ]
     },
     {
       "id": 39,
@@ -1005,16 +1008,16 @@
       "serviceKey": "community",
       "centerId": "yihe",
       "color": "#F1D69C",
-      "position": [
-        5.606939707308337,
-        0.24,
-        9.635986048070487
-      ],
       "previous": 38,
       "next": 40,
       "educationModule": "E",
       "role": "出口轉場",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        5.606939707308337,
+        0.24,
+        9.635986048070487
+      ]
     },
     {
       "id": 40,
@@ -1027,16 +1030,16 @@
       "serviceKey": "equipment",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        1.1277809807037305,
-        0.24,
-        11.09135294089783
-      ],
       "previous": 39,
       "next": 41,
       "educationModule": "F",
       "role": "入口",
-      "legacyId": 32
+      "legacyId": 32,
+      "position": [
+        1.1277809807037305,
+        0.24,
+        11.09135294089783
+      ]
     },
     {
       "id": 41,
@@ -1049,16 +1052,16 @@
       "serviceKey": "meal",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        0.7995595597925339,
-        0.24,
-        9.512660222584657
-      ],
       "previous": 40,
       "next": 42,
       "educationModule": "F",
       "role": "庭院步道",
-      "legacyId": 33
+      "legacyId": 33,
+      "position": [
+        0.7995595597925339,
+        0.24,
+        9.512660222584657
+      ]
     },
     {
       "id": 42,
@@ -1071,16 +1074,16 @@
       "serviceKey": "respite",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        0.0933160856803068,
-        0.24,
-        8.126579360847547
-      ],
       "previous": 41,
       "next": 43,
       "educationModule": "F",
       "role": "活動區",
-      "legacyId": 34
+      "legacyId": 34,
+      "position": [
+        0.0933160856803068,
+        0.24,
+        8.126579360847547
+      ]
     },
     {
       "id": 43,
@@ -1092,16 +1095,16 @@
       ],
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -0.8316398378114147,
-        0.24,
-        7.0900194061910025
-      ],
       "previous": 42,
       "next": 44,
       "educationModule": "F",
       "role": "活動區",
-      "legacyId": 35
+      "legacyId": 35,
+      "position": [
+        -0.8316398378114147,
+        0.24,
+        7.0900194061910025
+      ]
     },
     {
       "id": 44,
@@ -1114,16 +1117,16 @@
       ],
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -2.10131556174964,
-        0.24,
-        6.467184310807045
-      ],
       "previous": 43,
       "next": 45,
       "educationModule": "F",
       "role": "休憩區",
-      "legacyId": 36
+      "legacyId": 36,
+      "position": [
+        -2.10131556174964,
+        0.24,
+        6.467184310807045
+      ]
     },
     {
       "id": 45,
@@ -1136,16 +1139,16 @@
       "serviceKey": "respite",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -3.494598083437844,
-        0.24,
-        6.2247718219411485
-      ],
       "previous": 44,
       "next": 46,
       "educationModule": "F",
       "role": "庭院活動",
-      "legacyId": 37
+      "legacyId": 37,
+      "position": [
+        -3.494598083437844,
+        0.24,
+        6.2247718219411485
+      ]
     },
     {
       "id": 46,
@@ -1157,16 +1160,16 @@
       ],
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -4.852177799054493,
-        0.24,
-        6.51969099009782
-      ],
       "previous": 45,
       "next": 47,
       "educationModule": "F",
       "role": "生活事件",
-      "legacyId": 38
+      "legacyId": 38,
+      "position": [
+        -4.852177799054493,
+        0.24,
+        6.51969099009782
+      ]
     },
     {
       "id": 47,
@@ -1179,16 +1182,16 @@
       "serviceKey": "community",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -5.9862439586575835,
-        0.24,
-        7.097526559826006
-      ],
       "previous": 46,
       "next": 48,
       "educationModule": "F",
       "role": "機會探索",
-      "legacyId": 39
+      "legacyId": 39,
+      "position": [
+        -5.9862439586575835,
+        0.24,
+        7.097526559826006
+      ]
     },
     {
       "id": 48,
@@ -1201,16 +1204,16 @@
       "serviceKey": "community",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -6.739887511742612,
-        0.24,
-        7.79896892730417
-      ],
       "previous": 47,
       "next": 49,
       "educationModule": "F",
       "role": "知識格",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        -6.739887511742612,
+        0.24,
+        7.79896892730417
+      ]
     },
     {
       "id": 49,
@@ -1221,16 +1224,16 @@
       "serviceKey": "community",
       "centerId": "longshan",
       "color": "#A9C8A2",
-      "position": [
-        -7.4317276659526526,
-        0.24,
-        8.310199991523303
-      ],
       "previous": 48,
       "next": 0,
       "educationModule": "F",
       "role": "出口轉場",
-      "legacyId": null
+      "legacyId": null,
+      "position": [
+        -7.4317276659526526,
+        0.24,
+        8.310199991523303
+      ]
     }
   ]
 }
