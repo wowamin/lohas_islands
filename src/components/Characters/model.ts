@@ -7,7 +7,7 @@ export const CHARACTER_ASSETS:Record<CharacterId,CharacterAsset>={grandpa:{kind:
 export function createCharacterModel(options:CharacterOptions):CharacterModel{
   const root=new T.Group();root.name='PlayerCharacter-'+options.characterId;root.userData.characterId=options.characterId;root.userData.color=options.color;
   let model=createProceduralCharacter(options),disposed=false;root.add(model.root);
-  root.userData.source='procedural';root.userData.height=model.height;
+  root.userData.source='procedural';root.userData.height=model.height;root.userData.forward='+Z';
   const asset=CHARACTER_ASSETS[options.characterId];
   if(asset.kind==='gltf'){
     root.userData.loading=true;

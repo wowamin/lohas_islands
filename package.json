@@ -6,6 +6,8 @@
   "scripts": {
     "test": "node scripts/test-education.mjs",
     "test:browser": "node scripts/test-browser.mjs",
+    "test:characters": "node scripts/test-characters.mjs",
+    "test:characters:browser": "node scripts/test-browser.mjs --characters",
     "test:isolation": "node scripts/test-browser.mjs --isolation",
     "export:route": "node scripts/export-route.mjs",
     "dev": "vite",
