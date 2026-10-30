@@ -34,3 +34,4 @@ for(const night of [false,true])for(const layout of ['island','district']){
  let casters=0,points=0;scene.traverse(o=>{if(o.isLight&&o.castShadow)casters++;if(o.isPointLight)points++;});assert.equal(casters,1);assert.ok(points<=3);assert.ok(rig.sun.shadow.mapSize.x<=1024);rig.setShadow(99);assert.ok(rig.sun.shadow.intensity<=.9);restore();for(const[o,m]of originals)assert.equal(o.material,m);rig.dispose();model.dispose();
 }
 console.log('PASS: original event effects, duplicate guards, tasks, bounds, 12-round result, scene thickness, district links, day/night materials and bounded shadows.');
+await import('./test-dice.mjs');

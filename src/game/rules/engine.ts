@@ -37,7 +37,7 @@ export function completeMovement(s:GameSnapshot,sample:number):GameSnapshot{
   const current=s.players[s.currentPlayerIndex],result=movement(current.position,s.diceValue);
   const players=s.players.map((p,i)=>i===s.currentPlayerIndex?{...p,position:result.position,money:p.money+result.startReward}:p);
   const event=selectLandingEvent(result.position,sample);
-  return changed(s,{players,phase:'EVENT',selectedEvent:event,eventLesson:undefined,eventResultText:event?null:result.position===0?'回到樂活起點，獲得 1,000 遊戲幣。這是桌遊獎勵，不是實際長照津貼。':`${BOARD_RULES[result.position].name}：這是教育／轉場停靠點，金錢、健康與壓力不變。可在回合間開啟知識圖鑑。`});
+  return changed(s,{players,phase:'EVENT',selectedEvent:event,eventLesson:undefined,eventOutcome:event?undefined:{money:result.startReward,health:0,stress:0},eventResultText:event?null:result.position===0?'回到樂活起點，獲得 1,000 遊戲幣。這是桌遊獎勵，不是實際長照津貼。':`${BOARD_RULES[result.position].name}：這是教育／轉場停靠點，金錢、健康與壓力不變。可在回合間開啟知識圖鑑。`});
 }
 export function applyEventEffect(p:Player,effect:NonNullable<GameEvent['effect']>,event:GameEvent):Player{
   return {...p,money:Math.max(0,p.money+(effect.money??0)),health:Math.min(100,Math.max(0,p.health+(effect.health??0))),stress:Math.min(100,Math.max(0,p.stress+(effect.stress??0))),
@@ -50,13 +50,14 @@ export function chooseEvent(s:GameSnapshot,eventId:string,optionIndex?:number):G
   if(event.options&&(optionIndex===undefined||!Number.isInteger(optionIndex)||optionIndex<0||optionIndex>=event.options.length))return s;
   if(!event.options&&optionIndex!==undefined)return s;
   const option=event.options?.[optionIndex!],effect=option?.effect??event.effect??{},result=option?.result??event.result??'這次事件已完成。';
-  return changed(s,{players:s.players.map((p,i)=>i===s.currentPlayerIndex?applyEventEffect(p,effect,event):p),selectedEvent:null,eventResultText:result,eventLesson:event.lesson});
+  const before=s.players[s.currentPlayerIndex],after=applyEventEffect(before,effect,event);
+  return changed(s,{players:s.players.map((p,i)=>i===s.currentPlayerIndex?after:p),selectedEvent:null,eventResultText:result,eventLesson:event.lesson,eventOutcome:{money:after.money-before.money,health:after.health-before.health,stress:after.stress-before.stress}});
 }
 export function advanceTurn(s:GameSnapshot):GameSnapshot{
   if(s.phase!=='EVENT'||s.selectedEvent||s.players.length===0)return s;
   const index=(s.currentPlayerIndex+1)%s.players.length,round=s.round+(index===0?1:0);
-  if(round>12)return changed(s,{phase:'RESULT',selectedEvent:null,eventResultText:null});
-  return changed(s,{currentPlayerIndex:index,round,phase:'WAITING_ROLL',selectedEvent:null,eventResultText:null,eventLesson:undefined});
+  if(round>12)return changed(s,{phase:'RESULT',selectedEvent:null,eventResultText:null,eventOutcome:undefined});
+  return changed(s,{currentPlayerIndex:index,round,phase:'WAITING_ROLL',selectedEvent:null,eventResultText:null,eventLesson:undefined,eventOutcome:undefined});
 }
 export const resetGame=(s:GameSnapshot):GameSnapshot=>({...initialGame(),revision:s.revision+1});
 export const scorePlayer=(p:Pick<Player,'money'|'health'|'stress'>)=>p.money/100+p.health*2-p.stress*2;

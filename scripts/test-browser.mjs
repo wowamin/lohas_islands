@@ -31,6 +31,12 @@ try{
  const waitFor=async text=>{for(let i=0;i<80;i++){if(await evaluate(`document.body.innerText.includes(${JSON.stringify(text)})`))return;await delay(100);}throw Error('Missing text '+text);};
  const screenshot=async name=>{await mkdir('artifacts',{recursive:true});const r=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile('artifacts/'+name+'.png',Buffer.from(r.data,'base64'));};
  await call('Runtime.enable');await call('Page.enable');await call('Network.enable');await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+ if(process.argv.includes('--dice'))await call('Page.addScriptToEvaluateOnNewDocument',{source:`
+   window.__feedbackProbe={contexts:0,starts:0,vibrations:[]};
+   const Original=window.AudioContext;
+   if(Original)window.AudioContext=new Proxy(Original,{construct(Target,args){const context=new Target(...args);window.__feedbackProbe.contexts++;for(const key of ['createOscillator','createBufferSource']){const make=context[key].bind(context);context[key]=(...args)=>{const node=make(...args),start=node.start.bind(node);node.start=(...args)=>{window.__feedbackProbe.starts++;return start(...args);};return node;};}return context;}});
+   Object.defineProperty(navigator,'vibrate',{value:pattern=>{window.__feedbackProbe.vibrations.push(pattern);return true;},configurable:true});
+ `});
  await call('Page.navigate',{url:'http://127.0.0.1:4178'+testBase});await waitFor('開始人生旅程');
  await click('A 個管新進人員訓練');await waitFor('A 個管情境工作坊');
  await click('與家庭討論照顧計畫');await waitFor('判斷正確');
@@ -58,6 +64,56 @@ try{
    }
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
    console.log('PASS: desktop/mobile night title, version, subtitle and brand turn white; day colors restore.');
+ }else if(process.argv.includes('--dice')){
+   const state=()=>evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state`);
+   const until=async expression=>{for(let n=0;n<240;n++){if(await evaluate(expression))return;await delay(25);}throw Error('Timed out: '+expression);};
+   const waitPhase=phase=>until(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase===${JSON.stringify(phase)}`);
+   const realRoll=async()=>{const r=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...r});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...r});};
+   const finishEvent=async()=>{
+     const before=await state();
+     if(!before.selectedEvent){await evaluate(`document.querySelector('.continue-button').click()`);await waitPhase('WAITING_ROLL');assert.equal((await state()).revision,before.revision+1);return;}
+     assert.equal(await evaluate(`document.querySelectorAll('.event-dialog .effect-chip').length`),0,'no effect values before choosing');
+     await evaluate(`(()=>{const b=document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm');b.click();b.click();})()`);await delay(70);
+     const chosen=await state();assert.equal(chosen.selectedEvent,null);assert.equal(chosen.revision,before.revision+1,'choice resolves once');
+     assert.equal(await evaluate(`document.querySelectorAll('.result-feedback .effect-chip').length`),3,'values appear only after choosing');
+     const original=before.players[before.currentPlayerIndex],player=chosen.players[chosen.currentPlayerIndex];
+     assert.deepEqual(chosen.eventOutcome,{money:player.money-original.money,health:player.health-original.health,stress:player.stress-original.stress});
+     await evaluate(`document.querySelector('.continue-button').click()`);await waitPhase('WAITING_ROLL');assert.equal((await state()).revision,chosen.revision+1);
+   };
+   const assertLanding=(before,after)=>{const p=after.players[before.currentPlayerIndex];assert.equal(p.position,(before.players[before.currentPlayerIndex].position+after.diceValue)%50);assert.equal(after.currentPlayerIndex,before.currentPlayerIndex);};
+   const changePreferences=async({speed,muted,vibration})=>{
+     await click('動畫與音效');await until(`document.querySelector('.dice-preferences').open`);
+     await evaluate(`(()=>{const inputs=document.querySelectorAll('.dice-preferences input');if(inputs[0].checked===${JSON.stringify(muted)})inputs[0].click();if(inputs[1].checked!==${JSON.stringify(vibration)})inputs[1].click();inputs[${speed==='quick'?3:2}].click();})()`);
+     await screenshot('dice-settings');await evaluate(`document.querySelector('[aria-label="關閉動畫與音效設定"]').click()`);await delay(50);
+   };
+   assert.equal(await evaluate(`window.__feedbackProbe.contexts`),0,'no autoplay context before roll');
+   await evaluate(`window.__originalDiceCanvas=document.querySelector('.island-render canvas')`);
+   const before=await state();await realRoll();
+   const rolled=await state();assert.equal(rolled.phase,'ROLLING');assert.equal(rolled.revision,before.revision+1);
+   await evaluate(`for(let n=0;n<30;n++)document.querySelector('.dice-button').click()`);assert.equal((await state()).revision,rolled.revision,'rapid click lock');
+   await delay(500);await screenshot('dice-rolling-desktop');
+   await until(`document.querySelector('.turn-panel').dataset.dicePhase==='revealing'`);
+   const revealing=await state();assert.equal(revealing.phase,'ROLLING');assert.equal(revealing.players[before.currentPlayerIndex].position,before.players[before.currentPlayerIndex].position,'reveal precedes movement');
+   assert.ok(await evaluate(`document.querySelector('.dice-result-panel').textContent.includes(${JSON.stringify(String(rolled.diceValue))})`));await screenshot('dice-reveal-desktop');
+   await waitPhase('EVENT');const landed=await state();assertLanding(before,landed);assert.equal(landed.diceValue,rolled.diceValue);
+   assert.equal(await evaluate(`document.querySelector('.island-render canvas')===window.__originalDiceCanvas`),true,'renderer reused across roll');
+   assert.equal(await evaluate(`window.__feedbackProbe.contexts`),1);assert.ok(await evaluate(`window.__feedbackProbe.starts>0`),'sound starts after gesture');
+   assert.deepEqual(await evaluate(`window.__feedbackProbe.vibrations`),[],'vibration is off by default');await finishEvent();
+   // Skip from rolling, rather than waiting for movement. The result and landing still commit once.
+   const beforeSkip=await state();await realRoll();const skippedRoll=await state();await click('跳過動畫');await waitPhase('EVENT');const skipped=await state();assertLanding(beforeSkip,skipped);assert.equal(skipped.diceValue,skippedRoll.diceValue);const skippedRaw=JSON.stringify(skipped);await delay(1800);assert.equal(JSON.stringify(await state()),skippedRaw,'old fallback timer cannot trigger another landing');await finishEvent();
+   await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+   await changePreferences({speed:'quick',muted:true,vibration:true});const starts=await evaluate(`window.__feedbackProbe.starts`),beforeQuick=await state();await realRoll();await waitPhase('EVENT');assertLanding(beforeQuick,await state());assert.equal(await evaluate(`window.__feedbackProbe.starts`),starts,'mute prevents all sounds');assert.ok(await evaluate(`window.__feedbackProbe.vibrations.includes(18)`),'explicit vibration opt-in');await finishEvent();
+   await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+   const vibrationCount=await evaluate(`window.__feedbackProbe.vibrations.filter(x=>x===18).length`),beforeReduced=await state();await realRoll();
+   assert.equal(await evaluate(`document.querySelector('.turn-panel').dataset.diceMotion`),'reduced');assert.equal(await evaluate(`document.querySelectorAll('.dice-spinning').length`),0);await screenshot('dice-reduced-mobile');await waitPhase('EVENT');assertLanding(beforeReduced,await state());assert.equal(await evaluate(`window.__feedbackProbe.vibrations.filter(x=>x===18).length`),vibrationCount,'reduced mode disables haptics');await finishEvent();
+   await call('Emulation.setEmulatedMedia',{features:[]});await changePreferences({speed:'standard',muted:true,vibration:false});
+   // Reload an interrupted roll: migration resumes its existing dice result, not another random roll.
+   const beforeReload=await state();await realRoll();const interrupted=await state();await call('Page.reload');await waitFor('儲存進度');await waitPhase('EVENT');const recovered=await state();assertLanding(beforeReload,recovered);assert.equal(recovered.diceValue,interrupted.diceValue);await finishEvent();
+   await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
+   await call('Page.reload');await waitFor('WebGL 不可用');assert.equal(await evaluate(`document.querySelectorAll('.city-map-50 [data-tile-id]').length`),50);
+   const before2D=await state();await realRoll();await waitPhase('EVENT');assertLanding(before2D,await state());await finishEvent();
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   console.log('PASS: real dice click, repeat lock, reveal-before-move, skip-roll cancellation, one movement/event/turn, after-choice values, renderer/audio context reuse, mute, vibration opt-in, quick/reduced modes, reload and 2D fallback.');
  }else if(process.argv.includes('--isolation')){
    const appUrl='http://127.0.0.1:4178'+testBase;
    async function connect(url){

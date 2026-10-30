@@ -13,6 +13,8 @@ import { LearningCenter } from './components/UI/LearningCenter';
 import { useLearning } from './game/education/store';
 import type { ModuleId } from './game/education/content';
 import { SaveNotice } from './components/UI/SaveNotice';
+import { DiceController } from './components/DiceController';
+import { DiceResult } from './components/UI/DiceResult';
 
 
 
@@ -30,7 +32,9 @@ function App() {
 
   return (
     <main className={'game-app' + (phase === 'SETUP' ? ' is-setup' : '')}>
+      <DiceController />
       <MovementController />
+      <DiceResult />
       <div className="scene scene-city" inert={overlay || (phase === 'SETUP' && !exploring) || phase === 'EVENT' || phase === 'RESULT'}>
         <CityExplorer onResource={setResource} onView={setView} onLearn={module=>{setLearningModule(module??'A');setLearning('library');}} />
       </div>

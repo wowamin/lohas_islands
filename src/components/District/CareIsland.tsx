@@ -11,6 +11,7 @@ import { useGameStore } from '../../game/store/useGameStore';
 import { useJourney } from '../../game/journey';
 import { createPawn, createIslandDice } from './gamePieces';
 import { buildLandscape } from './landscape';
+import { diceAnimation, useDicePresentation } from '../../game/dice/presentation';
 
 export default function CareIsland({night,resetKey,selected,labels,brightness,shadow,onSelect,onCenter,centerId,onUnavailable}:{night:boolean;resetKey:number;brightness:number;shadow:number;selected:number|null;labels:boolean;onSelect:(n:number)=>void;onCenter:(id:CenterId)=>void;centerId:CenterId|null;onUnavailable:()=>void}){
   const host=useRef<HTMLDivElement>(null),stats=useRef<HTMLOutputElement>(null);
@@ -33,14 +34,15 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     const canvas=renderer.domElement;parent.appendChild(canvas);canvas.setAttribute('aria-label','50 格五間日照中心 3D 城市，可旋轉縮放');canvas.style.touchAction='none';
     const camera=new T.OrthographicCamera(-20,20,18,-18,.1,150);camera.position.set(21,27,30);camera.lookAt(0,0,0);
     const controls=new OrbitControls(camera,canvas);controls.target.set(0,.2,0);controls.enableDamping=true;controls.dampingFactor=.12;controls.rotateSpeed=.45;
-    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');let reduced=motionPreference.matches;
     const pawns=new Map<number,T.Group>();
     function disposePawn(pawn:T.Group){pawn.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});}
     function syncPlayers(){const state=useGameStore.getState();for(const[id,pawn]of pawns)if(!state.players.some(p=>p.id===id&&p.color===pawn.userData.color)){scene.remove(pawn);disposePawn(pawn);pawns.delete(id);}for(const p of state.players){if(!pawns.has(p.id)){const pawn=createPawn(p.color);pawn.userData.color=p.color;pawns.set(p.id,pawn);scene.add(pawn);}}dirty=true;}
-    const dice=createIslandDice();dice.root.position.set(0,2,0);scene.add(dice.root);
+    const dice=createIslandDice();scene.add(dice.root);
     const halo=new T.Mesh(new T.RingGeometry(.32,.43,20),new T.MeshBasicMaterial({color:'#fff1a4',side:T.DoubleSide}));halo.rotation.x=-Math.PI/2;scene.add(halo);
     const vector=new T.Vector3(),target=new T.Vector3(),followTarget=new T.Vector3(),cameraTarget=new T.Vector3(),offset=new T.Vector3(21,27,30);
     let dirty=true,frame=0,lastTime=0,lastRender=0,statSince=0,rendered=0,flight:{at:T.Vector3;camera:T.Vector3;zoom:number}|null=null;
+    const updateMotionPreference=()=>{reduced=motionPreference.matches;dirty=true;};motionPreference.addEventListener('change',updateMotionPreference);
     const focus=(at?:readonly number[])=>{const atVector=at?new T.Vector3(at[0],.3,at[2]):new T.Vector3(0,.2,0);const targetCamera=atVector.clone().add(offset);flight={at:atVector,camera:targetCamera,zoom:at?(parent.clientWidth<800?1.5:1.7):1};dirty=true;};
     api.current={focus,zoom(f){camera.zoom=T.MathUtils.clamp(camera.zoom*f,controls.minZoom,controls.maxZoom);camera.updateProjectionMatrix();flight=null;dirty=true;},light(b,s){lightRig.set(b,s);dirty=true;}};
     const resize=()=>{const w=parent.clientWidth,h=Math.max(1,parent.clientHeight),mobile=w<800,half=Math.max(18,17.5/(w/h));camera.left=-half*w/h;camera.right=half*w/h;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();renderer.setSize(w,h);controls.minPolarAngle=mobile?.45:.28;controls.maxPolarAngle=mobile?1.02:1.2;controls.minZoom=mobile?.8:.6;controls.maxZoom=mobile?2.3:3;controls.maxTargetRadius=mobile?13:16;camera.zoom=T.MathUtils.clamp(camera.zoom,controls.minZoom,controls.maxZoom);camera.updateProjectionMatrix();dirty=true;};
@@ -62,13 +64,16 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
       else if(flight){camera.position.lerp(flight.camera,smooth);controls.target.lerp(flight.at,smooth);camera.zoom=T.MathUtils.lerp(camera.zoom,flight.zoom,smooth);camera.updateProjectionMatrix();dirty=true;if(camera.position.distanceToSquared(flight.camera)<.0004&&Math.abs(camera.zoom-flight.zoom)<.002)flight=null;}
       for(const p of game.players){const pawn=pawns.get(p.id);if(!pawn)continue;const at=journey.playerId===p.id&&journey.position!==null?journey.position:p.position,pos=BOARD_DATA[at].position;target.set(pos[0]+(p.id%2)*.25,pos[1],pos[2]+Math.floor(p.id/2)*.25);if(!pawn.userData.placed){pawn.position.copy(target);pawn.userData.placed=true;dirty=true;}if(pawn.position.distanceToSquared(target)>.00001){pawn.position.lerp(target,reduced?1:1-Math.exp(-dt*14));dirty=true;}if(journey.playerId===p.id&&!reduced){pawn.position.y=target.y+Math.abs(Math.sin(now*.012))*.1;dirty=true;}place(playerNodes.current.get(p.id),pawn.position.x,pawn.position.y+.9,pawn.position.z,(p.id%2)*24-12,-Math.floor(p.id/2)*27);}
       halo.visible=!!current;if(current){const p=BOARD_DATA[journey.position??current.position].position;halo.position.set(p[0],.25,p[2]);}
-      dice.root.visible=game.phase==='ROLLING';if(dice.root.visible){dice.update(game.diceValue,!reduced,dt);dirty=true;}
+      const presentation=useDicePresentation.getState();
+      const showDice=game.phase==='ROLLING'||presentation.phase==='revealing';
+      if(dice.root.visible!==showDice){dice.root.visible=showDice;dirty=true;}
+      if(showDice){dice.update(diceAnimation.sample(now));dirty=true;}
       if(now-lastRender<1000/(quality==='low'?30:60)-1)return;
       if(!reduced){model.update(now/1000,false,camera.zoom);dirty=true;}else if(dirty)model.update(now/1000,true,camera.zoom);
       if(dirty){renderer.render(scene,camera);for(const c of ISLAND_CENTERS){place(pins.current.get(c.id),...c.at);}for(const t of BOARD_DATA)place(pins.current.get('tile'+t.id),...t.position);dirty=false;rendered++;lastRender=now;}
       if(now-statSince>=1500){const fps=rendered*1000/(now-statSince);canvas.dataset.fps=fps.toFixed(1);canvas.dataset.calls=String(renderer.info.render.calls);canvas.dataset.triangles=String(renderer.info.render.triangles);canvas.dataset.quality=quality;if(stats.current)stats.current.textContent=`${fps.toFixed(0)} FPS · ${renderer.info.render.calls} calls · ${quality==='low'?'低':quality==='medium'?'中':'高'}畫質`;rendered=0;statSince=now;}
     };frame=requestAnimationFrame(tick);
-    return()=>{api.current=null;cancelAnimationFrame(frame);unsubscribe();unsubscribeJourney();observer.disconnect();controls.dispose();canvas.removeEventListener('webglcontextlost',contextLost);canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointerup',pointerUp);for(const pawn of pawns.values())disposePawn(pawn);dice.dispose();halo.geometry.dispose();(halo.material as T.Material).dispose();lightRig.dispose();landscape.dispose();model.dispose();renderer.dispose();canvas.remove();};
+    return()=>{motionPreference.removeEventListener('change',updateMotionPreference);api.current=null;cancelAnimationFrame(frame);unsubscribe();unsubscribeJourney();observer.disconnect();controls.dispose();canvas.removeEventListener('webglcontextlost',contextLost);canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointerup',pointerUp);for(const pawn of pawns.values())disposePawn(pawn);dice.dispose();halo.geometry.dispose();(halo.material as T.Material).dispose();lightRig.dispose();landscape.dispose();model.dispose();renderer.dispose();canvas.remove();};
   },[night,quality]);
   useEffect(()=>{api.current?.light(brightness,shadow);},[brightness,shadow,night,quality]);
   useEffect(()=>{api.current?.focus();},[resetKey]);

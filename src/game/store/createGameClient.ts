@@ -4,6 +4,7 @@ import type { GameSessionAdapter } from '../session/GameSessionAdapter';
 import { MAP_ID, MAP_VERSION, RULES_VERSION } from '../mapDefinition';
 export interface GameActions {
   sessionId:string;startGame:(names:string[])=>void;rollDice:()=>void;movePlayer:(revision?:number)=>void;
+  completeRoll:(revision:number)=>void;
   chooseEvent:(eventId:string,optionIndex?:number,revision?:number)=>void;advanceFromResult:()=>void;resetGame:()=>void;
 }
 export type GameClientState=GameSnapshot&GameActions;
@@ -13,6 +14,7 @@ export function createGameClient(initialAdapter:GameSessionAdapter){
   const useStore=create<GameClientState>(()=>({...adapter.getSnapshot(),sessionId:adapter.getInfo().id,
     startGame:names=>{void adapter.dispatch({type:'START_GAME',names});},
     rollDice:()=>{void adapter.dispatch({type:'ROLL_DICE',expectedRevision:adapter.getSnapshot().revision});},
+    completeRoll:revision=>{void adapter.dispatch({type:'COMPLETE_ROLL',expectedRevision:revision});},
     movePlayer:revision=>{void adapter.dispatch({type:'COMPLETE_MOVEMENT',expectedRevision:revision??adapter.getSnapshot().revision});},
     chooseEvent:(eventId,optionIndex,revision)=>{void adapter.dispatch({type:'CHOOSE_EVENT',eventId,optionIndex,expectedRevision:revision??adapter.getSnapshot().revision});},
     advanceFromResult:()=>{void adapter.dispatch({type:'ADVANCE_TURN',expectedRevision:adapter.getSnapshot().revision});},

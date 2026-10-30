@@ -6,7 +6,7 @@ import { decodeSave, SAVE_VERSION } from '../storage/saveCodec';
 
 export interface SessionScheduler {set(callback:()=>void,delay:number):unknown;clear(handle:unknown):void}
 const scheduler:SessionScheduler={set:(callback,delay)=>setTimeout(callback,delay),clear:handle=>clearTimeout(handle as ReturnType<typeof setTimeout>)};
-const commandKeys:Record<GameCommand['type'],string[]>={START_GAME:['names'],ROLL_DICE:[],COMPLETE_MOVEMENT:[],CHOOSE_EVENT:['eventId','optionIndex'],ADVANCE_TURN:[],RESET_GAME:[]};
+const commandKeys:Record<GameCommand['type'],string[]>={START_GAME:['names'],ROLL_DICE:[],COMPLETE_ROLL:[],COMPLETE_MOVEMENT:[],CHOOSE_EVENT:['eventId','optionIndex'],ADVANCE_TURN:[],RESET_GAME:[]};
 function immutable(snapshot:GameSnapshot):GameSnapshot{
   const copy=structuredClone(snapshot);
   const freeze=(value:unknown)=>{if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.freeze(value);Object.values(value).forEach(freeze);}};freeze(copy);return copy;
@@ -43,6 +43,7 @@ export class LocalGameSession implements GameSessionAdapter {
         break;
       }
       case 'COMPLETE_MOVEMENT':if(this.current.phase==='MOVING')next=completeMovement(this.current,this.random());break;
+      case 'COMPLETE_ROLL':next=finishRoll(this.current);if(next!==this.current)this.cancelTimer();break;
       case 'CHOOSE_EVENT':next=chooseEvent(this.current,command.eventId,command.optionIndex);break;
       case 'ADVANCE_TURN':next=advanceTurn(this.current);break;
       case 'RESET_GAME':this.cancelTimer();next=resetGame(this.current);break;
@@ -50,7 +51,7 @@ export class LocalGameSession implements GameSessionAdapter {
     const accepted=this.commit(next);
     if(accepted&&command.type==='ROLL_DICE'){
       const revision=this.current.revision;
-      this.timer=this.clock.set(()=>{this.timer=undefined;if(!this.disposed&&this.current.phase==='ROLLING'&&this.current.revision===revision)this.commit(finishRoll(this.current));},1500);
+      this.timer=this.clock.set(()=>{this.timer=undefined;if(!this.disposed&&this.current.phase==='ROLLING'&&this.current.revision===revision)this.commit(finishRoll(this.current));},1700);
     }
     return {accepted,revision:this.current.revision,...(!accepted?{reason:'目前階段不接受此操作'}:{})};
   }

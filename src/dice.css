@@ -1,0 +1,10 @@
+.dice-result-panel{position:absolute;z-index:13;top:43%;left:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:2px;min-width:142px;padding:12px 24px;border:2px solid #43554d;border-radius:22px;background:#fffdf4;color:#182c25;box-shadow:0 8px 28px #182c2533;pointer-events:none;font-family:system-ui,"Microsoft JhengHei",sans-serif;line-height:1.6}
+.dice-result-panel>span{font-size:18px}.dice-result-panel>strong{font-size:48px;line-height:1.2;font-weight:700}.dice-result-panel small{font-size:24px}
+.journey-actions .dice-preferences{position:fixed;white-space:normal;text-align:left;z-index:150}
+.dice-preferences label{display:flex;align-items:center;gap:12px;min-height:48px;padding:4px;cursor:pointer;font-size:18px;color:#182c25;line-height:1.7}
+.dice-preferences input{width:24px;height:24px;flex-shrink:0;accent-color:#164b39}
+.dice-preferences fieldset{margin:0;padding:12px;border:2px solid #43554d;border-radius:12px}.dice-preferences legend{font-size:20px;font-weight:700}
+.game-app .journey-actions .dice-preferences button{flex:none;min-width:80px;min-height:50px;width:auto;font-size:20px;padding:8px 18px;background:#fff;color:#164b39;white-space:normal;border:2px solid #164b39;border-radius:12px}
+.dice-preferences :focus-visible{outline:3px solid #182c25;outline-offset:4px}
+@media(max-width:900px){.dice-result-panel{position:absolute;top:290px;left:50%;padding:8px 18px;min-width:126px}.dice-result-panel>strong{font-size:40px}.dice-result-panel>span{font-size:16px}.dice-result-panel small{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.dice-spinning{animation:none!important}}

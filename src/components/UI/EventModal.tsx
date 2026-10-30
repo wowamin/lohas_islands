@@ -25,6 +25,7 @@ export const EventModal = () => {
   const advanceFromResult = useGameStore((state) => state.advanceFromResult);
   const currentPlayer = useGameStore((state) => state.players[state.currentPlayerIndex]);
   const lesson = useGameStore((state) => state.eventLesson);
+  const outcome = useGameStore((state) => state.eventOutcome);
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (phase !== 'EVENT') return;
@@ -59,7 +60,7 @@ export const EventModal = () => {
               <h2 id="event-title">{selectedEvent.title}</h2>
               <p className="event-description">{selectedEvent.description}</p>
               <div className="event-context"><span className={'context-avatar player-tone-' + (currentPlayer?.id ?? 0)}>{currentPlayer?.name.slice(0, 1) || '玩'}</span><span>這是 <strong>{currentPlayer?.name}</strong> 遇到的情況</span></div>
-              <p className="simulation-note">以下遊戲幣及健康、壓力變動為模擬效果。</p>
+              <p className="simulation-note">請先依情境做選擇，確認後才會揭曉數值變化。所有效果皆為遊戲模擬。</p>
               {selectedEvent.serviceKey && <details className="event-resource"><summary>先了解相關服務</summary><ResourceDetails serviceKey={selectedEvent.serviceKey} /></details>}
 
               {selectedEvent.options ? (
@@ -67,14 +68,13 @@ export const EventModal = () => {
                   <div className="choose-label">你會怎麼做？</div>
                   {selectedEvent.options.map((option, index) => (
                     <button className="choice-button" type="button" key={index} onClick={() => chooseEvent(selectedEvent.id, index, revision)}>
-                      <span className="choice-copy"><strong>{option.text}</strong><span className="effect-list">{effectSummary(option.effect)}</span></span>
+                      <span className="choice-copy"><strong>{option.text}</strong></span>
                       
                     </button>
                   ))}
                 </div>
               ) : (
                 <div className="event-single-action">
-                  <div className="event-effect-card"><span className="effect-card-icon"><Activity size={17} /></span><div><small>資源變化</small><div className="effect-list">{effectSummary(selectedEvent.effect)}</div></div></div>
                   <button className="primary-button event-confirm" type="button" onClick={() => chooseEvent(selectedEvent.id, undefined, revision)}>了解，繼續前進 </button>
                 </div>
               )}
@@ -86,6 +86,7 @@ export const EventModal = () => {
             <div className="event-category result-category"><span>♡</span>這一步的回應</div>
             <h2 id="event-title">旅程繼續向前</h2>
             <p className="event-description">{eventResultText}</p>
+            {outcome&&<div className="event-effect-card" aria-label="選擇後的實際數值變化"><span className="effect-card-icon"><Activity size={17}/></span><div><small>本次數值變化（已套用）</small><div className="effect-list">{effectSummary(outcome)}</div></div></div>}
             {lesson && <div className="learning-note"><strong>這一步認識的事</strong><p>{lesson}</p></div>}
             <div className="result-note"><span className={'context-avatar player-tone-' + (currentPlayer?.id ?? 0)}>{currentPlayer?.name.slice(0, 1) || '玩'}</span><span><strong>{currentPlayer?.name}</strong> 已完成這次選擇</span></div>
             <button className="primary-button continue-button" type="button" onClick={advanceFromResult}>交給下一位 </button>
@@ -103,7 +104,7 @@ function effectSummary(effect?: GameEvent['effect']) {
   if (effect.stress !== undefined) changes.push({ label: '壓力', value: effect.stress, icon: <Brain size={13} /> });
   if (!changes.length) return <span className="effect-neutral">沒有數值變動</span>;
   return changes.map((item) => (
-    <span className={'effect-chip ' + (item.value > 0 ? (item.label === '壓力' ? 'effect-negative' : 'effect-positive') : (item.label === '壓力' ? 'effect-positive' : 'effect-negative'))} key={item.label}>
+    <span className={'effect-chip ' + (item.value===0?'effect-neutral':item.value > 0 ? (item.label === '壓力' ? 'effect-negative' : 'effect-positive') : (item.label === '壓力' ? 'effect-positive' : 'effect-negative'))} key={item.label}>
       {item.icon}{item.label} {item.value > 0 ? '+' : ''}{item.value.toLocaleString()}
     </span>
   ));

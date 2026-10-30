@@ -24,7 +24,9 @@ export function decodeSave(envelope:unknown):{version:number;state:GameSnapshot;
   });
   const event=s.selectedEvent?ALL_GAME_EVENTS.find(e=>e.id===s.selectedEvent?.id):null;
   if(s.selectedEvent&&!event)throw new Error('未知事件');
+  const outcome=s.eventOutcome;
+  const eventOutcome=s.phase==='EVENT'&&!event&&outcome&&[outcome.money,outcome.health,outcome.stress].every(v=>typeof v==='number'&&Number.isFinite(v))&&Math.abs(outcome.health)<=100&&Math.abs(outcome.stress)<=100?{money:outcome.money,health:outcome.health,stress:outcome.stress}:undefined;
   return {version:SAVE_VERSION,migrated:input.version!==SAVE_VERSION,state:{mapId:MAP_ID,mapVersion:MAP_VERSION,rulesVersion:RULES_VERSION,revision:input.version===3?s.revision!:0,
-    players,currentPlayerIndex:s.currentPlayerIndex!,round:s.round!,diceValue:s.diceValue!,phase:s.phase==='ROLLING'?'MOVING':s.phase!,selectedEvent:event??null,eventResultText:typeof s.eventResultText==='string'?s.eventResultText:null,eventLesson:typeof s.eventLesson==='string'?s.eventLesson:undefined}};
+    players,currentPlayerIndex:s.currentPlayerIndex!,round:s.round!,diceValue:s.diceValue!,phase:s.phase==='ROLLING'?'MOVING':s.phase!,selectedEvent:event??null,eventOutcome,eventResultText:typeof s.eventResultText==='string'?s.eventResultText:null,eventLesson:typeof s.eventLesson==='string'?s.eventLesson:undefined}};
 }
 export function encodeSave(snapshot:GameSnapshot){return JSON.stringify({version:SAVE_VERSION,state:snapshot});}

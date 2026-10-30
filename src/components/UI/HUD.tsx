@@ -6,6 +6,9 @@ import { missionSummary } from '../../game/resources';
 import { BOARD_DATA, BOARD_SIZE } from '../../game/board';
 import { useJourney } from '../../game/journey';
 import { saveSnapshot, loadSnapshot } from '../../game/save';
+import { useDicePresentation } from '../../game/dice/presentation';
+import { gameFeedback } from '../../game/dice/feedback';
+import { DicePreferences } from './DicePreferences';
 
 const TONES=['#84a36c','#d59184','#76a9bb','#ac8cba'];
 export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?:boolean})=>{
@@ -15,10 +18,11 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
   const visual=useJourney(s=>s.position),movingPlayer=useJourney(s=>s.playerId),skip=useJourney(s=>s.skip);
   const [message,setMessage]=useState('');
   const [missions,setMissions]=useState(false);
+  const dicePhase=useDicePresentation(s=>s.phase),diceMode=useDicePresentation(s=>s.mode),skipDice=useDicePresentation(s=>s.skip);
   const p=players[currentIndex];if(!p)return null;
   const position=movingPlayer===p.id&&visual!==null?visual:p.position;
   const tile=BOARD_DATA[position];
-  const rollLabel=exploring?'探索中 · 回合暫停':phase==='ROLLING'?'擲骰中…':phase==='MOVING'?'前進 '+diceValue+' 格…':'擲骰子';
+  const rollLabel=exploring?'探索中 · 回合暫停':dicePhase==='revealing'?'擲出 '+diceValue+' 點':phase==='ROLLING'?'擲骰中…':phase==='MOVING'?'前進 '+diceValue+' 格…':'擲骰子';
   const compactRollLabel=exploring?'探索暫停':phase==='MOVING'?'前進中':rollLabel;
   const save=async()=>{try{await saveSnapshot();setMessage('已建立手動存檔，可用「讀取存檔」恢復。');}catch{setMessage('目前無法儲存；請等回合完成並確認瀏覽器儲存權限。');}};
   return <div className="hud-layer journey-hud">
@@ -29,17 +33,17 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
     </article>)}</div></aside>
     <aside className="journey-footer"><span className="location-illustration" aria-hidden="true">⌂</span><div><small>目前位置 · 第 {position+1} / {BOARD_SIZE} 格</small><strong>{tile.name}</strong><p>{tile.role} · 五區庭院旅程<br/>主題為遊戲設計，實際服務請另確認。</p></div></aside>
     <aside className="journey-message"><span className="message-pill">照顧旅程 · 第 {round} / 12 輪</span><h2>每一段路，都有人同行。</h2><p>{phase==='MOVING'?'擲骰完成，準備走向下一段生活。':'擲骰前進，在生活裡認識長照服務。'}</p><small>{boardView==='3d'?'拖曳旋轉、滾輪縮放；點建築探索。':'點選站點，可先認識相關資源。'}</small></aside>
-    <aside className="turn-panel" aria-label="回合操作"><div className={'illustrated-dice'+(phase==='ROLLING'?' dice-spinning':'')} aria-live="polite"><DiceFace value={diceValue}/></div>
-      <button className="primary-button dice-button" aria-label={rollLabel} disabled={phase!=='WAITING_ROLL'||exploring} onClick={roll}>{phase==='MOVING'?<Footprints size={20}/>:<Dices size={20}/>}<span className="dice-label-full">{rollLabel}</span><span className="dice-label-compact">{compactRollLabel}</span></button><p><span className="turn-player-label" title={p.name+' 的回合'}>目前是 <strong>{p.name}</strong> 的回合</span>{phase==='MOVING'&&<button className="skip-animation" onClick={skip}>跳過動畫 →</button>}</p>
+    <aside className="turn-panel" aria-label="回合操作" data-dice-phase={dicePhase} data-dice-motion={diceMode}><div className={'illustrated-dice'+(dicePhase==='rolling'&&diceMode!=='reduced'?' dice-spinning':'')}><DiceFace value={diceValue} hiddenResult={dicePhase==='rolling'}/></div>
+      <button className="primary-button dice-button" aria-label={rollLabel} disabled={phase!=='WAITING_ROLL'||exploring} onClick={()=>{if(useGameStore.getState().phase!=='WAITING_ROLL'||exploring)return;const unlocked=gameFeedback.unlock();roll();const revision=useGameStore.getState().revision;void unlocked.then(()=>{const state=useGameStore.getState();if(state.phase==='ROLLING'&&state.revision===revision)gameFeedback.click();});}}>{phase==='MOVING'?<Footprints size={20}/>:<Dices size={20}/>}<span className="dice-label-full">{rollLabel}</span><span className="dice-label-compact">{compactRollLabel}</span></button><p><span className="turn-player-label" title={p.name+' 的回合'}>目前是 <strong>{p.name}</strong> 的回合</span>{(phase==='ROLLING'||phase==='MOVING')&&<button className="skip-animation" onClick={()=>{if(dicePhase==='rolling'||dicePhase==='revealing')skipDice();else skip();}}>跳過動畫 →</button>}</p>
     </aside>
-    <aside className="journey-actions"><button onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={async()=>{try{await loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button></aside>
+    <aside className="journey-actions"><button onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={async()=>{try{await loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button><DicePreferences/></aside>
     {missions&&<aside className="mission-panel"><button className="detail-close" aria-label="關閉照顧任務" onClick={()=>setMissions(false)}>×</button><h2>{p.name} 的照顧任務</h2><ul>{missionSummary(p.learnedServices,p.health,p.stress,p.completedActivities).map(m=><li key={m.label}><span>{m.done?'✓':'○'}</span><div><strong>{m.label}</strong><small>{m.detail}</small></div></li>)}</ul></aside>}
     {message&&<div className="save-toast" role="status">{message}<button aria-label="關閉儲存訊息" onClick={()=>setMessage('')}>×</button></div>}
   </div>;
 };
-function DiceFace({value}:{value:number}){
-  const dots:Record<number,number[][]>={1:[[32,32]],2:[[18,18],[46,46]],3:[[18,18],[32,32],[46,46]],4:[[18,18],[46,18],[18,46],[46,46]],5:[[18,18],[46,18],[32,32],[18,46],[46,46]],6:[[18,16],[46,16],[18,32],[46,32],[18,48],[46,48]]};
-  return <svg viewBox="0 0 80 90" role="img" aria-label={'骰子 '+value+' 點'}><path d="M10 12L60 4L76 20V73L24 85L8 67Z" fill="#dce0c6"/><path d="M10 12L25 29L76 20L60 4Z" fill="#f6f5df"/><path d="M10 12L25 29V84L8 67Z" fill="#c9ceb5"/><g transform="translate(26 27) scale(.65)">{(dots[value]??dots[1]).map(([x,y],i)=><circle key={i} cx={x} cy={y} r="5" fill="#64765e"/>)}</g><ellipse cx="35" cy="15" rx="5" ry="3" fill="#74836a"/></svg>;
+function DiceFace({value,hiddenResult=false}:{value:number;hiddenResult?:boolean}){
+ const patterns:Record<number,number[][]>={1:[[50,50]],2:[[34,34],[66,66]],3:[[34,34],[50,50],[66,66]],4:[[34,34],[66,34],[34,66],[66,66]],5:[[34,34],[66,34],[50,50],[34,66],[66,66]],6:[[34,30],[66,30],[34,50],[66,50],[34,70],[66,70]]};
+ return <svg viewBox="0 0 100 105" role="img" aria-label={hiddenResult?'骰子翻滾中':'骰子 '+value+' 點'}><rect x="15" y="17" width="76" height="80" rx="17" fill="#a5b397"/><rect x="9" y="7" width="82" height="84" rx="17" fill="#fff3dc" stroke="#6a806c" strokeWidth="2"/>{(patterns[value]??patterns[1]).map(([x,y],i)=><circle key={i} cx={x} cy={y} r="5.5" fill="#31594f"/>)}</svg>;
 }
 function Avatar({index}:{index:number}){
  const hair=['#826249','#c98275','#6c6256','#83678a'][index];
