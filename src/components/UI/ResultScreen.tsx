@@ -1,11 +1,12 @@
 import { Activity, Brain, Coins, Crown, Heart, RotateCcw, Sparkles } from 'lucide-react';
 import { useGameStore } from '../../game/store/useGameStore';
 import { missionSummary, getResource } from '../../game/resources';
+import { rankPlayers, scorePlayer } from '../../game/rules/engine';
 
 export const ResultScreen = () => {
   const players = useGameStore((state) => state.players);
   const resetGame = useGameStore((state) => state.resetGame);
-  const sorted = [...players].sort((a, b) => score(b) - score(a));
+  const sorted = rankPlayers(players);
 
   return (
     <div className="result-layer">
@@ -20,7 +21,7 @@ export const ResultScreen = () => {
               <div className="score-rank">{index === 0 ? <Crown size={18} /> : index + 1}</div>
               <span className={'player-avatar small-avatar player-tone-' + player.id}>{['✿', '⌂', '☼', '♡'][player.id]}</span>
               <div className="score-player"><strong>{player.name}</strong><span className="score-resources"><span><Coins size={12} /> ${player.money.toLocaleString()}</span><span><Heart size={12} /> {player.health}</span><span><Brain size={12} /> {player.stress}</span></span></div>
-              <div className="score-total"><small>旅程分數</small><strong>{Math.floor(score(player))}</strong></div>
+              <div className="score-total"><small>旅程分數</small><strong>{Math.floor(scorePlayer(player))}</strong></div>
             </article>
           ))}
         </div>
@@ -32,6 +33,3 @@ export const ResultScreen = () => {
   );
 };
 
-function score(player: { money: number; health: number; stress: number }) {
-  return player.money / 100 + player.health * 2 - player.stress * 2;
-}

@@ -1,0 +1,147 @@
+/* Opt-in UI system: wrap a surface in .senior-ui; use explicit component classes. */
+:root {
+  --senior-font-family: system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --senior-text-sm: 1.071rem;       /* 17.136px: previous secondary size +5% */
+  --senior-text-body: 1.24102125rem; /* 19.85634px: previous body size +5% */
+  --senior-text-lg: 1.3125rem;    /* 21px */
+  --senior-text-title: 1.575rem;  /* 25.2px */
+  --senior-text-value: 1.8375rem; /* 29.4px */
+  --senior-line-height: 1.7;
+  --senior-bg: #f5f0e5;
+  --senior-surface: #ffffff;
+  --senior-ink: #182c25;
+  --senior-muted: #3c4d45;
+  --senior-primary: #164b39;
+  --senior-primary-hover: #103e2e;
+  --senior-primary-active: #0b3023;
+  --senior-secondary-hover: #edf3ef;
+  --senior-secondary-active: #dce8df;
+  --senior-border: #43554d;
+  --senior-disabled-bg: #e4e7e5;
+  --senior-disabled-ink: #35483f;
+  --senior-space-1: 0.5rem;
+  --senior-space-2: max(12px, 0.75rem);
+  --senior-space-3: 1rem;
+  --senior-space-4: 1.5rem;
+  --senior-space-5: 2rem;
+  --senior-radius: 1rem;
+  --senior-shadow: 0 4px 0 #182c25, 0 8px 20px rgb(24 44 37 / 12%);
+  --senior-card-shadow: 0 6px 24px rgb(24 44 37 / 16%);
+  --senior-target: max(50px, 3.125rem);
+  --senior-target-primary: max(58px, 3.625rem);
+}
+
+/* Scoped reset: importing this file does not resize the existing game UI. */
+.senior-ui {
+  font-family: var(--senior-font-family);
+  font-size: var(--senior-text-body);
+  font-weight: 400;
+  line-height: var(--senior-line-height);
+  color: var(--senior-ink);
+  background: var(--senior-bg);
+  overflow-wrap: anywhere;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+.senior-ui, .senior-ui *, .senior-ui *::before, .senior-ui *::after { box-sizing: border-box; }
+.senior-ui :where(h1, h2, h3, p) { margin: 0; }
+.senior-ui :where(button, input, select, textarea) { font: inherit; }
+.senior-ui :where(a) { color: var(--senior-primary); text-decoration: underline; text-underline-offset: 0.2em; }
+.senior-ui :where(img, svg) { max-inline-size: 100%; }
+.senior-ui :where([hidden]) { display: none !important; }
+
+.senior-text-small { font-size: var(--senior-text-sm); }
+.senior-text-body { font-size: var(--senior-text-body); }
+.senior-text-large { font-size: var(--senior-text-lg); }
+.senior-text-title { font-size: var(--senior-text-title); font-weight: 700; }
+.senior-text-value { font-size: var(--senior-text-value); font-weight: 700; }
+.senior-text-secondary { color: var(--senior-muted); }
+.senior-stack { display: grid; gap: var(--senior-space-3); }
+.senior-actions { display: flex; flex-wrap: wrap; gap: var(--senior-space-2); padding-block-end: 4px; }
+
+.senior-btn-primary, .senior-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--senior-space-1);
+  min-inline-size: var(--senior-target);
+  min-block-size: var(--senior-target);
+  max-inline-size: 100%;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid var(--senior-primary);
+  border-radius: var(--senior-radius);
+  font-family: var(--senior-font-family);
+  font-size: var(--senior-text-lg);
+  font-weight: 500;
+  line-height: 1.6;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  box-shadow: var(--senior-shadow);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+.senior-btn-primary { min-block-size: var(--senior-target-primary); color: #fff; background: var(--senior-primary); }
+.senior-btn-secondary { color: var(--senior-primary); background: var(--senior-surface); }
+@media (hover: hover) {
+  .senior-btn-primary:where(:not(:disabled):not([aria-disabled="true"])):hover { background: var(--senior-primary-hover); }
+  .senior-btn-secondary:where(:not(:disabled):not([aria-disabled="true"])):hover { background: var(--senior-secondary-hover); }
+}
+/* Extra resting size keeps the pressed, slightly scaled target above 48px. */
+.senior-btn-primary:where(:not(:disabled):not([aria-disabled="true"])):active { background: var(--senior-primary-active); }
+.senior-btn-secondary:where(:not(:disabled):not([aria-disabled="true"])):active { background: var(--senior-secondary-active); }
+.senior-btn-primary:where(:not(:disabled):not([aria-disabled="true"])):active,
+.senior-btn-secondary:where(:not(:disabled):not([aria-disabled="true"])):active { transform: translateY(2px) scale(0.98); box-shadow: 0 2px 0 #182c25; }
+.senior-btn-primary:disabled, .senior-btn-secondary:disabled,
+.senior-btn-primary[aria-disabled="true"], .senior-btn-secondary[aria-disabled="true"] {
+  color: var(--senior-disabled-ink); background: var(--senior-disabled-bg);
+  border-color: var(--senior-border); box-shadow: none; cursor: not-allowed; opacity: 1;
+}
+.senior-ui :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #182c25;
+  outline-offset: 5px;
+  box-shadow: 0 0 0 5px #fff;
+}
+
+.senior-card, .senior-dialog {
+  color: var(--senior-ink);
+  background: var(--senior-surface); /* Opaque backing: artwork cannot alter text contrast. */
+  border: 2px solid var(--senior-border);
+  border-radius: var(--senior-radius);
+  box-shadow: var(--senior-card-shadow);
+  padding: var(--senior-space-4);
+}
+.senior-dialog {
+  inline-size: min(42rem, calc(100% - 2rem));
+  max-inline-size: none;
+  max-block-size: calc(100vh - 2rem);
+  max-block-size: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+}
+.senior-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+.senior-dialog::backdrop { background: rgb(0 0 0 / 65%); }
+.senior-dialog-header, .senior-dialog-footer { padding: var(--senior-space-4); background: var(--senior-surface); }
+.senior-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--senior-space-2); border-block-end: 2px solid var(--senior-border); }
+.senior-dialog-header h2 { min-inline-size: 0; }
+.senior-dialog-close { flex-shrink: 0; }
+.senior-dialog-body { padding: var(--senior-space-4); overflow: auto; overscroll-behavior: contain; scroll-padding: 1rem; }
+.senior-dialog-footer { border-block-start: 2px solid var(--senior-border); }
+.senior-dialog-footer .senior-actions > * { flex: 1 1 12rem; }
+@media (max-width: 30rem) {
+  .senior-dialog-header, .senior-dialog-footer, .senior-dialog-body { padding: var(--senior-space-3); }
+  .senior-dialog-header { flex-wrap: wrap; }
+  .senior-dialog-close { margin-inline-start: auto; }
+  .senior-actions > * { flex: 1 1 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .senior-btn-primary, .senior-btn-secondary { transition: none; }
+  .senior-btn-primary:active, .senior-btn-secondary:active { transform: none; }
+}
+@media (forced-colors: active) {
+  .senior-btn-primary, .senior-btn-secondary, .senior-card, .senior-dialog { border-color: CanvasText; box-shadow: none; }
+  .senior-ui :focus-visible { outline-color: Highlight; }
+}

@@ -1,0 +1,19 @@
+{
+  "independentBrowserProcesses": 2,
+  "sameProfileTabKeysDifferent": true,
+  "visitorAUnchanged": true,
+  "visitorB": {
+    "players": 1,
+    "round": 2,
+    "position": 3
+  },
+  "visitorC": {
+    "players": 4,
+    "playerIndex": 1,
+    "position": 6
+  },
+  "unknownMapPreserved": true,
+  "storageDeniedStillPlayable": true,
+  "gameDataRequests": 0,
+  "gameWebSockets": 0
+}

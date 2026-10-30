@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import confetti from 'canvas-confetti';
 import { CityExplorer } from './components/UI/CityExplorer';
 import { ResourceBook } from './components/UI/ResourceBook';
 import type { ServiceKey } from './game/types';
@@ -17,6 +18,7 @@ import { SaveNotice } from './components/UI/SaveNotice';
 
 function App() {
   const phase = useGameStore((state) => state.phase);
+  useEffect(()=>{if(phase==='RESULT'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)confetti();},[phase]);
   const [view, setView] = useState<'board' | '3d'>('board');
   const [exploring, setExploring] = useState(false);
   const [resource, setResource] = useState<ServiceKey | null>(null);

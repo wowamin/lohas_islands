@@ -5,6 +5,8 @@ import { BOARD_SIZE } from '../game/cityLayout';
 
 export function MovementController() {
   const phase = useGameStore(s => s.phase);
+  const revision = useGameStore(s => s.revision);
+  const sessionId = useGameStore(s => s.sessionId);
   useEffect(() => {
     if (phase !== 'MOVING') return;
     const state = useGameStore.getState();
@@ -18,7 +20,7 @@ export function MovementController() {
     const finish=()=>{
       if(completed)return;completed=true;window.clearInterval(timer);
       journey.setStep(player.id,(player.position+state.diceValue)%BOARD_SIZE);
-      state.movePlayer();
+      state.movePlayer(state.revision);
       journey.setStep(null,null);
       if(useJourney.getState().follow)journey.setMode('focus',(player.position+state.diceValue)%BOARD_SIZE);
     };
@@ -31,6 +33,6 @@ export function MovementController() {
     }, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 420);
     const unsubscribe=useJourney.subscribe(s=>{if(s.skipRequested)finish();});
     return () => { window.clearInterval(timer);unsubscribe();journey.setStep(null,null); };
-  }, [phase]);
+  }, [phase, revision, sessionId]);
   return null;
 }

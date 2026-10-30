@@ -19,7 +19,8 @@ const CATEGORY: Record<TileType, { title: string; icon: string; color: string }>
 export const EventModal = () => {
   const phase = useGameStore((state) => state.phase);
   const selectedEvent = useGameStore((state) => state.selectedEvent);
-  const resolveEvent = useGameStore((state) => state.resolveEvent);
+  const chooseEvent = useGameStore((state) => state.chooseEvent);
+  const revision = useGameStore((state) => state.revision);
   const eventResultText = useGameStore((state) => state.eventResultText);
   const advanceFromResult = useGameStore((state) => state.advanceFromResult);
   const currentPlayer = useGameStore((state) => state.players[state.currentPlayerIndex]);
@@ -65,7 +66,7 @@ export const EventModal = () => {
                 <div className="event-options">
                   <div className="choose-label">你會怎麼做？</div>
                   {selectedEvent.options.map((option, index) => (
-                    <button className="choice-button" type="button" key={index} onClick={() => resolveEvent(option.effect, option.result)}>
+                    <button className="choice-button" type="button" key={index} onClick={() => chooseEvent(selectedEvent.id, index, revision)}>
                       <span className="choice-copy"><strong>{option.text}</strong><span className="effect-list">{effectSummary(option.effect)}</span></span>
                       
                     </button>
@@ -74,7 +75,7 @@ export const EventModal = () => {
               ) : (
                 <div className="event-single-action">
                   <div className="event-effect-card"><span className="effect-card-icon"><Activity size={17} /></span><div><small>資源變化</small><div className="effect-list">{effectSummary(selectedEvent.effect)}</div></div></div>
-                  <button className="primary-button event-confirm" type="button" onClick={() => resolveEvent(selectedEvent.effect || {}, selectedEvent.result || '')}>了解，繼續前進 </button>
+                  <button className="primary-button event-confirm" type="button" onClick={() => chooseEvent(selectedEvent.id, undefined, revision)}>了解，繼續前進 </button>
                 </div>
               )}
             </div>

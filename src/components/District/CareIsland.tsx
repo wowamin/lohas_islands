@@ -10,6 +10,7 @@ import { QUALITY, useCitySettings } from '../../game/citySettings';
 import { useGameStore } from '../../game/store/useGameStore';
 import { useJourney } from '../../game/journey';
 import { createPawn, createIslandDice } from './gamePieces';
+import { buildLandscape } from './landscape';
 
 export default function CareIsland({night,resetKey,selected,labels,brightness,shadow,onSelect,onCenter,centerId,onUnavailable}:{night:boolean;resetKey:number;brightness:number;shadow:number;selected:number|null;labels:boolean;onSelect:(n:number)=>void;onCenter:(id:CenterId)=>void;centerId:CenterId|null;onUnavailable:()=>void}){
   const host=useRef<HTMLDivElement>(null),stats=useRef<HTMLOutputElement>(null);
@@ -26,6 +27,7 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     let renderer:T.WebGLRenderer;
     try{renderer=new T.WebGLRenderer({antialias:quality==='high',powerPreference:quality==='low'?'low-power':'high-performance'});}catch{handlers.current.onUnavailable();return;}
     const config=QUALITY[quality],model=buildCareIsland(night,quality),scene=new T.Scene();scene.add(model.root);
+    const landscape=buildLandscape(night,quality);scene.add(landscape.root);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,config.dpr));renderer.shadowMap.enabled=config.shadows;
     const lightRig=configureWebGLLighting(renderer,scene,model.root,night,'island',quality!=='high',quality);
     const canvas=renderer.domElement;parent.appendChild(canvas);canvas.setAttribute('aria-label','50 格五間日照中心 3D 城市，可旋轉縮放');canvas.style.touchAction='none';
@@ -63,10 +65,10 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
       dice.root.visible=game.phase==='ROLLING';if(dice.root.visible){dice.update(game.diceValue,!reduced,dt);dirty=true;}
       if(now-lastRender<1000/(quality==='low'?30:60)-1)return;
       if(!reduced){model.update(now/1000,false,camera.zoom);dirty=true;}else if(dirty)model.update(now/1000,true,camera.zoom);
-      if(dirty){renderer.render(scene,camera);for(const c of ISLAND_CENTERS){place(pins.current.get(c.id),...c.at);const p=centerWorld(c,0,2,.8);place(pins.current.get('activity-'+c.id),...p);}for(const t of BOARD_DATA)place(pins.current.get('tile'+t.id),...t.position);dirty=false;rendered++;lastRender=now;}
+      if(dirty){renderer.render(scene,camera);for(const c of ISLAND_CENTERS){place(pins.current.get(c.id),...c.at);}for(const t of BOARD_DATA)place(pins.current.get('tile'+t.id),...t.position);dirty=false;rendered++;lastRender=now;}
       if(now-statSince>=1500){const fps=rendered*1000/(now-statSince);canvas.dataset.fps=fps.toFixed(1);canvas.dataset.calls=String(renderer.info.render.calls);canvas.dataset.triangles=String(renderer.info.render.triangles);canvas.dataset.quality=quality;if(stats.current)stats.current.textContent=`${fps.toFixed(0)} FPS · ${renderer.info.render.calls} calls · ${quality==='low'?'低':quality==='medium'?'中':'高'}畫質`;rendered=0;statSince=now;}
     };frame=requestAnimationFrame(tick);
-    return()=>{api.current=null;cancelAnimationFrame(frame);unsubscribe();unsubscribeJourney();observer.disconnect();controls.dispose();canvas.removeEventListener('webglcontextlost',contextLost);canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointerup',pointerUp);for(const pawn of pawns.values())disposePawn(pawn);dice.dispose();halo.geometry.dispose();(halo.material as T.Material).dispose();lightRig.dispose();model.dispose();renderer.dispose();canvas.remove();};
+    return()=>{api.current=null;cancelAnimationFrame(frame);unsubscribe();unsubscribeJourney();observer.disconnect();controls.dispose();canvas.removeEventListener('webglcontextlost',contextLost);canvas.removeEventListener('pointerdown',pointerDown);canvas.removeEventListener('pointerup',pointerUp);for(const pawn of pawns.values())disposePawn(pawn);dice.dispose();halo.geometry.dispose();(halo.material as T.Material).dispose();lightRig.dispose();landscape.dispose();model.dispose();renderer.dispose();canvas.remove();};
   },[night,quality]);
   useEffect(()=>{api.current?.light(brightness,shadow);},[brightness,shadow,night,quality]);
   useEffect(()=>{api.current?.focus();},[resetKey]);
@@ -76,7 +78,6 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     <div className="island-render" ref={host}/>
     <div className="island-stations" aria-label="50 格城市庭院步道">{BOARD_DATA.map(t=><button key={t.id} ref={el=>{if(el)pins.current.set('tile'+t.id,el);else pins.current.delete('tile'+t.id);}} onClick={()=>onSelect(t.id)} aria-label={`${t.id+1} ${t.name}`} aria-pressed={selected===t.id} title={`${t.id+1} ${t.name} · ${t.role}`}><b>{t.id+1}</b>{labels&&<span>{t.name}</span>}</button>)}</div>
     <div className="island-center-pins">{ISLAND_CENTERS.map(c=><button key={c.id} ref={el=>{if(el)pins.current.set(c.id,el);else pins.current.delete(c.id);}} aria-pressed={centerId===c.id} onClick={()=>selectCenter(c.id)}><i style={{background:c.color}}/>{c.title}{explored.includes(c.id)?' ✓':''}</button>)}</div>
-    <div className="island-center-pins activity-pins">{ISLAND_CENTERS.map(c=><button key={c.id} ref={el=>{if(el)pins.current.set('activity-'+c.id,el);else pins.current.delete('activity-'+c.id);}} aria-label={`${c.title}庭院教育區`} onClick={()=>selectCenter(c.id)}>✧ {labels?c.features[0]:'庭院'}</button>)}</div>
     <div className="island-player-pins" aria-hidden="true">{players.map(p=><div key={p.id} ref={el=>{if(el)playerNodes.current.set(p.id,el);else playerNodes.current.delete(p.id);}} style={{background:p.color}}>{p.id+1}</div>)}</div>
     <button className="island-menu" aria-label="切換地圖導覽" aria-expanded={nav} onClick={()=>setNav(!nav)}>☰</button>
     {nav&&<aside className="island-navigation" aria-label="五間日照中心導覽"><strong>城市導覽 {explored.length}/5</strong>{ISLAND_CENTERS.map(c=><button key={c.id} onClick={()=>selectCenter(c.id)}><i style={{background:c.color}}/>{c.title} {explored.includes(c.id)?'✓':''}</button>)}<small>五區庭院皆在實際行走路線上。主題為遊戲設計。</small><button onClick={()=>setMode('overview')}>⌖ 返回城市全景</button></aside>}

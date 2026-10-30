@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>樂活之島｜高齡友善 UI 範例</title>
+  <link rel="stylesheet" href="./senior-ui.css">
+  <style>body { margin: 0; padding: 1rem; } main { max-width: 48rem; margin: auto; }</style>
+</head>
+<body class="senior-ui">
+  <main class="senior-stack">
+    <h1 class="senior-text-value">樂活之島：任務提示</h1>
+    <section class="senior-card senior-stack" aria-labelledby="task-title">
+      <h2 id="task-title" class="senior-text-title">一起探索庭院</h2>
+      <p class="senior-text-body">閱讀庭院介紹後，選擇是否開始。您可以先返回，準備好了再繼續。</p>
+      <p class="senior-text-small senior-text-secondary">這是介面示範，不會扣款或改變遊戲進度。</p>
+      <div class="senior-actions">
+        <button type="button" class="senior-btn-primary" id="open-task" aria-haspopup="dialog" aria-controls="task-dialog">查看任務</button>
+      </div>
+    </section>
+    <p id="task-status" role="status" aria-live="polite" aria-atomic="true" class="senior-card senior-text-body">尚未開始任務。</p>
+  </main>
+
+  <!-- Native showModal() supplies modal semantics, background inertness and focus containment. -->
+  <dialog id="task-dialog" class="senior-ui senior-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+    <header class="senior-dialog-header">
+      <h2 id="confirm-title" class="senior-text-value">準備開始庭院探索嗎？</h2>
+      <button type="button" class="senior-btn-secondary senior-dialog-close" data-cancel aria-label="關閉任務提示，返回遊戲">
+        <span aria-hidden="true">×</span> 關閉
+      </button>
+    </header>
+    <div class="senior-dialog-body senior-stack">
+      <p id="confirm-description" class="senior-text-body">開始後會顯示庭院的介紹。這項示範操作不會扣款，也不會改變角色位置。</p>
+      <p class="senior-text-small senior-text-secondary">還沒準備好？請選擇「先返回」，或按鍵盤 Esc 鍵關閉。</p>
+    </div>
+    <footer class="senior-dialog-footer">
+      <div class="senior-actions">
+        <!-- The safe action receives initial focus, rather than confirming automatically. -->
+        <button type="button" class="senior-btn-secondary" data-cancel autofocus>先返回</button>
+        <button type="button" class="senior-btn-primary" id="confirm-task">確認開始探索</button>
+      </div>
+    </footer>
+  </dialog>
+  <script type="module">
+    const dialog = document.querySelector('#task-dialog');
+    const opener = document.querySelector('#open-task');
+    const confirm = document.querySelector('#confirm-task');
+    const status = document.querySelector('#task-status');
+    let committed = false;
+    opener.addEventListener('click', () => {
+      committed = false;
+      confirm.disabled = false;
+      dialog.showModal();
+    });
+    document.querySelectorAll('[data-cancel]').forEach(button => {
+      button.addEventListener('click', () => dialog.close('cancel'));
+    });
+    confirm.addEventListener('click', () => {
+      if (committed) return;
+      committed = true;
+      confirm.disabled = true;
+      status.textContent = '已確認開始探索（示範）。您的遊戲數值沒有改變。';
+      dialog.close('confirm');
+    });
+    dialog.addEventListener('close', () => opener.focus());
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const buttons = [...dialog.querySelectorAll('button:not(:disabled)')];
+      const first = buttons[0], last = buttons.at(-1);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault(); first.focus();
+      }
+    });
+    // No backdrop-click handler: accidental clicks outside do not dismiss the task.
+  </script>
+</body>
+</html>

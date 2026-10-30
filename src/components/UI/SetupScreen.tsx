@@ -50,6 +50,7 @@ export const SetupScreen = ({ onResource, onExplore, onLearn }: { onResource: ()
         </div>
 
         <div className="setup-actions">
+          <button className="secondary-button" type="button" onClick={()=>startGame(['旅人'])}>一人開始體驗</button>
           {names.length < 4 && (
             <button className="secondary-button add-player" type="button" onClick={() => setNames((current) => [...current, '玩家 ' + (current.length + 1)])}>
               <Plus size={17} /> 增加玩家

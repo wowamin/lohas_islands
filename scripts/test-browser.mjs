@@ -16,6 +16,7 @@ const profile=await mkdtemp(resolve(tmpdir(),'lohas-browser-'));
 const chrome=spawn(browserPath,['--headless=new','--remote-debugging-port=9338','--remote-allow-origins=http://localhost','--user-data-dir='+profile,'--no-first-run','--no-default-browser-check','--window-size=1440,1000','about:blank'],{windowsHide:true,stdio:'ignore'});
 chrome.on('error',e=>console.error(e.message));
 let socket;const errors=[],failedRequests=[];let id=0;const pending=new Map();
+const extraSockets=[],extraBrowsers=[];
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 try{
  let tabs;
@@ -42,9 +43,46 @@ try{
  await evaluate(`document.querySelector('[aria-label="關閉學習中心"]').click()`);await delay(100);
  await click('增加玩家');await click('增加玩家');
  await click('開始人生旅程');await waitFor('儲存進度');await delay(1200);
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players.length`),4);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players.length`),4);
  assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),50);
- if(process.argv.includes('--mobile-layout')){
+ if(process.argv.includes('--isolation')){
+   const appUrl='http://127.0.0.1:4178'+testBase;
+   async function connect(url){
+     const ws=new WebSocket(url);extraSockets.push(ws);await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});let sequence=0;const requests=new Map();
+     ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const r=requests.get(m.id);if(r){requests.delete(m.id);m.error?r.reject(m.error):r.resolve(m.result);}}if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.exception?.description??m.params.exceptionDetails.text);if(m.method==='Network.webSocketCreated')errors.push('The game opened a WebSocket');if(m.method==='Network.requestWillBeSent'&&['XHR','Fetch'].includes(m.params.type))errors.push('Unexpected game data request: '+m.params.request.url);};
+     const rpc=(method,params={})=>new Promise((resolve,reject)=>{const requestId=++sequence;requests.set(requestId,{resolve,reject});ws.send(JSON.stringify({id:requestId,method,params}));});
+     const evaluate=async expression=>{const r=await rpc('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description??'evaluation');return r.result.value;};
+     const click=async text=>{assert.ok(await evaluate(`(()=>{const b=[...document.querySelectorAll('button')].find(b=>b.textContent.includes(${JSON.stringify(text)})&&!b.disabled);if(!b)return false;b.click();return true;})()`),'button '+text);await delay(100);};
+     const wait=async predicate=>{for(let i=0;i<100;i++){if(await evaluate(predicate))return;await delay(100);}throw Error('Timed out: '+predicate);};
+     return{rpc,evaluate,click,wait,state:()=>evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')))?.state`)};
+   }
+   const version=await(await fetch('http://127.0.0.1:9338/json/version')).json(),browser=await connect(version.webSocketDebuggerUrl);
+   const profileB=await mkdtemp(resolve(tmpdir(),'lohas-visitor-b-'));
+   const chromeB=spawn(browserPath,['--headless=new','--remote-debugging-port=9339','--remote-allow-origins=http://localhost','--user-data-dir='+profileB,'--no-first-run','--no-default-browser-check','about:blank'],{windowsHide:true,stdio:'ignore'});extraBrowsers.push(chromeB);
+   let tabsB;for(let i=0;i<60;i++){try{tabsB=await(await fetch('http://127.0.0.1:9339/json')).json();break;}catch{await delay(200);}}
+   assert.ok(tabsB,'second independent browser starts');
+   const b=await connect(tabsB.find(t=>t.type==='page').webSocketDebuggerUrl);
+   await b.rpc('Runtime.enable');await b.rpc('Network.enable');await b.rpc('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await b.rpc('Page.navigate',{url:appUrl});
+   await b.wait(`document.body.innerText.includes('一人開始體驗')`);await b.click('一人開始體驗');assert.equal((await b.state()).players.length,1);
+   const aKey=await evaluate(`sessionStorage.getItem('lohas-auto-save-key')`),aBefore=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
+   const created=await browser.rpc('Target.createTarget',{url:'about:blank'});const c=await connect('ws://127.0.0.1:9338/devtools/page/'+created.targetId);
+   await c.rpc('Runtime.enable');await c.rpc('Network.enable');await c.rpc('Page.navigate',{url:appUrl});await c.wait(`!!document.querySelector('.dice-button')`);
+   const cKey=await c.evaluate(`sessionStorage.getItem('lohas-auto-save-key')`);assert.notEqual(aKey,cKey,'same-browser tabs get distinct save slots');
+   assert.equal((await c.state()).players.length,4,'new tab forks the existing progress');
+   const cBefore=await c.evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
+   async function playTurn(page){await page.click('擲骰子');await page.wait(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')))?.state.phase==='EVENT'`);await page.evaluate(`document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm').click()`);await delay(100);await page.click('交給下一位');return page.state();}
+   const bAfter=await playTurn(b);assert.equal(bAfter.round,2);assert.ok(bAfter.players[0].position>=1&&bAfter.players[0].position<=6);
+   assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),aBefore);assert.equal(await c.evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),cBefore);
+   const cAfter=await playTurn(c);assert.equal(cAfter.currentPlayerIndex,1);assert.ok(cAfter.players[0].position>0);
+   assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),aBefore,'another tab must not overwrite visitor A');assert.deepEqual(await b.state(),bAfter,'another browser must not alter visitor B');
+   await call('Page.reload');await waitFor('儲存進度');assert.equal(await evaluate(`sessionStorage.getItem('lohas-auto-save-key')`),aKey);assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),0,'reload resumes own progress despite another tab updating latest-save pointer');
+   await b.rpc('Page.reload');await b.wait(`!!document.querySelector('.dice-button')`);assert.deepEqual(await b.state(),bAfter);
+   const unknown=await c.evaluate(`(()=>{const key=sessionStorage.getItem('lohas-auto-save-key'),v=JSON.parse(localStorage.getItem(key));v.state.mapVersion=999;const raw=JSON.stringify(v);localStorage.setItem(key,raw);return raw;})()`);await c.rpc('Page.reload');await c.wait(`document.body.innerText.includes('目前可暫玩')`);await c.click('一人開始體驗');assert.equal(await c.evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),unknown,'unknown map version remains untouched');assert.deepEqual(await b.state(),bAfter);
+   const context=await browser.rpc('Target.createBrowserContext'),newTarget=await browser.rpc('Target.createTarget',{url:'about:blank',browserContextId:context.browserContextId});const d=await connect('ws://127.0.0.1:9338/devtools/page/'+newTarget.targetId);
+   await d.rpc('Runtime.enable');await d.rpc('Page.addScriptToEvaluateOnNewDocument',{source:`Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Storage denied','SecurityError');}});`});await d.rpc('Page.navigate',{url:appUrl});await d.wait(`document.body.innerText.includes('一人開始體驗')`);await d.click('一人開始體驗');await d.wait(`!!document.querySelector('.dice-button')`);await d.click('擲骰子');await d.wait(`!!document.querySelector('.event-dialog[open]')`);
+   assert.equal(errors.length,0,errors.join('\n'));await mkdir('artifacts',{recursive:true});await writeFile('artifacts/phase-a-isolation.json',JSON.stringify({independentBrowserProcesses:2,sameProfileTabKeysDifferent:aKey!==cKey,visitorAUnchanged:true,visitorB:{players:bAfter.players.length,round:bAfter.round,position:bAfter.players[0].position},visitorC:{players:cAfter.players.length,playerIndex:cAfter.currentPlayerIndex,position:cAfter.players[0].position},unknownMapPreserved:true,storageDeniedStillPlayable:true,gameDataRequests:0,gameWebSockets:0},null,2));
+   console.log('PASS: two independent browser processes plus same-profile tabs; independent state/save slots; reload isolation; solo and four-player play; unknown map preserved; denied storage remains playable; no game data requests or WebSockets.');
+ }else if(process.argv.includes('--mobile-layout')){
    const desktop=await evaluate(`(()=>{const r=document.querySelector('.turn-panel').getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height};})()`);
    assert.ok(desktop.x>720&&desktop.y>750,'desktop roll control keeps its existing location');
    const sizes=[[320,740],[390,844],[430,932],[768,1024]];
@@ -60,28 +98,27 @@ try{
      await screenshot('mobile-roll-'+width);
    }
    await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await delay(200);
-   await evaluate(`window.originalRandom=Math.random;Math.random=()=>.49`);
    const point=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
    await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...point});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...point});
-   assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase`),'ROLLING');
+   assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'ROLLING');
    assert.ok(await evaluate(`document.querySelector('.dice-button').disabled`));
-   for(let i=0;i<40;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='MOVING'`))break;await delay(100);}
-   await click('跳過動畫');await evaluate(`Math.random=window.originalRandom`);
-   assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),3);
+   for(let i=0;i<40;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='MOVING'`))break;await delay(100);}
+   await click('跳過動畫');
+   assert.ok(await evaluate(`(()=>{const s=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state;return s.players[0].position===s.diceValue;})()`));
    await evaluate(`document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm').click()`);await delay(100);await click('交給下一位');
    assert.ok(await evaluate(`!document.querySelector('.dice-button').disabled`));
    await click('切換城市探索');assert.ok(await evaluate(`document.querySelector('.dice-button').disabled`));
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
    console.log('PASS: roll panel at mobile lower-left on 320/390/430/768px; desktop unchanged; no control overlaps; 44px touch target; real tap rolls; repeat lock, skip animation, next turn and exploration work.');
  }else{
- const unchanged=await evaluate(`localStorage.getItem('long-care-game-save-v2')`);
+ const unchanged=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
  for(let i=0;i<5;i++){
-   await evaluate(`document.querySelectorAll('.activity-pins>button')[${i}].click()`);await delay(100);
+   await evaluate(`document.querySelectorAll('.island-center-pins>button')[${i}].click()`);await delay(100);
    assert.ok(await evaluate(`document.querySelector('.center-education').innerText.includes('遊戲場景主題')`));
    await evaluate(`document.querySelector('[aria-label="關閉中心介紹並返回城市"]').click()`);await delay(50);
  }
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem('lohas-city-preferences-v1')).state.explored.length`),5);
- assert.equal(await evaluate(`localStorage.getItem('long-care-game-save-v2')`),unchanged,'building exploration never changes game');
+ assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),unchanged,'building exploration never changes game');
  for(const [label,mode]of [['跟隨','follow'],['聚焦','focus'],['全景','overview']]){
    await evaluate(`(()=>{const b=[...document.querySelectorAll('.camera-modes button')].find(b=>b.textContent===${JSON.stringify(label)});b.click();})()`);await delay(100);
    assert.equal(await evaluate(`document.querySelector('.care-island').dataset.cameraMode`),mode);
@@ -96,22 +133,21 @@ try{
  await measure('desktop final medium','medium');
  await delay(700);
  await screenshot('desktop-city');
- await click('儲存進度');await evaluate(`window.originalRandom=Math.random;Math.random=()=>.49`);await click('擲骰子');
- for(let i=0;i<40;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='MOVING'`))break;await delay(100);}
+ await click('儲存進度');await click('擲骰子');
+ for(let i=0;i<40;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='MOVING'`))break;await delay(100);}
  await click('跳過動畫');
- await evaluate(`Math.random=window.originalRandom`);
  // Events have multiple outcomes; wait on persisted authoritative phase instead of a particular card.
- for(let i=0;i<100;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='EVENT'`))break;await delay(100);}
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase`),'EVENT');
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),3,'skip animation retains rolled destination');
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].money`),10000,'skip does not apply event early');
+ for(let i=0;i<100;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='EVENT'`))break;await delay(100);}
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'EVENT');
+ assert.ok(await evaluate(`(()=>{const s=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state;return s.players[0].position===s.diceValue;})()`),'skip animation retains rolled destination');
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].money`),10000,'skip does not apply event early');
  await screenshot('desktop-event');
  await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await delay(500);
  await screenshot('mobile-event');
  await evaluate(`(()=>{const b=document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm');if(b)b.click();})()`);await delay(100);
  await click('交給下一位');await click('讀取存檔');
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.currentPlayerIndex`),0);
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),0);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.currentPlayerIndex`),0);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),0);
  await click('切換城市探索');
  assert.ok(await evaluate(`document.querySelector('.dice-button').disabled`),'exploration pauses roll');
  await measure('mobile viewport 390x844 (desktop Chrome)','low');
@@ -119,7 +155,7 @@ try{
  const graphics=await evaluate(`(()=>{const c=document.querySelector('.island-render canvas'),gl=c.getContext('webgl2'),ext=gl.getExtension('WEBGL_debug_renderer_info');return {vendor:ext?gl.getParameter(ext.UNMASKED_VENDOR_WEBGL):gl.getParameter(gl.VENDOR),renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)};})()`);
  await writeFile('artifacts/performance.json',JSON.stringify({environment:await evaluate('navigator.userAgent'),graphics,note:'Headless desktop Chrome; mobile viewport is not physical mobile hardware. Three samples per configuration; no FPS target assertion.',results:performanceResults},null,2));
  // Return to setup in this isolated profile, retaining the separate learning record.
- await evaluate(`localStorage.removeItem('long-care-game-save-v2');location.reload()`);await waitFor('開始人生旅程');
+ await evaluate(`localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));location.reload()`);await waitFor('開始人生旅程');
  await click('A 個管新進人員訓練');await waitFor('A 個管情境工作坊');await screenshot('mobile-training');
  for(const name of ['提出申請','到府評估','確認 CMS 與額度','擬訂照顧計畫','媒合服務資源','接受服務','追蹤與調整']){
    assert.ok(await evaluate(`(()=>{const b=[...document.querySelectorAll('.flow-options button')].find(b=>b.textContent===${JSON.stringify(name)});if(!b)return false;b.click();return true;})()`));await delay(50);
@@ -132,32 +168,32 @@ try{
  assert.ok(await evaluate(`document.querySelector('.learn-shell').getBoundingClientRect().right<=window.innerWidth`),'mobile dialog within viewport');
  await evaluate(`document.querySelector('[aria-label="關閉學習中心"]').click()`);await delay(100);
  await click('開始人生旅程');await delay(1000);
- const oldRaw=await evaluate(`(()=>{const s=JSON.parse(localStorage.getItem('long-care-game-save-v2')).state;s.players[0].position=39;s.currentPlayerIndex=0;s.phase='WAITING_ROLL';s.selectedEvent=null;s.eventResultText=null;const raw=JSON.stringify({version:1,state:s});localStorage.setItem('long-care-game-save-v1',raw);localStorage.removeItem('long-care-game-save-v2');return raw;})()`);
- await evaluate('location.reload()');await waitFor('已將 40 格存檔轉換');
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),47);
+ const oldRaw=await evaluate(`(()=>{const s=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state;s.players[0].position=39;s.currentPlayerIndex=0;s.phase='WAITING_ROLL';s.selectedEvent=null;s.eventResultText=null;const raw=JSON.stringify({version:1,state:s});localStorage.setItem('long-care-game-save-v1',raw);localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));return raw;})()`);
+ await evaluate('location.reload()');await waitFor('已將舊進度轉為獨立體驗版本');
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),47);
  assert.equal(await evaluate(`localStorage.getItem('long-care-game-save-v1-backup-before-50')`),oldRaw);
  await click('知道了');
- await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem('long-care-game-save-v2'));v.state.players[0].position=48;v.state.diceValue=4;v.state.phase='MOVING';localStorage.setItem('long-care-game-save-v2',JSON.stringify(v));location.reload();})()`);
- for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='EVENT'`))break;await delay(100);}
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),2);
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].money`),11000);
- await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem('long-care-game-save-v2'));v.state.players[0].position=6;v.state.diceValue=2;v.state.phase='MOVING';v.state.selectedEvent=null;v.state.eventResultText=null;localStorage.setItem('long-care-game-save-v2',JSON.stringify(v));location.reload();})()`);
+ await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=48;v.state.diceValue=4;v.state.phase='MOVING';localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
+ for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='EVENT'`))break;await delay(100);}
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),2);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].money`),11000);
+ await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=6;v.state.diceValue=2;v.state.phase='MOVING';v.state.selectedEvent=null;v.state.eventResultText=null;localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
  await waitFor('知識機會卡');
- const beforeKnowledge=await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0]`);
+ const beforeKnowledge=await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0]`);
  await evaluate(`document.querySelector('.event-dialog .choice-button').click()`);await delay(100);
- const afterKnowledge=await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0]`);
+ const afterKnowledge=await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0]`);
  for(const key of ['money','health','stress','position'])assert.equal(afterKnowledge[key],beforeKnowledge[key],'knowledge card retains '+key);
  // Simulate unavailable WebGL at startup, without changing product code or using a test-only product flag.
  await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
- await evaluate(`localStorage.removeItem('long-care-game-save-v2');localStorage.removeItem('long-care-game-save-v1');location.reload()`);await waitFor('開始人生旅程');await click('先逛逛照顧城市');await waitFor('WebGL 不可用');
+ await evaluate(`localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));localStorage.removeItem('long-care-game-save-v1');location.reload()`);await waitFor('開始人生旅程');await click('先逛逛照顧城市');await waitFor('WebGL 不可用');
  assert.equal(await evaluate(`document.querySelectorAll('.city-map-50 [data-tile-id]').length`),50);
  await evaluate(`document.querySelector('.city-map-50 [aria-label="大和日照中心"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);await waitFor('健康管理與生活照顧');
  await screenshot('mobile-2d-fallback');
  await evaluate(`document.querySelector('[aria-label="關閉中心介紹並返回城市"]').click()`);await delay(100);await screenshot('mobile-2d-overview');await click('開始 2–4 人旅程');await click('開始人生旅程');await click('擲骰子');
- for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='EVENT'`))break;await delay(100);}
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase`),'EVENT','2D fallback is playable');
+ for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='EVENT'`))break;await delay(100);}
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'EVENT','2D fallback is playable');
  assert.equal(errors.length,0,errors.join('\n'));
  assert.deepEqual(failedRequests,[],`no missing deployment assets at ${testBase}`);
  console.log('PASS: 50 stops, four players, five courtyard interactions and isolation, all camera modes, three quality levels, skip animation, wrap recovery, legacy backup/migration, training and manual saves, desktop/mobile layouts, playable no-WebGL fallback. Performance samples: artifacts/performance.json.');
  }
-}finally{socket?.close();chrome.kill();await new Promise(r=>server.close(r));}
+}finally{for(const ws of extraSockets)ws.close();for(const process of extraBrowsers)process.kill();socket?.close();chrome.kill();await new Promise(r=>server.close(r));}

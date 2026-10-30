@@ -20,7 +20,7 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
   const tile=BOARD_DATA[position];
   const rollLabel=exploring?'探索中 · 回合暫停':phase==='ROLLING'?'擲骰中…':phase==='MOVING'?'前進 '+diceValue+' 格…':'擲骰子';
   const compactRollLabel=exploring?'探索暫停':phase==='MOVING'?'前進中':rollLabel;
-  const save=()=>{try{saveSnapshot();setMessage('已建立手動存檔，可用「讀取存檔」恢復。');}catch{setMessage('目前無法儲存；請等回合完成並確認瀏覽器儲存權限。');}};
+  const save=async()=>{try{await saveSnapshot();setMessage('已建立手動存檔，可用「讀取存檔」恢復。');}catch{setMessage('目前無法儲存；請等回合完成並確認瀏覽器儲存權限。');}};
   return <div className="hud-layer journey-hud">
     <header className="hud-header"><div className="brand-lockup"><span className="group-mark">樂</span><span><strong>樂活長照集團</strong><small>ALL AGES CARE GROUP</small><em>陪你走更安心的每一天</em></span></div></header>
     <div className="journey-title"><h1>長照人生旅程 <small>3.0</small></h1><p>走進日常，認識長照，發現更安心的未來</p></div>
@@ -32,7 +32,7 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
     <aside className="turn-panel" aria-label="回合操作"><div className={'illustrated-dice'+(phase==='ROLLING'?' dice-spinning':'')} aria-live="polite"><DiceFace value={diceValue}/></div>
       <button className="primary-button dice-button" aria-label={rollLabel} disabled={phase!=='WAITING_ROLL'||exploring} onClick={roll}>{phase==='MOVING'?<Footprints size={20}/>:<Dices size={20}/>}<span className="dice-label-full">{rollLabel}</span><span className="dice-label-compact">{compactRollLabel}</span></button><p><span className="turn-player-label" title={p.name+' 的回合'}>目前是 <strong>{p.name}</strong> 的回合</span>{phase==='MOVING'&&<button className="skip-animation" onClick={skip}>跳過動畫 →</button>}</p>
     </aside>
-    <aside className="journey-actions"><button onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={()=>{try{loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button></aside>
+    <aside className="journey-actions"><button onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={async()=>{try{await loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button></aside>
     {missions&&<aside className="mission-panel"><button className="detail-close" aria-label="關閉照顧任務" onClick={()=>setMissions(false)}>×</button><h2>{p.name} 的照顧任務</h2><ul>{missionSummary(p.learnedServices,p.health,p.stress,p.completedActivities).map(m=><li key={m.label}><span>{m.done?'✓':'○'}</span><div><strong>{m.label}</strong><small>{m.detail}</small></div></li>)}</ul></aside>}
     {message&&<div className="save-toast" role="status">{message}<button aria-label="關閉儲存訊息" onClick={()=>setMessage('')}>×</button></div>}
   </div>;

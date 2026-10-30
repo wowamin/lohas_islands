@@ -12,20 +12,20 @@
       "samples": [
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         },
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         },
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         }
       ]
@@ -36,20 +36,20 @@
       "samples": [
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         }
       ]
@@ -60,20 +60,20 @@
       "samples": [
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 62248,
+          "calls": 205,
+          "triangles": 68030,
           "quality": "high"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 62248,
+          "calls": 205,
+          "triangles": 68030,
           "quality": "high"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 62248,
+          "calls": 205,
+          "triangles": 68030,
           "quality": "high"
         }
       ]
@@ -84,20 +84,20 @@
       "samples": [
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         },
         {
           "fps": 60,
-          "calls": 194,
-          "triangles": 61048,
+          "calls": 205,
+          "triangles": 66650,
           "quality": "medium"
         }
       ]
@@ -108,20 +108,20 @@
       "samples": [
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         },
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         },
         {
           "fps": 30,
-          "calls": 131,
-          "triangles": 36688,
+          "calls": 142,
+          "triangles": 39820,
           "quality": "low"
         }
       ]
