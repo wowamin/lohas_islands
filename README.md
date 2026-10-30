@@ -1,4 +1,4 @@
-﻿# 長照人生旅程 3.0｜50 格五大日照中心城市
+# 長照人生旅程 3.0｜50 格五大日照中心城市
 
 在既有 React／Three.js／Zustand 專案上升級，沒有重建不相容的新遊戲。固定 50 格、五中心各 10 格，路線穿越各庭院。保留原 40 格事件與相對順序、2–4 人輪流、原始數值效果與 12 輪結算，另加入 10 個無數值效果的知識／轉場格。
 
@@ -58,3 +58,16 @@ Vite 正式輸出在 dist/，須透過 HTTP 伺服器開啟。瀏覽器測試先
 完整檔案清單、階段測試、架構與風險見 [IMPLEMENTATION_REPORT.md](IMPLEMENTATION_REPORT.md)。
 
 效能樣本見 artifacts/performance.json，僅代表本機無頭 Chrome。手機尺寸模擬不等於手機硬體測試；不保證所有電腦 60 FPS 或手機 30 FPS。大型 Three.js 共用區塊仍有 Vite 建置提醒，後續可再拆分與壓縮資產。
+
+## GitHub Pages 部署
+
+GitHub Pages 不能直接執行倉庫根目錄的 /src/main.tsx。請使用本專案 .github/workflows/deploy-pages.yml，由 Actions 安裝依賴、測試、Vite 建置，再只發布 dist/。
+
+1. 推送修正至 GitHub。
+2. 在倉庫 Settings → Pages → Build and deployment → Source 選擇 GitHub Actions（不要使用從 main 根目錄直接發布的 Jekyll 流程）。
+3. 在 Actions 確認「Build and deploy Vite to GitHub Pages」完成；可手動 Run workflow。
+4. 開啟 https://wowamin.github.io/lohas_islands/ 。
+
+Vite 使用相對 base，支援此子目錄及網域根目錄。不要把 src/ 或原始 index.html 當正式網站發布，也不要單獨上傳 dist/index.html 而漏掉 assets/。
+
+部署路徑檢查：先 npm.cmd run build，再 node scripts/test-deploy.mjs。瀏覽器子目錄驗證可設定 LOHAS_TEST_BASE=/lohas_islands/ 後執行 npm.cmd run test:browser。測試中所有網站請求都必須留在子目錄。
