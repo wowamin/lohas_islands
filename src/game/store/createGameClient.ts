@@ -2,8 +2,9 @@ import { create } from 'zustand';
 import type { GameSnapshot } from '../rules/model';
 import type { GameSessionAdapter } from '../session/GameSessionAdapter';
 import { MAP_ID, MAP_VERSION, RULES_VERSION } from '../mapDefinition';
+import type { CharacterId } from '../characters';
 export interface GameActions {
-  sessionId:string;startGame:(names:string[])=>void;rollDice:()=>void;movePlayer:(revision?:number)=>void;
+  sessionId:string;startGame:(names:string[],characterIds?:CharacterId[])=>void;rollDice:()=>void;movePlayer:(revision?:number)=>void;
   completeRoll:(revision:number)=>void;
   chooseEvent:(eventId:string,optionIndex?:number,revision?:number)=>void;advanceFromResult:()=>void;resetGame:()=>void;
 }
@@ -12,7 +13,7 @@ function compatible(adapter:GameSessionAdapter){const info=adapter.getInfo();if(
 export function createGameClient(initialAdapter:GameSessionAdapter){
   compatible(initialAdapter);let adapter=initialAdapter;
   const useStore=create<GameClientState>(()=>({...adapter.getSnapshot(),sessionId:adapter.getInfo().id,
-    startGame:names=>{void adapter.dispatch({type:'START_GAME',names});},
+    startGame:(names,characterIds)=>{void adapter.dispatch({type:'START_GAME',names,characterIds});},
     rollDice:()=>{void adapter.dispatch({type:'ROLL_DICE',expectedRevision:adapter.getSnapshot().revision});},
     completeRoll:revision=>{void adapter.dispatch({type:'COMPLETE_ROLL',expectedRevision:revision});},
     movePlayer:revision=>{void adapter.dispatch({type:'COMPLETE_MOVEMENT',expectedRevision:revision??adapter.getSnapshot().revision});},

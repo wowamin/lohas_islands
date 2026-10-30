@@ -12,8 +12,10 @@ import { useJourney } from '../../game/journey';
 import { createPawn, createIslandDice } from './gamePieces';
 import { buildLandscape } from './landscape';
 import { diceAnimation, useDicePresentation } from '../../game/dice/presentation';
+import { resolveCharacter } from '../../game/characters';
+import type { createCharacterActor } from '../Characters/actor';
 
-export default function CareIsland({night,resetKey,selected,labels,brightness,shadow,onSelect,onCenter,centerId,onUnavailable}:{night:boolean;resetKey:number;brightness:number;shadow:number;selected:number|null;labels:boolean;onSelect:(n:number)=>void;onCenter:(id:CenterId)=>void;centerId:CenterId|null;onUnavailable:()=>void}){
+export default function CareIsland({night,resetKey,selected,labels,brightness,shadow,onSelect,onCenter,centerId,onUnavailable}:{night:boolean;resetKey:number;brightness:number;shadow:number;selected:number|null;labels:boolean;onSelect:(n:number)=>void;onCenter:(id:CenterId,point:{x:number;y:number})=>void;centerId:CenterId|null;onUnavailable:()=>void}){
   const host=useRef<HTMLDivElement>(null),stats=useRef<HTMLOutputElement>(null);
   const pins=useRef(new Map<string,HTMLButtonElement>()),playerNodes=useRef(new Map<number,HTMLDivElement>());
   const handlers=useRef({onCenter,onUnavailable});handlers.current={onCenter,onUnavailable};
@@ -36,11 +38,11 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     const controls=new OrbitControls(camera,canvas);controls.target.set(0,.2,0);controls.enableDamping=true;controls.dampingFactor=.12;controls.rotateSpeed=.45;
     const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');let reduced=motionPreference.matches;
     const pawns=new Map<number,T.Group>();
-    function disposePawn(pawn:T.Group){pawn.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});}
-    function syncPlayers(){const state=useGameStore.getState();for(const[id,pawn]of pawns)if(!state.players.some(p=>p.id===id&&p.color===pawn.userData.color)){scene.remove(pawn);disposePawn(pawn);pawns.delete(id);}for(const p of state.players){if(!pawns.has(p.id)){const pawn=createPawn(p.color);pawn.userData.color=p.color;pawns.set(p.id,pawn);scene.add(pawn);}}dirty=true;}
+    function disposePawn(pawn:T.Group){(pawn.userData.characterActor as ReturnType<typeof createCharacterActor>).dispose();}
+    function syncPlayers(){const state=useGameStore.getState();for(const[id,pawn]of pawns)if(!state.players.some(p=>p.id===id&&p.color===pawn.userData.color&&resolveCharacter(p.characterId,p.id)===pawn.userData.characterId)){scene.remove(pawn);disposePawn(pawn);pawns.delete(id);}for(const p of state.players){if(!pawns.has(p.id)){const pawn=createPawn(p.color,resolveCharacter(p.characterId,p.id),quality,p.id);pawns.set(p.id,pawn);scene.add(pawn);}}dirty=true;}
     const dice=createIslandDice();scene.add(dice.root);
     const halo=new T.Mesh(new T.RingGeometry(.32,.43,20),new T.MeshBasicMaterial({color:'#fff1a4',side:T.DoubleSide}));halo.rotation.x=-Math.PI/2;scene.add(halo);
-    const vector=new T.Vector3(),target=new T.Vector3(),followTarget=new T.Vector3(),cameraTarget=new T.Vector3(),offset=new T.Vector3(21,27,30);
+    const vector=new T.Vector3(),followTarget=new T.Vector3(),cameraTarget=new T.Vector3(),offset=new T.Vector3(21,27,30);
     let dirty=true,frame=0,lastTime=0,lastRender=0,statSince=0,rendered=0,flight:{at:T.Vector3;camera:T.Vector3;zoom:number}|null=null;
     const updateMotionPreference=()=>{reduced=motionPreference.matches;dirty=true;};motionPreference.addEventListener('change',updateMotionPreference);
     const focus=(at?:readonly number[])=>{const atVector=at?new T.Vector3(at[0],.3,at[2]):new T.Vector3(0,.2,0);const targetCamera=atVector.clone().add(offset);flight={at:atVector,camera:targetCamera,zoom:at?(parent.clientWidth<800?1.5:1.7):1};dirty=true;};
@@ -50,7 +52,7 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
     const onChange=()=>{dirty=true;};const onStart=()=>{flight=null;if(useJourney.getState().mode==='follow')useJourney.getState().setMode('overview');};controls.addEventListener('change',onChange);controls.addEventListener('start',onStart);
     const raycaster=new T.Raycaster(),pointer=new T.Vector2();let pointerX=0,pointerY=0;
     const pointerDown=(e:PointerEvent)=>{pointerX=e.clientX;pointerY=e.clientY;};
-    const pointerUp=(e:PointerEvent)=>{if(Math.hypot(e.clientX-pointerX,e.clientY-pointerY)>5)return;const rect=canvas.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);for(const hit of raycaster.intersectObject(model.root,true)){const ids=hit.object.userData.centerIds as (CenterId|undefined)[]|undefined;const id=hit.instanceId!==undefined?ids?.[hit.instanceId]:undefined;if(id){handlers.current.onCenter(id);break;}}};
+    const pointerUp=(e:PointerEvent)=>{if(Math.hypot(e.clientX-pointerX,e.clientY-pointerY)>5)return;const rect=canvas.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);for(const hit of raycaster.intersectObject(model.root,true)){const ids=hit.object.userData.centerIds as (CenterId|undefined)[]|undefined;const id=hit.instanceId!==undefined?ids?.[hit.instanceId]:undefined;if(id){handlers.current.onCenter(id,{x:e.clientX,y:e.clientY});break;}}};
     const contextLost=(e:Event)=>{e.preventDefault();handlers.current.onUnavailable();};canvas.addEventListener('webglcontextlost',contextLost);canvas.addEventListener('pointerdown',pointerDown);canvas.addEventListener('pointerup',pointerUp);
     function place(element:HTMLElement|undefined,x:number,y:number,z:number,dx=0,dy=0){if(!element)return;vector.set(x,y,z).project(camera);const sx=(vector.x*.5+.5)*parent.clientWidth+dx,sy=(-vector.y*.5+.5)*parent.clientHeight+dy;element.style.transform=`translate(${sx}px,${sy}px) translate(-50%,-50%)`;element.style.visibility=sx>0&&sy>0&&sx<parent.clientWidth&&sy<parent.clientHeight?'visible':'hidden';}
     const unsubscribe=useGameStore.subscribe(syncPlayers);syncPlayers();const unsubscribeJourney=useJourney.subscribe(()=>{dirty=true;});
@@ -62,7 +64,7 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
       const smooth=reduced?1:1-Math.exp(-dt*6);
       if(journey.mode==='follow'&&current){const p=BOARD_DATA[journey.position??current.position].position;followTarget.set(p[0],.3,p[2]);cameraTarget.copy(followTarget).add(offset);camera.position.lerp(cameraTarget,smooth);controls.target.lerp(followTarget,smooth);camera.zoom=T.MathUtils.lerp(camera.zoom,parent.clientWidth<800?1.4:1.6,smooth);camera.updateProjectionMatrix();dirty=true;flight=null;}
       else if(flight){camera.position.lerp(flight.camera,smooth);controls.target.lerp(flight.at,smooth);camera.zoom=T.MathUtils.lerp(camera.zoom,flight.zoom,smooth);camera.updateProjectionMatrix();dirty=true;if(camera.position.distanceToSquared(flight.camera)<.0004&&Math.abs(camera.zoom-flight.zoom)<.002)flight=null;}
-      for(const p of game.players){const pawn=pawns.get(p.id);if(!pawn)continue;const at=journey.playerId===p.id&&journey.position!==null?journey.position:p.position,pos=BOARD_DATA[at].position;target.set(pos[0]+(p.id%2)*.25,pos[1],pos[2]+Math.floor(p.id/2)*.25);if(!pawn.userData.placed){pawn.position.copy(target);pawn.userData.placed=true;dirty=true;}if(pawn.position.distanceToSquared(target)>.00001){pawn.position.lerp(target,reduced?1:1-Math.exp(-dt*14));dirty=true;}if(journey.playerId===p.id&&!reduced){pawn.position.y=target.y+Math.abs(Math.sin(now*.012))*.1;dirty=true;}place(playerNodes.current.get(p.id),pawn.position.x,pawn.position.y+.9,pawn.position.z,(p.id%2)*24-12,-Math.floor(p.id/2)*27);}
+      for(const p of game.players){const pawn=pawns.get(p.id);if(!pawn)continue;const actor=pawn.userData.characterActor as ReturnType<typeof createCharacterActor>;actor.update({delta:dt,position:p.position,visualPosition:journey.position,moving:journey.playerId===p.id,active:current?.id===p.id,phase:game.phase,dicePhase:useDicePresentation.getState().phase,reducedMotion:reduced,worldPosition:routeIndex=>BOARD_DATA[routeIndex].position});if(!reduced||game.phase==='MOVING')dirty=true;place(playerNodes.current.get(p.id),pawn.position.x,pawn.position.y+actor.model.height+.12,pawn.position.z,(p.id%2)*24-12,-Math.floor(p.id/2)*27);}
       halo.visible=!!current;if(current){const p=BOARD_DATA[journey.position??current.position].position;halo.position.set(p[0],.25,p[2]);}
       const presentation=useDicePresentation.getState();
       const showDice=game.phase==='ROLLING'||presentation.phase==='revealing';
@@ -78,14 +80,14 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
   useEffect(()=>{api.current?.light(brightness,shadow);},[brightness,shadow,night,quality]);
   useEffect(()=>{api.current?.focus();},[resetKey]);
   useEffect(()=>{if(mode==='overview')api.current?.focus();else if(mode==='focus'){const index=focusIndex??0;const center=CENTERS[Math.floor(index/10)];api.current?.focus(selected!==null?BOARD_DATA[selected].position:centerWorld(center,0,2));}},[mode,focusIndex,selected,night,quality]);
-  const selectCenter=(id:CenterId)=>{onCenter(id);};
+  const selectCenter=(id:CenterId,point:{x:number;y:number})=>{onCenter(id,point);};
   return <div className="care-island" data-camera-mode={mode}>
     <div className="island-render" ref={host}/>
     <div className="island-stations" aria-label="50 格城市庭院步道">{BOARD_DATA.map(t=><button key={t.id} ref={el=>{if(el)pins.current.set('tile'+t.id,el);else pins.current.delete('tile'+t.id);}} onClick={()=>onSelect(t.id)} aria-label={`${t.id+1} ${t.name}`} aria-pressed={selected===t.id} title={`${t.id+1} ${t.name} · ${t.role}`}><b>{t.id+1}</b>{labels&&<span>{t.name}</span>}</button>)}</div>
-    <div className="island-center-pins">{ISLAND_CENTERS.map(c=><button key={c.id} ref={el=>{if(el)pins.current.set(c.id,el);else pins.current.delete(c.id);}} aria-pressed={centerId===c.id} onClick={()=>selectCenter(c.id)}><i style={{background:c.color}}/>{c.title}{explored.includes(c.id)?' ✓':''}</button>)}</div>
+    <div className="island-center-pins">{ISLAND_CENTERS.map(c=><button key={c.id} ref={el=>{if(el)pins.current.set(c.id,el);else pins.current.delete(c.id);}} aria-pressed={centerId===c.id} onClick={e=>selectCenter(c.id,{x:e.clientX,y:e.clientY})}><i style={{background:c.color}}/>{c.title}{explored.includes(c.id)?' ✓':''}</button>)}</div>
     <div className="island-player-pins" aria-hidden="true">{players.map(p=><div key={p.id} ref={el=>{if(el)playerNodes.current.set(p.id,el);else playerNodes.current.delete(p.id);}} style={{background:p.color}}>{p.id+1}</div>)}</div>
     <button className="island-menu" aria-label="切換地圖導覽" aria-expanded={nav} onClick={()=>setNav(!nav)}>☰</button>
-    {nav&&<aside className="island-navigation" aria-label="五間日照中心導覽"><strong>城市導覽 {explored.length}/5</strong>{ISLAND_CENTERS.map(c=><button key={c.id} onClick={()=>selectCenter(c.id)}><i style={{background:c.color}}/>{c.title} {explored.includes(c.id)?'✓':''}</button>)}<small>五區庭院皆在實際行走路線上。主題為遊戲設計。</small><button onClick={()=>setMode('overview')}>⌖ 返回城市全景</button></aside>}
+    {nav&&<aside className="island-navigation" aria-label="五間日照中心導覽"><strong>城市導覽 {explored.length}/5</strong>{ISLAND_CENTERS.map(c=><button key={c.id} onClick={e=>selectCenter(c.id,{x:e.clientX,y:e.clientY})}><i style={{background:c.color}}/>{c.title} {explored.includes(c.id)?'✓':''}</button>)}<small>五區庭院皆在實際行走路線上。主題為遊戲設計。</small><button onClick={()=>setMode('overview')}>⌖ 返回城市全景</button></aside>}
     <div className="camera-modes" aria-label="鏡頭模式">{(['overview','follow','focus'] as const).map(m=><button key={m} aria-pressed={mode===m} disabled={m!=='overview'&&!players.length&&centerId===null} onClick={()=>setMode(m,m==='focus'?(players[useGameStore.getState().currentPlayerIndex]?.position??0):undefined)}>{m==='overview'?'全景':m==='follow'?'跟隨':'聚焦'}</button>)}</div>
     <div className="island-zoom"><button aria-label="縮小城市" onClick={()=>api.current?.zoom(.85)}>−</button><button aria-label="放大城市" onClick={()=>api.current?.zoom(1.15)}>＋</button></div>
     <output className="city-performance" ref={stats} aria-label="目前渲染效能">量測中…{phase==='SETUP'?'':''}</output>

@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Heart, Minus, Plus, Sparkles, UsersRound } from 'lucide-react';
 import { useGameStore } from '../../game/store/useGameStore';
+import { CHARACTERS, defaultCharacter } from '../../game/characters';
+import type { CharacterId } from '../../game/characters';
+import { CharacterPortrait } from '../Characters/CharacterPortrait';
+const CharacterPicker=lazy(()=>import('../Characters/CharacterPicker'));
 
 const MARKS = ['✿', '⌂', '☼', '♡'];
 
 export const SetupScreen = ({ onResource, onExplore, onLearn }: { onResource: () => void; onExplore: () => void; onLearn:()=>void }) => {
   const [names, setNames] = useState(['玩家 1', '玩家 2']);
+  const [characters,setCharacters]=useState<CharacterId[]>(['grandpa','grandma']);
+  const [editingCharacter,setEditingCharacter]=useState<number|null>(null);
   const startGame = useGameStore((state) => state.startGame);
 
   const updateName = (index: number, value: string) => {
@@ -40,8 +46,9 @@ export const SetupScreen = ({ onResource, onExplore, onLearn }: { onResource: ()
                   maxLength={12}
                 />
               </span>
+              <button type="button" className="character-trigger" aria-label={`玩家 ${index+1} 選擇角色，目前${CHARACTERS[characters[index]??defaultCharacter(index)].name}`} onClick={()=>setEditingCharacter(index)}><CharacterPortrait characterId={characters[index]??defaultCharacter(index)} aria-hidden="true"/>{CHARACTERS[characters[index]??defaultCharacter(index)].name} ▾</button>
               {names.length > 2 && (
-                <button className="icon-button remove-player" type="button" aria-label={'移除玩家 ' + (index + 1)} onClick={() => setNames((current) => current.filter((_, i) => i !== index))}>
+                <button className="icon-button remove-player" type="button" aria-label={'移除玩家 ' + (index + 1)} onClick={() => {setNames((current) => current.filter((_, i) => i !== index));setCharacters(current=>current.filter((_,i)=>i!==index));}}>
                   <Minus size={17} />
                 </button>
               )}
@@ -50,18 +57,19 @@ export const SetupScreen = ({ onResource, onExplore, onLearn }: { onResource: ()
         </div>
 
         <div className="setup-actions">
-          <button className="secondary-button" type="button" onClick={()=>startGame(['旅人'])}>一人開始體驗</button>
+          <button className="secondary-button" type="button" onClick={()=>startGame(['旅人'],[characters[0]])}>一人開始體驗</button>
           {names.length < 4 && (
-            <button className="secondary-button add-player" type="button" onClick={() => setNames((current) => [...current, '玩家 ' + (current.length + 1)])}>
+            <button className="secondary-button add-player" type="button" onClick={() => {setNames((current) => [...current, '玩家 ' + (current.length + 1)]);setCharacters(current=>[...current,defaultCharacter(current.length)]);}}>
               <Plus size={17} /> 增加玩家
             </button>
           )}
-          <button className="primary-button start-button" type="button" onClick={() => startGame(names.map((name, index) => name.trim() || '玩家 ' + (index + 1)))}>
+          <button className="primary-button start-button" type="button" onClick={() => startGame(names.map((name, index) => name.trim() || '玩家 ' + (index + 1)),characters)}>
             開始人生旅程 <span>✦</span>
           </button>
         </div>
         <div className="setup-note">支援 2–4 人，同一台裝置輪流遊玩</div>
       </div></section>
+      {editingCharacter!==null&&<Suspense fallback={<p role="status">正在準備角色預覽…</p>}><CharacterPicker playerName={names[editingCharacter]} selected={characters[editingCharacter]??defaultCharacter(editingCharacter)} color={['#D88C65','#89B5AD','#D5B86A','#58463B'][editingCharacter]} onClose={()=>setEditingCharacter(null)} onConfirm={id=>{setCharacters(current=>current.map((value,i)=>i===editingCharacter?id:value));setEditingCharacter(null);}}/></Suspense>}
     </div>
   );
 };

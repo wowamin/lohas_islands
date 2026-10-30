@@ -6,7 +6,7 @@ import { decodeSave, SAVE_VERSION } from '../storage/saveCodec';
 
 export interface SessionScheduler {set(callback:()=>void,delay:number):unknown;clear(handle:unknown):void}
 const scheduler:SessionScheduler={set:(callback,delay)=>setTimeout(callback,delay),clear:handle=>clearTimeout(handle as ReturnType<typeof setTimeout>)};
-const commandKeys:Record<GameCommand['type'],string[]>={START_GAME:['names'],ROLL_DICE:[],COMPLETE_ROLL:[],COMPLETE_MOVEMENT:[],CHOOSE_EVENT:['eventId','optionIndex'],ADVANCE_TURN:[],RESET_GAME:[]};
+const commandKeys:Record<GameCommand['type'],string[]>={START_GAME:['names','characterIds'],ROLL_DICE:[],COMPLETE_ROLL:[],COMPLETE_MOVEMENT:[],CHOOSE_EVENT:['eventId','optionIndex'],ADVANCE_TURN:[],RESET_GAME:[]};
 function immutable(snapshot:GameSnapshot):GameSnapshot{
   const copy=structuredClone(snapshot);
   const freeze=(value:unknown)=>{if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.freeze(value);Object.values(value).forEach(freeze);}};freeze(copy);return copy;
@@ -36,7 +36,7 @@ export class LocalGameSession implements GameSessionAdapter {
     if(command.expectedRevision!==undefined&&command.expectedRevision!==this.current.revision)return reject('操作版本已過期');
     let next=this.current;
     switch(command.type){
-      case 'START_GAME':next=startGame(this.current,command.names);if(next!==this.current)this.cancelTimer();break;
+      case 'START_GAME':next=startGame(this.current,command.names,command.characterIds);if(next!==this.current)this.cancelTimer();break;
       case 'ROLL_DICE':{
         if(this.current.phase!=='WAITING_ROLL')return reject('目前不可擲骰');
         next=beginRoll(this.current,rollDie(this.random()));

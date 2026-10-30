@@ -35,3 +35,4 @@ for(const night of [false,true])for(const layout of ['island','district']){
 }
 console.log('PASS: original event effects, duplicate guards, tasks, bounds, 12-round result, scene thickness, district links, day/night materials and bounded shadows.');
 await import('./test-dice.mjs');
+await import('./test-characters.mjs');

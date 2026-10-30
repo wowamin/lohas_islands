@@ -31,3 +31,7 @@
   .camera-modes{width:min(180px,calc(50vw - 9px))}
   .game-app .journey-hud .turn-panel{left:22.5px!important;width:min(225px,calc(62.5vw - 11.25px))!important}
 }
+.game-app .center-education{
+  position:fixed!important;left:var(--center-education-left)!important;top:var(--center-education-top)!important;
+  right:auto!important;bottom:auto!important;transform:none!important;max-height:calc(100dvh - 24px);overflow-y:auto;
+}
