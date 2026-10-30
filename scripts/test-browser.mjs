@@ -8,12 +8,14 @@ import assert from 'node:assert/strict';
 // Uses an installed browser, Node's native WebSocket and an isolated temporary profile.
 const browserPath=process.env.CHROME_PATH??'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const root=resolve('dist');
-const server=createServer(async(req,res)=>{try{const path=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(path!==root&&!path.startsWith(root+sep))throw Error('path');const file=path===root?resolve(root,'index.html'):path;res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.svg':'image/svg+xml','.png':'image/png'})[extname(file)]??'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found');}});
+const testBase=process.env.LOHAS_TEST_BASE??'/';
+assert.match(testBase,/^\/(?:[a-zA-Z0-9_-]+\/)*$/,'test deployment base must begin and end with /');
+const server=createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);if(!pathname.startsWith(testBase))throw Error('outside base');const path=resolve(root,pathname.slice(testBase.length)||'index.html');if(path!==root&&!path.startsWith(root+sep))throw Error('path');const file=path===root?resolve(root,'index.html'):path;res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.svg':'image/svg+xml','.png':'image/png'})[extname(file)]??'application/octet-stream');res.end(await readFile(file));}catch{res.statusCode=404;res.end('Not found');}});
 await new Promise(r=>server.listen(4178,'127.0.0.1',r));
 const profile=await mkdtemp(resolve(tmpdir(),'lohas-browser-'));
 const chrome=spawn(browserPath,['--headless=new','--remote-debugging-port=9338','--remote-allow-origins=http://localhost','--user-data-dir='+profile,'--no-first-run','--no-default-browser-check','--window-size=1440,1000','about:blank'],{windowsHide:true,stdio:'ignore'});
 chrome.on('error',e=>console.error(e.message));
-let socket;const errors=[];let id=0;const pending=new Map();
+let socket;const errors=[],failedRequests=[];let id=0;const pending=new Map();
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 try{
  let tabs;
@@ -21,14 +23,14 @@ try{
  assert.ok(tabs,'browser debugging endpoint');
  socket=new WebSocket(tabs.find(t=>t.type==='page').webSocketDebuggerUrl);
  await new Promise((r,j)=>{socket.onopen=r;socket.onerror=j;});
- socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);if(!p)return;pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.text+': '+m.params.exceptionDetails.exception?.description);};
+ socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);if(!p)return;pending.delete(m.id);m.error?p.reject(m.error):p.resolve(m.result);}if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails.text+': '+m.params.exceptionDetails.exception?.description);if(m.method==='Network.responseReceived'&&m.params.response.url.startsWith('http://127.0.0.1:4178')&&m.params.response.status>=400)failedRequests.push({url:m.params.response.url,status:m.params.response.status});};
  const call=(method,params={})=>new Promise((resolve,reject)=>{const n=++id;pending.set(n,{resolve,reject});socket.send(JSON.stringify({id:n,method,params}));});
  const evaluate=async expression=>{const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.exception?.description??'evaluation failed');return r.result.value;};
  const click=async text=>{const result=await evaluate(`(()=>{const b=[...document.querySelectorAll('button')].find(b=>b.textContent.includes(${JSON.stringify(text)})&&!b.disabled);if(!b)return false;b.click();return true;})()`);assert.ok(result,'button: '+text);await delay(100);};
  const waitFor=async text=>{for(let i=0;i<80;i++){if(await evaluate(`document.body.innerText.includes(${JSON.stringify(text)})`))return;await delay(100);}throw Error('Missing text '+text);};
  const screenshot=async name=>{await mkdir('artifacts',{recursive:true});const r=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await writeFile('artifacts/'+name+'.png',Buffer.from(r.data,'base64'));};
- await call('Runtime.enable');await call('Page.enable');await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
- await call('Page.navigate',{url:'http://127.0.0.1:4178/'});await waitFor('開始人生旅程');
+ await call('Runtime.enable');await call('Page.enable');await call('Network.enable');await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+ await call('Page.navigate',{url:'http://127.0.0.1:4178'+testBase});await waitFor('開始人生旅程');
  await click('A 個管新進人員訓練');await waitFor('A 個管情境工作坊');
  await click('與家庭討論照顧計畫');await waitFor('判斷正確');
  await click('四包錢試算');await waitFor('估計自付');
@@ -125,5 +127,6 @@ try{
  for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='EVENT'`))break;await delay(100);}
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase`),'EVENT','2D fallback is playable');
  assert.equal(errors.length,0,errors.join('\n'));
+ assert.deepEqual(failedRequests,[],`no missing deployment assets at ${testBase}`);
  console.log('PASS: 50 stops, four players, five courtyard interactions and isolation, all camera modes, three quality levels, skip animation, wrap recovery, legacy backup/migration, training and manual saves, desktop/mobile layouts, playable no-WebGL fallback. Performance samples: artifacts/performance.json.');
 }finally{socket?.close();chrome.kill();await new Promise(r=>server.close(r));}
