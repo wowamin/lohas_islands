@@ -45,7 +45,20 @@ try{
  await click('開始人生旅程');await waitFor('儲存進度');await delay(1200);
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players.length`),4);
  assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),50);
- if(process.argv.includes('--isolation')){
+ if(process.argv.includes('--night-titles')){
+   const selector='.journey-title h1,.journey-title h1 small,.journey-title p,.journey-hud .brand-lockup strong,.journey-hud .brand-lockup small,.journey-hud .brand-lockup em';
+   const colors=()=>evaluate(`Array.from(document.querySelectorAll(${JSON.stringify(selector)}),node=>getComputedStyle(node).color)`);
+   for(const [width,height] of [[1440,1000],[390,844]]){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<800});await delay(100);
+     const day=await colors();assert.equal(day.length,6);
+     await click('白天');await delay(150);
+     assert.deepEqual(await colors(),Array(6).fill('rgb(255, 255, 255)'),'night title, subtitle and brand are white');
+     await screenshot(width<800?'mobile-night-titles':'desktop-night-titles');
+     await click('夜晚');await delay(150);assert.deepEqual(await colors(),day,'daytime colors restored');
+   }
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   console.log('PASS: desktop/mobile night title, version, subtitle and brand turn white; day colors restore.');
+ }else if(process.argv.includes('--isolation')){
    const appUrl='http://127.0.0.1:4178'+testBase;
    async function connect(url){
      const ws=new WebSocket(url);extraSockets.push(ws);await new Promise((resolve,reject)=>{ws.onopen=resolve;ws.onerror=reject;});let sequence=0;const requests=new Map();
