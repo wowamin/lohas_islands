@@ -44,6 +44,36 @@ try{
  await click('開始人生旅程');await waitFor('儲存進度');await delay(1200);
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players.length`),4);
  assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),50);
+ if(process.argv.includes('--mobile-layout')){
+   const desktop=await evaluate(`(()=>{const r=document.querySelector('.turn-panel').getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height};})()`);
+   assert.ok(desktop.x>720&&desktop.y>750,'desktop roll control keeps its existing location');
+   const sizes=[[320,740],[390,844],[430,932],[768,1024]];
+   for(const [width,height]of sizes){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:true});await delay(350);
+     const layout=await evaluate(`(()=>{const rect=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height};};const button=document.querySelector('.dice-button'),r=button.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{panel:rect('.turn-panel'),roll:rect('.dice-button'),camera:rect('.camera-modes'),quality:rect('.quality-control'),scene:rect('.scene-city'),clickable:!!hit?.closest('.dice-button'),pageWidth:document.documentElement.scrollWidth};})()`);
+     assert.ok(layout.panel.left>=10&&layout.panel.right<=width/2+12,'roll control is in the left half: '+JSON.stringify({width,layout}));
+     assert.ok(layout.panel.top>=layout.scene.top+layout.scene.height*.5,'roll control is in the lower city area');
+     assert.ok(layout.panel.bottom+4<=layout.camera.top,'roll control does not overlap camera buttons');
+     assert.ok(layout.panel.right<layout.quality.left,'roll control does not overlap quality settings');
+     assert.ok(layout.roll.height>=44,'touch target is at least 44px high');assert.ok(layout.clickable,'roll button receives a real tap');
+     assert.ok(layout.pageWidth<=width,'mobile layout does not overflow horizontally');
+     await screenshot('mobile-roll-'+width);
+   }
+   await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await delay(200);
+   await evaluate(`window.originalRandom=Math.random;Math.random=()=>.49`);
+   const point=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+   await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...point});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...point});
+   assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase`),'ROLLING');
+   assert.ok(await evaluate(`document.querySelector('.dice-button').disabled`));
+   for(let i=0;i<40;i++){if(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.phase==='MOVING'`))break;await delay(100);}
+   await click('跳過動畫');await evaluate(`Math.random=window.originalRandom`);
+   assert.equal(await evaluate(`JSON.parse(localStorage.getItem('long-care-game-save-v2')).state.players[0].position`),3);
+   await evaluate(`document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm').click()`);await delay(100);await click('交給下一位');
+   assert.ok(await evaluate(`!document.querySelector('.dice-button').disabled`));
+   await click('切換城市探索');assert.ok(await evaluate(`document.querySelector('.dice-button').disabled`));
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   console.log('PASS: roll panel at mobile lower-left on 320/390/430/768px; desktop unchanged; no control overlaps; 44px touch target; real tap rolls; repeat lock, skip animation, next turn and exploration work.');
+ }else{
  const unchanged=await evaluate(`localStorage.getItem('long-care-game-save-v2')`);
  for(let i=0;i<5;i++){
    await evaluate(`document.querySelectorAll('.activity-pins>button')[${i}].click()`);await delay(100);
@@ -129,4 +159,5 @@ try{
  assert.equal(errors.length,0,errors.join('\n'));
  assert.deepEqual(failedRequests,[],`no missing deployment assets at ${testBase}`);
  console.log('PASS: 50 stops, four players, five courtyard interactions and isolation, all camera modes, three quality levels, skip animation, wrap recovery, legacy backup/migration, training and manual saves, desktop/mobile layouts, playable no-WebGL fallback. Performance samples: artifacts/performance.json.');
+ }
 }finally{socket?.close();chrome.kill();await new Promise(r=>server.close(r));}
