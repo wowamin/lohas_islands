@@ -1,9 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Player, GameEvent } from '../types';
-import { eventsForTile } from '../events';
+import { eventsForTile } from '../eventRegistry';
 import { BOARD_DATA } from '../board';
+import { BOARD_SIZE } from '../cityLayout';
+import { AUTO_KEY, SAVE_VERSION, gameStorage } from '../persistence';
 import confetti from 'canvas-confetti';
+let rollGeneration = 0;
 
 type EventEffect = {
   money?: number;
@@ -40,6 +43,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
 
   startGame: (names) => {
     if (names.length < 2 || names.length > 4) return;
+    rollGeneration++;
     const colors = ['#D88C65', '#89B5AD', '#D5B86A', '#58463B'];
     const players = names.map((name, i) => ({
       id: i, name, color: colors[i], position: 0, money: 10000, health: 80, stress: 20, learnedServices: []
@@ -60,10 +64,11 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   rollDice: () => {
     if (get().phase !== 'WAITING_ROLL') return;
     const val = Math.floor(Math.random() * 6) + 1;
+    const generation = ++rollGeneration;
     set({ diceValue: val, phase: 'ROLLING' });
 
     setTimeout(() => {
-      if (get().phase === 'ROLLING') set({ phase: 'MOVING' });
+      if (generation === rollGeneration && get().phase === 'ROLLING') set({ phase: 'MOVING' });
     }, 1500);
   },
 
@@ -75,8 +80,8 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const p = { ...newPlayers[currentPlayerIndex] };
 
     let newPos = p.position + diceValue;
-    if (newPos >= 40) {
-      newPos -= 40;
+    if (newPos >= BOARD_SIZE) {
+      newPos -= BOARD_SIZE;
       p.money += 1000;
     }
     p.position = newPos;
@@ -88,7 +93,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       event = candidates[Math.floor(Math.random() * candidates.length)] ?? null;
     }
 
-    set({ players: newPlayers, phase: 'EVENT', selectedEvent: event, eventLesson: undefined, eventResultText: event ? null : '回到樂活起點，獲得 1,000 遊戲幣。這是桌遊獎勵，不是實際長照津貼。' });
+    set({ players: newPlayers, phase: 'EVENT', selectedEvent: event, eventLesson: undefined, eventResultText: event ? null : newPos===0?'回到樂活起點，獲得 1,000 遊戲幣。這是桌遊獎勵，不是實際長照津貼。':`${BOARD_DATA[newPos].name}：這是教育／轉場停靠點，金錢、健康與壓力不變。可在回合間開啟知識圖鑑。` });
   },
 
   resolveEvent: (effect = {}, resultText = '') => {
@@ -144,7 +149,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     });
   },
 
-  resetGame: () => set({
+  resetGame: () => { rollGeneration++; set({
     phase: 'SETUP',
     players: [],
     round: 1,
@@ -153,13 +158,14 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     selectedEvent: null,
     eventResultText: null,
     eventLesson: undefined,
-  }),
+  }); },
 }), {
-  name: 'long-care-game-save-v1',
-  version: 1,
+  name: AUTO_KEY,
+  version: SAVE_VERSION,
+  storage: gameStorage,
+  partialize: ({players,currentPlayerIndex,round,phase,diceValue,selectedEvent,eventResultText,eventLesson})=>({players,currentPlayerIndex,round,phase,diceValue,selectedEvent,eventResultText,eventLesson}),
   onRehydrateStorage: () => (state) => {
-    if (state?.phase === 'ROLLING') {
-      state.phase = 'WAITING_ROLL';
-    }
+    rollGeneration++;
+    if (state?.phase === 'ROLLING') state.phase = 'MOVING';
   },
 }));

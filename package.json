@@ -4,6 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "node scripts/test-education.mjs",
+    "test:browser": "node scripts/test-browser.mjs",
+    "export:route": "node scripts/export-route.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",

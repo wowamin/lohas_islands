@@ -1,0 +1,130 @@
+{
+  "environment": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "graphics": {
+    "vendor": "Google Inc. (NVIDIA)",
+    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4060 (0x00002882) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "note": "Headless desktop Chrome; mobile viewport is not physical mobile hardware. Three samples per configuration; no FPS target assertion.",
+  "results": [
+    {
+      "label": "desktop 1440x1000",
+      "quality": "low",
+      "samples": [
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        },
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        },
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        }
+      ]
+    },
+    {
+      "label": "desktop 1440x1000",
+      "quality": "medium",
+      "samples": [
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        }
+      ]
+    },
+    {
+      "label": "desktop 1440x1000",
+      "quality": "high",
+      "samples": [
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 62248,
+          "quality": "high"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 62248,
+          "quality": "high"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 62248,
+          "quality": "high"
+        }
+      ]
+    },
+    {
+      "label": "desktop final medium",
+      "quality": "medium",
+      "samples": [
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        },
+        {
+          "fps": 60,
+          "calls": 194,
+          "triangles": 61048,
+          "quality": "medium"
+        }
+      ]
+    },
+    {
+      "label": "mobile viewport 390x844 (desktop Chrome)",
+      "quality": "low",
+      "samples": [
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        },
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        },
+        {
+          "fps": 30,
+          "calls": 131,
+          "triangles": 36688,
+          "quality": "low"
+        }
+      ]
+    }
+  ]
+}

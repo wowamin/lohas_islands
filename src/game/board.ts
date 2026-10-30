@@ -1,45 +1,20 @@
-import type { ServiceKey, TileType } from './types';
-export interface BoardTile { id: number; name: string; type: TileType; eventIds: string[]; serviceKey?: ServiceKey }
-const definitions: [string, TileType, string[], ServiceKey?][] = [
-  ['樂活起點', 'START', [], 'community'],
-  ['居家安全', 'LIVING', ['safety'], 'equipment'],
-  ['社區共餐', 'LIVING', ['meal'], 'meal'],
-  ['居家服務', 'SERVICE', ['home'], 'care'],
-  ['機會卡', 'OPPORTUNITY', ['opportunity-care', 'opportunity-respite']],
-  ['日照中心', 'SERVICE', ['day'], 'care'],
-  ['健康管理', 'LIVING', ['health']],
-  ['生活轉折', 'ACCIDENT', ['accident']],
-  ['輔具資源', 'SERVICE', ['equipment'], 'equipment'],
-  ['家庭支持', 'LIVING', ['family'], 'community'],
-  ['休息站', 'REST', ['rest']],
-  ['社區活動', 'LIVING', ['community'], 'community'],
-  ['機會卡', 'OPPORTUNITY', ['opportunity-care', 'opportunity-respite']],
-  ['交通接送', 'SERVICE', ['transport'], 'transport'],
-  ['專業服務', 'SERVICE', ['professional'], 'care'],
-  ['聚飽棚', 'LIVING', ['meal'], 'meal'],
-  ['照顧支持', 'SERVICE', ['respite'], 'respite'],
-  ['生活轉折', 'ACCIDENT', ['accident']],
-  ['喘息服務', 'SERVICE', ['respite'], 'respite'],
-  ['健康管理', 'LIVING', ['health']],
-  ['樂活社區', 'RESOURCE', ['resource'], 'community'],
-  ['環境改善', 'LIVING', ['safety'], 'equipment'],
-  ['家庭支持', 'LIVING', ['family'], 'community'],
-  ['社區共餐', 'LIVING', ['meal'], 'meal'],
-  ['機會卡', 'OPPORTUNITY', ['opportunity-care', 'opportunity-respite']],
-  ['日照中心', 'SERVICE', ['day'], 'care'],
-  ['專業服務', 'SERVICE', ['professional'], 'care'],
-  ['生活轉折', 'ACCIDENT', ['accident']],
-  ['家庭支持', 'LIVING', ['family'], 'community'],
-  ['交通接送', 'SERVICE', ['transport'], 'transport'],
-  ['聚飽棚', 'LIVING', ['meal'], 'meal'],
-  ['社區活動', 'LIVING', ['community'], 'community'],
-  ['輔具資源', 'SERVICE', ['equipment'], 'equipment'],
-  ['社區共餐', 'LIVING', ['meal'], 'meal'],
-  ['喘息服務', 'SERVICE', ['respite'], 'respite'],
-  ['健康管理', 'LIVING', ['health']],
-  ['機會卡', 'OPPORTUNITY', ['opportunity-care', 'opportunity-respite']],
-  ['照顧支持', 'SERVICE', ['respite'], 'respite'],
-  ['生活轉折', 'ACCIDENT', ['accident']],
-  ['資源補給', 'RESOURCE', ['resource'], 'community'],
-];
-export const BOARD_DATA: BoardTile[] = definitions.map(([name, type, eventIds, serviceKey], id) => ({ id, name, type, eventIds, serviceKey }));
+﻿import type { ServiceKey, TileType } from './types';
+import { LEGACY_BOARD_DATA } from './legacyBoard';
+import { BOARD_SIZE, CENTERS, LEGACY_TO_CURRENT, routePosition } from './cityLayout';
+export { BOARD_SIZE } from './cityLayout';
+export interface BoardTile {
+  id:number; index:number; name:string; type:TileType; eventIds:string[]; serviceKey?:ServiceKey;
+  centerId:typeof CENTERS[number]['id']; color:string; position:[number,number,number];
+  previous:number; next:number; educationModule:string; role:string; legacyId:number|null;
+}
+const ROLES=['入口','庭院步道','活動區','活動區','休憩區','庭院活動','生活事件','機會探索','知識格','出口轉場'];
+export const BOARD_DATA:BoardTile[]=Array.from({length:BOARD_SIZE},(_,id)=>{
+  const center=CENTERS[Math.floor(id/10)],local=id%10;
+  const legacyId=local<8?center.index*8+local:null;
+  const original=legacyId===null?null:LEGACY_BOARD_DATA[legacyId];
+  return {id,index:id,name:original?.name??(local===8?center.title.slice(0,2)+'知識花園':center.title.slice(0,2)+'出口'),
+    type:original?.type??(local===8?'OPPORTUNITY':'REST'),eventIds:original?[...original.eventIds]:local===8?[`education-${center.module}`]:[],serviceKey:original?original.serviceKey:'community',
+    centerId:center.id,color:center.color,position:routePosition(id),previous:(id+BOARD_SIZE-1)%BOARD_SIZE,next:(id+1)%BOARD_SIZE,
+    educationModule:center.module,role:ROLES[local],legacyId};
+});
+export { LEGACY_TO_CURRENT };

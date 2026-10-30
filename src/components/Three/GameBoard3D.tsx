@@ -6,7 +6,7 @@ import { CityScenery, Neighborhood } from './CityScenery';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { Player } from '../../game/types';
-import { BOARD_DATA } from '../../game/board';
+import { BOARD_DATA, BOARD_SIZE } from '../../game/board';
 import { cityPosition } from '../../game/city';
 import { useGameStore } from '../../game/store/useGameStore';
 
@@ -48,7 +48,7 @@ export const GameBoard3D = ({ onSelect, selected, labels, night, resetKey }: Cit
     <RoundedBox args={CITY_BASE.size} radius={CITY_BASE.radius} position={[0,CITY_BASE.y,0]} receiveShadow castShadow><meshStandardMaterial color={night?'#536d60':'#91ad89'}/></RoundedBox>
     <RoundedBox args={CITY_SURFACE.size} radius={CITY_SURFACE.radius} position={[0,CITY_SURFACE.y,0]} receiveShadow><meshStandardMaterial color={night?'#64755e':'#c6d8a9'}/></RoundedBox>
     {BOARD_DATA.map((tile,i)=>{
-      const [x,,z]=tilePosition(i);const [nx,,nz]=tilePosition((i+1)%40);
+      const [x,,z]=tilePosition(i);const [nx,,nz]=tilePosition((i+1)%BOARD_SIZE);
       const length=Math.hypot(nx-x,nz-z);
       return <group key={tile.id}>
         <mesh position={[(x+nx)/2,.13,(z+nz)/2+.55]} rotation={[0,-Math.atan2(nz-z,nx-x),0]} receiveShadow><boxGeometry args={[length,.04,.45]}/><meshStandardMaterial color={night?'#747e80':'#a9acaf'}/></mesh>

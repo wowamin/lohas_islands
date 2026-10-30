@@ -1,12 +1,13 @@
 import * as T from 'three';
+import { LEGACY_TO_CURRENT } from '../../game/cityLayout';
 import { createCityBoxGeometry } from '../Three/cityGeometry';
 
-export const DISTRICT_STOPS = [
+export const DISTRICT_STOPS = ([
   { id: 'center', title: '日照中心', kicker: 'DAY CARE', tileId: 5, service: 'care', at: [-1,2.8,-1.5], body: '白天有人陪伴，照顧也能融入日常。從採光廊道、活動空間到無障礙入口，走進一間有生活感的日照中心。' },
   { id: 'plaza', title: '一起活動的廣場', kicker: 'MEET & MOVE', tileId: 11, service: 'community', at: [.7,.45,1.1], body: '輪椅、助行器與慢慢走的步伐，都能在同一個廣場相遇。坐下聊天，或和照服員一起做簡單活動。' },
   { id: 'shuttle', title: '安心接送站', kicker: 'A FRIENDLY RIDE', tileId: 13, service: 'transport', at: [4.5,.6,2.5], body: '遮蔭候車、平整上下車區與清楚的動線，讓接送成為能安心出門的一段旅程。' },
   { id: 'garden', title: '照顧者休息花園', kicker: 'TAKE A BREATH', tileId: 18, service: 'respite', at: [-4,.6,1.7], body: '樹蔭下的座位留給每一位需要暫停的人。認識喘息支持，也為照顧者保留休息的位置。' },
-] as const;
+] as const).map(stop=>({...stop,tileId:LEGACY_TO_CURRENT[stop.tileId]}));
 export type DistrictStopId = typeof DISTRICT_STOPS[number]['id'];
 
 export function buildCareDistrict(night = false) {
@@ -124,7 +125,7 @@ export function buildCareDistrict(night = false) {
   for(const [x,z,s,b] of [[-4.6,-2.6,1.2,1],[-3.7,-3,1,0],[3,-3.1,.9,0],[4.5,-3,1.1,1],[-4.7,2.6,.8,1],[4.7,.1,.85,0],[3.8,3.1,.6,1],[-2.9,3.2,.7,0]])tree(x,z,s,!!b);
   // People have explicit poses: walking, seated, wheelchair and a caregiver.
   function person(at:[number,number,number],color:string,pose:'stand'|'seated'|'wheelchair'|'walker'='stand',rotation=0) {
-    const g=new T.Group();g.position.set(...at);g.rotation.y=rotation;root.add(g);
+    const g=new T.Group();g.name='CareResident-'+pose;g.position.set(...at);g.rotation.y=rotation;root.add(g);
     const seated=pose==='seated'||pose==='wheelchair';const y=seated?.55:.75;
     sphere(.105,[0,y,0],'#ebc6a7',g);sphere(.108,[0,y+.035,-.022],'#d9dbd0',g);
     box([.18,.29,.13],[0,y-.26,0],color,g,.035);

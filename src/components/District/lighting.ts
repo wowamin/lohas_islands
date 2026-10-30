@@ -1,6 +1,7 @@
 import * as T from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { ISLAND_CENTERS } from './islandModel';
+import type { Quality } from '../../game/citySettings';
 
 export type LightingLayout = 'island' | 'district';
 export function createLightingRig(scene:T.Scene,night:boolean,layout:LightingLayout,compact=false) {
@@ -10,9 +11,9 @@ export function createLightingRig(scene:T.Scene,night:boolean,layout:LightingLay
   const sun=new T.DirectionalLight(night?'#b6cff2':'#fff0cf',night?.8:3.0);
   sun.position.set(layout==='island'?-13:-7,layout==='island'?26:16,layout==='island'?16:10);
   sun.target.position.set(0,.2,0);sun.castShadow=true;
-  const extent=layout==='island'?18:10;
+  const extent=layout==='island'?26:10;
   Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent,near:.5,far:85});sun.shadow.camera.updateProjectionMatrix();
-  sun.shadow.mapSize.set(compact?1024:2048,compact?1024:2048);
+  sun.shadow.mapSize.set(compact?512:1024,compact?512:1024);
   sun.shadow.bias=-.00015;sun.shadow.normalBias=.018;sun.shadow.radius=compact?2.5:3.5;sun.shadow.blurSamples=compact?4:6;sun.shadow.intensity=night?.43:.66;
   group.add(sun,sun.target);
   const rim=new T.DirectionalLight(night?'#89b9d1':'#e4f3eb',night?.15:.5);rim.position.set(10,9,-10);group.add(rim);
@@ -50,19 +51,19 @@ export function upgradeLightingMaterials(root:T.Object3D,night:boolean){
   return()=>{for(const {mesh,material} of originals)mesh.material=material;converted.forEach(m=>m.dispose());};
 }
 
-export function configureWebGLLighting(renderer:T.WebGLRenderer,scene:T.Scene,root:T.Object3D,night:boolean,layout:LightingLayout,compact=false){
+export function configureWebGLLighting(renderer:T.WebGLRenderer,scene:T.Scene,root:T.Object3D,night:boolean,layout:LightingLayout,compact=false,quality:Quality='high'){
   renderer.outputColorSpace=T.SRGBColorSpace;
   renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=night?1.08:.98;
-  renderer.shadowMap.enabled=true;
-  // PCFSoftShadowMap was removed in the installed Three version. VSM supplies
-  // an actual blur pass; ordinary PCF is the supported fallback for limited GPUs.
-  renderer.shadowMap.type=renderer.extensions.has('EXT_color_buffer_float')?T.VSMShadowMap:T.PCFShadowMap;
+  renderer.shadowMap.enabled=quality!=='low';
+  // One PCF shadow pass with a bounded map size; low quality disables shadows.
+  renderer.shadowMap.type=T.PCFShadowMap;
   scene.background=new T.Color(night?'#1c3442':'#d8eae7');
   const restoreMaterials=upgradeLightingMaterials(root,night);
   const rig=createLightingRig(scene,night,layout,compact);
+  rig.sun.castShadow=quality!=='low';
   let environment:T.WebGLRenderTarget|null=null;
   const previousEnvironment=scene.environment;
   const room=new RoomEnvironment(),pmrem=new T.PMREMGenerator(renderer);
-  try{environment=pmrem.fromScene(room,.04,.1,100,{size:compact?128:256});scene.environment=environment.texture;scene.environmentIntensity=night?.32:.6;}catch{scene.environment=previousEnvironment;}finally{room.dispose();pmrem.dispose();}
+  try{if(quality!=='low'){environment=pmrem.fromScene(room,.04,.1,100,{size:quality==='high'?256:128});scene.environment=environment.texture;scene.environmentIntensity=night?.32:.6;}}catch{scene.environment=previousEnvironment;}finally{room.dispose();pmrem.dispose();}
   return {set(brightness:number,shadow:number){renderer.toneMappingExposure=(night?1.08:.98)*T.MathUtils.clamp(brightness,.7,1.3);rig.setShadow(shadow);},dispose(){scene.environment=previousEnvironment;environment?.dispose();restoreMaterials();rig.dispose();}};
 }

@@ -4,7 +4,7 @@ import { useGameStore } from '../../game/store/useGameStore';
 
 const MARKS = ['✿', '⌂', '☼', '♡'];
 
-export const SetupScreen = ({ onResource, onExplore }: { onResource: () => void; onExplore: () => void }) => {
+export const SetupScreen = ({ onResource, onExplore, onLearn }: { onResource: () => void; onExplore: () => void; onLearn:()=>void }) => {
   const [names, setNames] = useState(['玩家 1', '玩家 2']);
   const startGame = useGameStore((state) => state.startGame);
 
@@ -17,10 +17,10 @@ export const SetupScreen = ({ onResource, onExplore }: { onResource: () => void;
       <section className="setup-card" aria-labelledby="setup-title">
         <div className="setup-intro"><div className="setup-kicker"><Sparkles size={15} /> 一起走一段照顧的路</div>
         <div className="setup-emblem"><Heart size={27} fill="currentColor" /></div>
-        <h1 id="setup-title">長照人生路</h1>
-        <p className="setup-subtitle">走進城市的 40 個站點，找到生活裡的支持</p>
+        <h1 id="setup-title">長照人生旅程 3.0</h1>
+        <p className="setup-subtitle">走進城市的 50 個站點，找到生活裡的支持</p>
         <ol className="setup-rules"><li>擲骰前進，遇見社區服務</li><li>完成事件，收集照顧任務</li><li>走完 12 輪，一起回顧旅程</li></ol>
-        <div className="setup-explore"><button className="text-button" type="button" onClick={onExplore}>先逛逛照顧城市 ↗</button><button className="text-button" type="button" onClick={onResource}>社區資源手冊</button></div>
+        <div className="setup-explore"><button className="text-button" type="button" onClick={onExplore}>先逛逛照顧城市 ↗</button><button className="text-button" type="button" onClick={onResource}>社區資源手冊</button><button className="text-button" type="button" onClick={onLearn}>A 個管新進人員訓練 ↗</button></div>
 
         </div><div className="setup-form"><div className="setup-section-title">
           <span><UsersRound size={16} /> 玩家名稱</span>
