@@ -29,10 +29,11 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
   useEffect(()=>onView(island&&has3D?'3d':view),[island,has3D,view,onView]);
   const [district,setDistrict]=useState(false);
   const [center,setCenter]=useState<CenterId|null>(null);
+  const [centerPoint,setCenterPoint]=useState({x:window.innerWidth/2,y:window.innerHeight/2});
   const quality=useCitySettings(s=>s.quality),setQuality=useCitySettings(s=>s.setQuality),explored=useCitySettings(s=>s.explored);
   const setMode=useJourney(s=>s.setMode);
   const selectTile=(id:number)=>{setSelected(id);setCenter(null);setMode('focus',id);};
-  const openCenter=(id:CenterId)=>{setCenter(id);setSelected(null);setMode('focus',CENTERS.find(c=>c.id===id)!.start);};
+  const openCenter=(id:CenterId,point:{x:number;y:number}={x:window.innerWidth/2,y:window.innerHeight/2})=>{setCenter(id);setCenterPoint(point);setSelected(null);setMode('focus',CENTERS.find(c=>c.id===id)!.start);};
   const [selected,setSelected]=useState<number|null>(null);
   const [list,setList]=useState(false);
   const [query,setQuery]=useState('');
@@ -57,20 +58,20 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
   return <section className={'city-world'+(night?' city-night':'')+(district?' district-mode':island?' island-main':'')} aria-label="長照城市探索">
     <div className="city-viewport" style={(!has3D||!island)&&!district?{filter:`brightness(${brightness})`}:undefined}>{district?<Suspense fallback={<p className="scene-loading">正在走進日照街區…</p>}><CareDistrict brightness={brightness} shadow={shadow} gpu={has3D} night={night} resetKey={resetKey} onResource={onResource}/></Suspense>:island&&has3D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={<p className="scene-loading">正在建造五區庭院城市…</p>}><CareIsland onUnavailable={()=>setHas3D(false)} centerId={center} onCenter={openCenter} brightness={brightness} shadow={shadow} night={night} resetKey={resetKey} selected={selected} labels={labels} onSelect={selectTile}/></Suspense></SceneBoundary>:!island&&view==='3d'&&has3D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={null}><Scene3D onSelect={selectTile} selected={selected} labels={labels} night={night} resetKey={resetKey}/></Suspense></SceneBoundary>:map}</div>
     <nav className={'city-toolbar'+(toolbarCollapsed?' is-toolbar-collapsed':'')} aria-label="城市操作">
-      <button type="button" className="city-toolbar-toggle" aria-label={toolbarCollapsed?'展開城市工具列':'收合城市工具列'} aria-expanded={!toolbarCollapsed} aria-controls="city-toolbar-actions city-toolbar-help" onClick={()=>{if(!toolbarCollapsed){setList(false);setLightOpen(false);setHelp(false);}setToolbarCollapsed(!toolbarCollapsed);}}><span aria-hidden="true">{toolbarCollapsed?'>':'<'}</span></button>
+      <button type="button" className="city-toolbar-toggle" aria-label={toolbarCollapsed?'展開城市工具列':'收合城市工具列'} aria-expanded={!toolbarCollapsed} aria-controls="city-toolbar-actions city-toolbar-help" onClick={()=>{if(!toolbarCollapsed){setList(false);setLightOpen(false);setHelp(false);}setToolbarCollapsed(!toolbarCollapsed);}}><span className="city-toolbar-icon" aria-hidden="true">{toolbarCollapsed?'>':'<'}</span></button>
       <div id="city-toolbar-actions" className="city-toolbar-actions" role="group" aria-label="城市工具，手機可左右滑動">
-      <button aria-label="回到城市全景" onClick={reset} title="重設視角">⌂ <span>全景</span></button>
-      <button className="district-toggle" aria-pressed={district} onClick={()=>{setDistrict(!district);setList(false);setSelected(null);}}>{district?'← 返回遊戲城市':'日照示範街區 ↗'}</button>
-      <button disabled={district} aria-label="50 站清單" aria-expanded={list} onClick={()=>{setList(!list);setSelected(null);}}>☷ <span>50 站清單</span></button>
-      <button disabled={district} aria-label="顯示站點名牌" aria-pressed={labels} onClick={()=>setLabels(!labels)}>⌖ <span>名牌</span></button>
-      <button aria-pressed={night} onClick={()=>setNight(!night)}>{night?'☾ 夜晚':'☀ 白天'}</button>
+      <button aria-label="回到城市全景" onClick={reset} title="重設視角"><span className="city-toolbar-icon" aria-hidden="true">⌂</span> <span>全景</span></button>
+      <button className="district-toggle" aria-pressed={district} onClick={()=>{setDistrict(!district);setList(false);setSelected(null);}}>{district?<><span className="city-toolbar-icon" aria-hidden="true">←</span> 返回遊戲城市</>:<>日照示範街區 <span className="city-toolbar-icon" aria-hidden="true">↗</span></>}</button>
+      <button disabled={district} aria-label="50 站清單" aria-expanded={list} onClick={()=>{setList(!list);setSelected(null);}}><span className="city-toolbar-icon" aria-hidden="true">☷</span> <span>50 站清單</span></button>
+      <button disabled={district} aria-label="顯示站點名牌" aria-pressed={labels} onClick={()=>setLabels(!labels)}><span className="city-toolbar-icon" aria-hidden="true">⌖</span> <span>名牌</span></button>
+      <button aria-pressed={night} onClick={()=>setNight(!night)}><span className="city-toolbar-icon" aria-hidden="true">{night?'☾':'☀'}</span> {night?'夜晚':'白天'}</button>
       <button disabled={district} onClick={()=>{setIsland(!island);setSelected(null);setResetKey(k=>k+1);}}>{island?'簡易棋盤':'立體島嶼'}</button>
-      <button aria-expanded={lightOpen} onClick={()=>setLightOpen(!lightOpen)}>☀ 光影</button>
+      <button aria-expanded={lightOpen} onClick={()=>setLightOpen(!lightOpen)}><span className="city-toolbar-icon" aria-hidden="true">☀</span> 光影</button>
       </div>
-      <button id="city-toolbar-help" className="city-toolbar-help" aria-label="城市操作說明" aria-expanded={help} onClick={()=>setHelp(!help)}>?</button>
+      <button id="city-toolbar-help" className="city-toolbar-help" aria-label="城市操作說明" aria-expanded={help} onClick={()=>setHelp(!help)}>操作說明</button>
     </nav>
     {!has3D&&<div className="fallback-notice" role="status">WebGL 不可用，已切換可操作的 50 格 2D 棋盤。</div>}
-    {center&&!district&&<CenterInfo id={center} onClose={()=>{setCenter(null);setMode('overview');}} onResource={()=>onResource('care')} onLearn={onLearn}/>}
+    {center&&!district&&<CenterInfo id={center} point={centerPoint} onClose={()=>{setCenter(null);setMode('overview');}} onResource={()=>onResource('care')} onLearn={onLearn}/>}
     <div className="quality-control"><label>畫質 <select aria-label="城市畫質" disabled={!has3D||district||!island} value={quality} onChange={e=>setQuality(e.target.value as Quality)}><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></label><span>探索 {explored.length}/5</span></div>
     {lightOpen&&<aside className="lighting-panel" aria-label="光影調整"><header><strong>讓光線剛剛好</strong><button aria-label="關閉光影調整" onClick={()=>setLightOpen(false)}>×</button></header><label><span>畫面亮度 <b>{Math.round(brightness*100)}%</b></span><input type="range" aria-label="畫面亮度" min=".75" max="1.25" step=".05" value={brightness} onChange={e=>setBrightness(Number(e.target.value))}/></label><label><span>陰影深淺 <b>{Math.round(shadow*100)}%</b></span><input type="range" aria-label="陰影深淺" min=".2" max=".85" step=".05" value={shadow} disabled={!has3D||(!island&&!district)} onChange={e=>setShadow(Number(e.target.value))}/></label>{!has3D&&<small>相容檢視支援亮度調整。</small>}<button className="light-reset" onClick={()=>{setBrightness(1);setShadow(.65);}}>還原柔光設定</button></aside>}
     {help&&<div className="city-help"><strong>一座城市，50 段照顧旅程</strong><p>點建築或庭院閱讀主題。五區主題為遊戲設計，不代表中心實際服務。探索不會改變回合。</p><p>{island&&has3D?'拖曳旋轉、右鍵平移、滾輪縮放；可選全景、跟隨、聚焦。移動時可跳過動畫。':'拖曳空白處平移，使用右下方 ＋／− 縮放。'}</p><button onClick={()=>setHelp(false)}>知道了</button></div>}

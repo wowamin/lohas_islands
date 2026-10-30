@@ -199,6 +199,15 @@ try{
      await screenshot('mobile-roll-'+width);
    }
    await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await delay(200);
+   for(let index=0;index<5;index++){
+     const point=await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-50 g[role="button"][aria-label]'),pin=pins[${index}];if(!pin)return{missing:true,count:pins.length};const r=pin.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+     assert.ok(!point.missing,'center pins are rendered: '+JSON.stringify(point));
+     await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-50 g[role="button"][aria-label]');pins[${index}].dispatchEvent(new MouseEvent('click',{bubbles:true,clientX:${point.x},clientY:${point.y}}));})()`);
+     for(let attempt=0;attempt<20&&!await evaluate(`!!document.querySelector('.center-education')`);attempt++)await delay(50);
+     const placement=await evaluate(`(()=>{const r=document.querySelector('.center-education').getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,containsClick:r.left<=${point.x}&&r.right>=${point.x}&&r.top<=${point.y}&&r.bottom>=${point.y},withinViewport:r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight};})()`);
+     assert.ok(placement.containsClick&&placement.withinViewport,'center education opens at clicked center and stays in the viewport: '+JSON.stringify({index,point,placement}));
+     await evaluate(`document.querySelector('.center-education .center-close').click()`);await delay(50);
+   }
    const point=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
    await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...point});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...point});
    assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'ROLLING');
