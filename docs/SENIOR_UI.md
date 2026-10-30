@@ -10,13 +10,13 @@
 
 ## 變數與元件
 
-預設根字級 16px 時，small／body／large／title／value 依序為 16.32／18.9108／20／24／28px；副標保留先前增加 2% 的設定，內文在上次大小上再增加 3%，使用 rem 隨使用者文字設定放大。不要縮小 html 根字級，也不要使用 transform 縮小整個介面。一般文字字重 400、按鈕 500、標題及數值 700；行高 1.7，按鈕行高 1.6。
+預設根字級 16px 時，small／body／large／title／value 依序約為 17.14／19.86／21／25.2／29.4px。已保留前次副標及內文調整，再將整體 UI 字級增加 5%，使用 rem 隨使用者文字設定放大。不要縮小 html 根字級，也不要使用 transform 縮小整個介面。一般文字字重 400、按鈕 500、標題及數值 700；行高 1.7，按鈕行高 1.6。
 
 | 類別 | 用途 |
 | --- | --- |
 | senior-ui | 字體、行高、背景與局部 reset 的容器 |
-| senior-btn-primary | 20px 主要操作，至少 56px 高 |
-| senior-btn-secondary | 20px 次要操作，至少 48×48px |
+| senior-btn-primary | 21px 主要操作，至少 56px 高 |
+| senior-btn-secondary | 21px 次要操作，至少 48×48px |
 | senior-card | 純白不透明、高對比卡片 |
 | senior-dialog | 原生 dialog 的高對比面板 |
 | senior-dialog-header／body／footer | 固定在面板上／下的操作區與獨立捲動內容 |

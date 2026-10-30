@@ -13,7 +13,7 @@ html {
 
 * { box-sizing: border-box; }
 html, body, .app-root { width: 100%; min-width: 320px; height: 100%; min-height: 100%; margin: 0; }
-body { overflow-x: hidden; background: #f6f0e5; }
+body { overflow-x: hidden; background: #f6f0e5; font-size: 1.05rem; }
 button, input { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 ::selection { color: #58463b; background: #e9d4b2; }
