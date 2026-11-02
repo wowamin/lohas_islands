@@ -13,6 +13,7 @@ import type { ModuleId } from '../../game/education/content';
 import { useCitySettings } from '../../game/citySettings';
 import type { Quality } from '../../game/citySettings';
 import { useJourney } from '../../game/journey';
+import { usePanelDismiss } from './usePanelDismiss';
 const CareIsland = lazy(()=>import('../District/CareIsland'));
 const CareDistrict = lazy(()=>import('../District/CareDistrict'));
 const Scene3D = lazy(()=>import('../Three/Scene3D'));
@@ -48,6 +49,10 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
   const [shadow,setShadow]=useState(.65);
   const [help,setHelp]=useState(false);
   const [toolbarCollapsed,setToolbarCollapsed]=useState(true);
+  usePanelDismiss(!toolbarCollapsed,'.city-toolbar',()=>setToolbarCollapsed(true));
+  usePanelDismiss(help,'.city-help,.city-toolbar-help',()=>setHelp(false));
+  usePanelDismiss(lightOpen,'.lighting-panel',()=>setLightOpen(false));
+  usePanelDismiss(list,'.city-index',()=>setList(false));
   const current=useGameStore(s=>s.players[s.currentPlayerIndex]);
   const phase=useGameStore(s=>s.phase);
   useEffect(()=>{if(phase==='ROLLING'){setSelected(null);setCenter(null);}if(phase==='WAITING_ROLL')setMode('overview');if(phase==='EVENT'&&current)setMode('focus',current.position);if(phase==='RESULT')setMode('focus',79);},[phase,current,setMode]);
@@ -60,17 +65,17 @@ export function CityExplorer({onResource,onView,onLearn}:{onResource:(s:ServiceK
     <div className="city-viewport" style={(!has3D||force2D||!island)&&!district?{filter:`brightness(${brightness})`}:undefined}>{district?<Suspense fallback={<p className="scene-loading">正在走進日照街區…</p>}><CareDistrict brightness={brightness} shadow={shadow} gpu={has3D} night={night} resetKey={resetKey} onResource={onResource}/></Suspense>:island&&has3D&&!force2D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={<p className="scene-loading">正在建造五區庭院城市…</p>}><CareIsland onUnavailable={()=>setHas3D(false)} centerId={center} onCenter={openCenter} brightness={brightness} shadow={shadow} night={night} resetKey={resetKey} selected={selected} labels={labels} onSelect={selectTile}/></Suspense></SceneBoundary>:!island&&view==='3d'&&has3D?<SceneBoundary onError={()=>setHas3D(false)} fallback={map}><Suspense fallback={null}><Scene3D onSelect={selectTile} selected={selected} labels={labels} night={night} resetKey={resetKey}/></Suspense></SceneBoundary>:map}</div>
     <nav className={'city-toolbar'+(toolbarCollapsed?' is-toolbar-collapsed':'')} aria-label="城市操作">
       <button className="city-view-toggle" disabled={!has3D||district} aria-label={force2D?'切換為 3D 城市':'切換為 2D 地圖'} onClick={()=>setForce2D(!force2D)}>{has3D&&!force2D?'▣ 3D 視角':'▤ 2D 地圖'}</button>
-      <button type="button" className="city-toolbar-toggle" aria-label={toolbarCollapsed?'展開城市工具列':'收合城市工具列'} aria-expanded={!toolbarCollapsed} aria-controls="city-toolbar-actions city-toolbar-help" onClick={()=>{if(!toolbarCollapsed){setList(false);setLightOpen(false);setHelp(false);}setToolbarCollapsed(!toolbarCollapsed);}}><span className="city-toolbar-icon" aria-hidden="true">⚙ 設定</span></button>
+      <button type="button" className="city-toolbar-toggle" aria-label={toolbarCollapsed?'展開城市工具列':'收合城市工具列'} aria-expanded={!toolbarCollapsed} aria-controls="city-toolbar-actions city-toolbar-help" onClick={()=>{setList(false);setLightOpen(false);setHelp(false);setToolbarCollapsed(!toolbarCollapsed);}}><span className="city-toolbar-icon" aria-hidden="true">⚙ 設定</span></button>
       <div id="city-toolbar-actions" className="city-toolbar-actions" role="group" aria-label="城市工具，手機可左右滑動">
       <button aria-label="回到城市全景" onClick={reset} title="重設視角"><span className="city-toolbar-icon" aria-hidden="true">⌂</span> <span>全景</span></button>
       <button className="district-toggle" aria-pressed={district} onClick={()=>{setDistrict(!district);setList(false);setSelected(null);}}>{district?<><span className="city-toolbar-icon" aria-hidden="true">←</span> 返回遊戲城市</>:<>日照示範街區 <span className="city-toolbar-icon" aria-hidden="true">↗</span></>}</button>
-      <button disabled={district} aria-label="80 站清單" aria-expanded={list} onClick={()=>{setList(!list);setSelected(null);}}><span className="city-toolbar-icon" aria-hidden="true">☷</span> <span>80 站清單</span></button>
+      <button disabled={district} aria-label="80 站清單" aria-expanded={list} onClick={()=>{setList(!list);setSelected(null);setToolbarCollapsed(true);setLightOpen(false);setHelp(false);}}><span className="city-toolbar-icon" aria-hidden="true">☷</span> <span>80 站清單</span></button>
       <button disabled={district} aria-label="顯示站點名牌" aria-pressed={labels} onClick={()=>setLabels(!labels)}><span className="city-toolbar-icon" aria-hidden="true">⌖</span> <span>名牌</span></button>
       <button aria-pressed={night} onClick={()=>setNight(!night)}><span className="city-toolbar-icon" aria-hidden="true">{night?'☾':'☀'}</span> {night?'夜晚':'白天'}</button>
       <button disabled={district} onClick={()=>{setIsland(!island);setSelected(null);setResetKey(k=>k+1);}}>{island?'簡易棋盤':'立體島嶼'}</button>
-      <button aria-expanded={lightOpen} onClick={()=>setLightOpen(!lightOpen)}><span className="city-toolbar-icon" aria-hidden="true">☀</span> 光影</button>
+      <button aria-expanded={lightOpen} onClick={()=>{setLightOpen(!lightOpen);setToolbarCollapsed(true);setList(false);setHelp(false);}}><span className="city-toolbar-icon" aria-hidden="true">☀</span> 光影</button>
       </div>
-      <button id="city-toolbar-help" className="city-toolbar-help" aria-label="城市操作說明" aria-expanded={help} onClick={()=>setHelp(!help)}>操作說明</button>
+      <button id="city-toolbar-help" className="city-toolbar-help" aria-label="城市操作說明" aria-expanded={help} onClick={()=>{setHelp(!help);setToolbarCollapsed(true);setList(false);setLightOpen(false);}}>操作說明</button>
     </nav>
     {!has3D&&<div className="fallback-notice" role="status">WebGL 不可用，已切換可操作的 80 格 2D 棋盤。</div>}
     {center&&!district&&<CenterInfo id={center} point={centerPoint} onClose={()=>{setCenter(null);setMode('overview');}} onResource={()=>onResource('care')} onLearn={onLearn}/>}

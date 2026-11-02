@@ -27,6 +27,8 @@ npm.cmd run preview -- --host 127.0.0.1
 npm.cmd run test:browser
 npm.cmd run test:journey
 npm.cmd run test:diorama
+npm.cmd run test:mobile-layout
+npm.cmd run test:desktop-layout
 npm.cmd run test:isolation
 ~~~
 

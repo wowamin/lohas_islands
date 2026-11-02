@@ -15,6 +15,7 @@ import { resolveCharacter } from '../../game/characters';
 import { REGIONS } from '../../game/mapDefinition';
 import { DioramaDice } from './DioramaDice';
 import { ResponsiveSlot } from './ResponsiveSlot';
+import { usePanelDismiss } from './usePanelDismiss';
 
 const TONES=['#84a36c','#d59184','#76a9bb','#ac8cba'];
 export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?:boolean})=>{
@@ -24,6 +25,7 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
   const visual=useJourney(s=>s.position),movingPlayer=useJourney(s=>s.playerId),skip=useJourney(s=>s.skip);
   const [message,setMessage]=useState('');
   const [missions,setMissions]=useState(false);
+  usePanelDismiss(missions,'.mission-panel,.mission-toggle',()=>setMissions(false));
   const dicePhase=useDicePresentation(s=>s.phase),diceMode=useDicePresentation(s=>s.mode),skipDice=useDicePresentation(s=>s.skip);
   const p=players[currentIndex];if(!p)return null;
   const position=movingPlayer===p.id&&visual!==null?visual:p.position;
@@ -48,7 +50,7 @@ export const HUD=({boardView,exploring=false}:{boardView:'board'|'3d';exploring?
       <button className="primary-button dice-button" aria-label={rollLabel} disabled={phase!=='WAITING_ROLL'||exploring} onClick={()=>{if(useGameStore.getState().phase!=='WAITING_ROLL'||exploring)return;const unlocked=gameFeedback.unlock();roll();const revision=useGameStore.getState().revision;void unlocked.then(()=>{const state=useGameStore.getState();if(state.phase==='ROLLING'&&state.revision===revision)gameFeedback.click();});}}>{phase==='MOVING'?<Footprints size={20}/>:<Dices size={20}/>}<span className="dice-label-full">{rollLabel}</span><span className="dice-label-compact">{compactRollLabel}</span></button><p><span className="turn-player-label" title={p.name+' 的回合'}>目前是 <strong>{p.name}</strong> 的回合</span>{(phase==='ROLLING'||phase==='MOVING')&&<button className="skip-animation" onClick={()=>{if(dicePhase==='rolling'||dicePhase==='revealing')skipDice();else skip();}}>跳過動畫 →</button>}</p>
     </aside>
     </ResponsiveSlot>
-    <aside className="journey-actions"><button onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={async()=>{try{await loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button><DicePreferences/></aside>
+    <aside className="journey-actions"><button className="mission-toggle" onClick={()=>setMissions(!missions)} aria-expanded={missions}><Flag size={17}/>照顧任務</button><button disabled={phase!=='WAITING_ROLL'} onClick={save}><Save size={17}/>儲存進度</button><button disabled={phase!=='WAITING_ROLL'} onClick={async()=>{try{await loadSnapshot();setMessage('已恢復手動存檔。');}catch{setMessage('找不到有效手動存檔，請先儲存。');}}}>↶ 讀取存檔</button><button aria-pressed={follow} onClick={toggleFollow}>⌖ {follow?'自動追蹤開':'自動追蹤關'}</button><button onClick={()=>{if(window.confirm('重新開始會取代目前進度，確定重新開始嗎？'))reset();}}><RotateCcw size={17}/>重新開始</button><DicePreferences/></aside>
     {missions&&<aside className="mission-panel"><button className="detail-close" aria-label="關閉照顧任務" onClick={()=>setMissions(false)}>×</button><h2>{p.name} 的照顧任務</h2><ul>{missionSummary(p.learnedServices,p.health,p.stress,p.completedActivities).map(m=><li key={m.label}><span>{m.done?'✓':'○'}</span><div><strong>{m.label}</strong><small>{m.detail}</small></div></li>)}</ul></aside>}
     {message&&<div className="save-toast" role="status">{message}<button aria-label="關閉儲存訊息" onClick={()=>setMessage('')}>×</button></div>}
   </div>;

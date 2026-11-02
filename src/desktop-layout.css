@@ -1,0 +1,25 @@
+/* Reserve one fixed desktop rail. Transient panels open to its left. */
+@media(min-width:901px){
+ .game-app:not(.is-setup){height:100vh;height:100dvh;min-height:0}
+ .game-app{--desktop-rail-width:152px;--desktop-rail-edge:20px;--desktop-panel-top:80px;--desktop-menu-offset:59px;--desktop-controls-bottom:210px;--desktop-education-height:160px}
+ .game-app .journey-hud .player-panel{max-height:calc(100dvh - 392px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
+ .game-app .journey-hud .player-panel .player-card{width:100%;max-width:100%;min-width:0}
+ .game-app:not(.is-setup) .online-count{top:88px;right:var(--desktop-rail-edge);left:auto;bottom:auto;width:var(--desktop-rail-width);height:40px;min-height:0;margin:0;justify-content:center;box-sizing:border-box}
+ .game-app:not(.is-setup) .quality-control{top:140px;right:var(--desktop-rail-edge);left:auto;bottom:auto;width:var(--desktop-rail-width);height:40px;min-width:0;justify-content:center;padding:6px 8px;gap:5px;box-sizing:border-box;white-space:nowrap}
+ .game-app:not(.is-setup) .quality-control label{min-width:0;display:flex;align-items:center;gap:4px}
+ .game-app:not(.is-setup) .quality-control select{min-width:0;padding:3px 4px}
+ .game-app:not(.is-setup) .journey-actions{top:192px;right:var(--desktop-rail-edge);left:auto;bottom:auto;width:var(--desktop-rail-width);max-height:calc(100dvh - 192px - var(--desktop-controls-bottom) - 55px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;box-sizing:border-box}
+ .game-app .city-world .city-toolbar .city-toolbar-actions{right:calc(var(--desktop-rail-width) + 16px);top:var(--desktop-menu-offset);width:340px;max-width:calc(100vw - var(--desktop-rail-width) - 56px);max-height:calc(100dvh - var(--desktop-panel-top) - 20px);overflow-y:auto}
+ .game-app .lighting-panel,.game-app .city-help{top:var(--desktop-panel-top);right:calc(var(--desktop-rail-edge) + var(--desktop-rail-width) + 16px);left:auto;bottom:auto;transform:none;max-height:calc(100dvh - var(--desktop-panel-top) - 20px);overflow-y:auto}
+ .game-app .journey-hud .mission-panel{top:var(--desktop-panel-top)!important;right:calc(var(--desktop-rail-edge) + var(--desktop-rail-width) + 16px)!important;left:auto!important;bottom:auto!important;max-height:calc(100dvh - var(--desktop-panel-top) - 20px)!important;overflow-y:auto}
+ .game-app .city-index{top:var(--desktop-panel-top);right:calc(var(--desktop-rail-edge) + var(--desktop-rail-width) + 16px);left:auto;bottom:20px;max-height:calc(100dvh - var(--desktop-panel-top) - 20px)}
+ .game-app .education-launch{right:var(--desktop-rail-edge);bottom:20px;top:auto;left:auto;width:var(--desktop-rail-width);height:var(--desktop-education-height);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;box-sizing:border-box}
+ .game-app .education-launch button{flex:0 0 auto}
+ .game-app .island-zoom,.game-app .city-zoom{right:64px;bottom:var(--desktop-controls-bottom);top:auto;left:auto}
+ .game-app .island-menu{right:var(--desktop-rail-edge);bottom:var(--desktop-controls-bottom);top:auto;left:auto}
+ .game-app .city-performance{right:var(--desktop-rail-edge);bottom:calc(20px + var(--desktop-education-height) + 8px);top:auto;left:auto;width:var(--desktop-rail-width);height:14px;line-height:14px;font-size:8.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .game-app .island-navigation{right:calc(var(--desktop-rail-edge) + var(--desktop-rail-width) + 16px);bottom:var(--desktop-controls-bottom);top:auto;left:auto;width:190px;max-height:calc(100dvh - var(--desktop-panel-top) - var(--desktop-controls-bottom) - 12px);overflow-y:auto;overscroll-behavior:contain}
+}
+@media(min-width:901px) and (max-width:1100px){
+ .game-app{--desktop-panel-top:145px;--desktop-menu-offset:125px}
+}

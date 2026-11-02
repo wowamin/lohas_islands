@@ -68,7 +68,36 @@ try{
  assert.ok(await evaluate(`document.querySelector('.online-count')!==null`),'online count remains visible during gameplay');
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players.length`),4);
  assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),80);
- if(process.argv.includes('--mobile-layout')){
+ if(process.argv.includes('--desktop-layout')){
+   const original=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),measurements=[];
+   const realClick=async selector=>{const point=await evaluate(`(()=>{const b=document.querySelector(${JSON.stringify(selector)});if(!b)return null;const r=b.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{x:r.x+r.width/2,y:r.y+r.height/2,hit:!!hit&&b.contains(hit)};})()`);assert.ok(point?.hit,'click target unobscured: '+selector);await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,x:point.x,y:point.y});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,x:point.x,y:point.y});await delay(100);};
+   const fixed=['.city-toolbar','.online-count','.quality-control','.journey-actions','.island-zoom','.island-menu','.city-performance','.education-launch'];
+   const check=async(panel=null)=>{
+     const result=await evaluate(`(()=>{const selectors=${JSON.stringify(fixed)};${panel?`selectors.push(${JSON.stringify(panel)});`:''}const rects=selectors.map(selector=>{const n=document.querySelector(selector);if(!n)return null;const r=n.getBoundingClientRect();return{selector,x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};}).filter(Boolean);return{width:innerWidth,height:innerHeight,scroll:document.documentElement.scrollWidth,rects};})()`);
+     assert.ok(result.scroll<=result.width,'no desktop horizontal overflow');
+     assert.ok(await evaluate(`(()=>{const n=document.querySelector('.player-panel');return n.scrollWidth<=n.clientWidth;})()`),'short-window player rail does not need horizontal scroll');
+     for(const r of result.rects){assert.ok(r.x>=0&&r.y>=0&&r.right<=result.width+1&&r.bottom<=result.height+1,'panel fits viewport '+JSON.stringify(r));assert.ok(r.w>0&&r.h>0,'panel is visible '+r.selector);}
+     for(let i=0;i<result.rects.length;i++)for(let j=i+1;j<result.rects.length;j++){const a=result.rects[i],b=result.rects[j];assert.ok(Math.min(a.right,b.right)-Math.max(a.x,b.x)<=1||Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)<=1,'no overlap '+JSON.stringify({a,b,width:result.width,height:result.height}));}
+     if(panel){const round=await evaluate(`(()=>{const r=document.querySelector('.turn-banner').getBoundingClientRect();return{x:r.x,y:r.y,right:r.right,bottom:r.bottom};})()`),r=result.rects.find(r=>r.selector===panel);assert.ok(Math.min(r.right,round.right)-Math.max(r.x,round.x)<=1||Math.min(r.bottom,round.bottom)-Math.max(r.y,round.y)<=1,'panel does not cover round banner');}
+     return result;
+   };
+   for(const [width,height] of [[1914,878],[1920,1080],[1440,900],[1280,720],[1024,768],[1024,600],[1366,600],[901,600]]){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:false});await delay(250);
+     const base=await check();await realClick('.city-toolbar-toggle');assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'true');const menu=await check('.city-toolbar-actions');
+     assert.ok(await evaluate(`[...document.querySelectorAll('.city-toolbar-actions>button')].filter(b=>!b.disabled).every(b=>{const r=b.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return !!hit&&b.contains(hit);})`),'all setting buttons are tappable');
+     if(width===1914||width===1024&&height===600)await screenshot('desktop-rail-menu-'+width+'x'+height);
+     await call('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});await delay(50);assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'false');
+     await realClick('.city-toolbar-toggle');await realClick('.journey-actions>button:nth-child(2)');assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'false','save closes settings');await evaluate(`document.querySelector('.save-toast button')?.click()`);
+     await realClick('.city-toolbar-toggle');await evaluate(`document.querySelector('.city-toolbar-actions>button:last-child').dataset.desktopLighting='true'`);await realClick('[data-desktop-lighting]');assert.equal(await evaluate(`!!document.querySelector('.lighting-panel')`),true);assert.equal(await evaluate(`document.querySelector('.city-toolbar-toggle').getAttribute('aria-expanded')`),'false');const light=await check('.lighting-panel');
+     await realClick('.city-toolbar-help');assert.equal(await evaluate(`!!document.querySelector('.lighting-panel')`),false);const help=await check('.city-help');
+     await realClick('.island-menu');assert.equal(await evaluate(`!!document.querySelector('.city-help')`),false);const tour=await check('.island-navigation');
+     await realClick('.mission-toggle');assert.equal(await evaluate(`!!document.querySelector('.island-navigation')`),false);const mission=await check('.mission-panel');await realClick('.mission-toggle');assert.equal(await evaluate(`!!document.querySelector('.mission-panel')`),false);
+     assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),original,'layout and settings never change game progress');measurements.push({width,height,base,menu,light,help,tour,mission});
+   }
+   await call('Emulation.setDeviceMetricsOverride',{width:1440,height:900,deviceScaleFactor:1,mobile:false});await delay(200);await screenshot('desktop-rail-fixed');
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);await writeFile('artifacts/desktop-layout-review.json',JSON.stringify({measurements,errors,failedRequests},null,2));
+   console.log('PASS: eight desktop sizes; fixed controls and every temporary panel fit without overlap; real setting/save/help/navigation/mission clicks; Escape/outside dismissal; game progress unchanged.');
+ }else if(process.argv.includes('--mobile-layout')){
    const original=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),measurements=[];
    let safeAreaSupported=true;
    try{await call('Emulation.setSafeAreaInsets',{insets:{top:0,left:0,right:0,bottom:0}});}catch{safeAreaSupported=false;}

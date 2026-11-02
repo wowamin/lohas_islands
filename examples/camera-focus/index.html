@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Three.js × GSAP｜點擊島嶼聚焦</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; font-family: system-ui, sans-serif; }
+    #focus-demo { position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
+    #focus-demo canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; }
+    .help { position: absolute; z-index: 1; top: 16px; left: 16px; right: 130px; pointer-events: none; color: #334155; }
+    .help h1 { margin: 0 0 6px; font-size: 20px; }
+    .help p { margin: 0; font-size: 13px; line-height: 1.7; }
+    #reset-view { position: absolute; z-index: 1; top: 16px; right: 16px; min-height: 44px; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 12px; background: #fff; cursor: pointer; }
+    #reset-view:disabled { opacity: .5; cursor: wait; }
+  </style>
+</head>
+<body>
+  <main id="focus-demo">
+    <aside class="help"><h1>點擊島嶼，平滑聚焦</h1><p>拖曳旋轉、滾輪縮放；移動超過 5px 不觸發聚焦。</p><p id="focus-status" role="status">請點選任一島嶼。</p></aside>
+    <button id="reset-view" type="button">回到總覽</button>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

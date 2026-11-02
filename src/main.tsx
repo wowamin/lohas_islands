@@ -10,6 +10,7 @@ import './toolbar.css'
 import './characters.css'
 import './diorama.css'
 import './mobile-layout.css'
+import './desktop-layout.css'
 
 ReactDOM.createRoot(document.querySelector('.app-root')!).render(
   <React.StrictMode>

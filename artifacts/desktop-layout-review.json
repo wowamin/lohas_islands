@@ -1,0 +1,4190 @@
+{
+  "measurements": [
+    {
+      "width": 1914,
+      "height": 878,
+      "base": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          }
+        ]
+      },
+      "menu": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 1385,
+            "y": 80,
+            "w": 340,
+            "h": 152,
+            "right": 1725,
+            "bottom": 232
+          }
+        ]
+      },
+      "light": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 1461,
+            "y": 80,
+            "w": 265,
+            "h": 263,
+            "right": 1726,
+            "bottom": 343
+          }
+        ]
+      },
+      "help": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          },
+          {
+            "selector": ".city-help",
+            "x": 1426,
+            "y": 80,
+            "w": 300,
+            "h": 307.859375,
+            "right": 1726,
+            "bottom": 387.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 1536,
+            "y": 317.40625,
+            "w": 190,
+            "h": 350.59375,
+            "right": 1726,
+            "bottom": 668
+          }
+        ]
+      },
+      "mission": {
+        "width": 1914,
+        "height": 878,
+        "scroll": 1914,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1626.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1894,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1742,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1742,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1894,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1742,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1894,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1772,
+            "y": 623,
+            "w": 78,
+            "h": 45,
+            "right": 1850,
+            "bottom": 668
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1857,
+            "y": 631,
+            "w": 37,
+            "h": 37,
+            "right": 1894,
+            "bottom": 668
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1742,
+            "y": 676,
+            "w": 152,
+            "h": 14,
+            "right": 1894,
+            "bottom": 690
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1742,
+            "y": 698,
+            "w": 152,
+            "h": 160,
+            "right": 1894,
+            "bottom": 858
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 1426,
+            "y": 80,
+            "w": 300,
+            "h": 279.75,
+            "right": 1726,
+            "bottom": 359.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "base": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          }
+        ]
+      },
+      "menu": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 1391,
+            "y": 80,
+            "w": 340,
+            "h": 152,
+            "right": 1731,
+            "bottom": 232
+          }
+        ]
+      },
+      "light": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 1467,
+            "y": 80,
+            "w": 265,
+            "h": 263,
+            "right": 1732,
+            "bottom": 343
+          }
+        ]
+      },
+      "help": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          },
+          {
+            "selector": ".city-help",
+            "x": 1432,
+            "y": 80,
+            "w": 300,
+            "h": 307.859375,
+            "right": 1732,
+            "bottom": 387.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 1542,
+            "y": 519.40625,
+            "w": 190,
+            "h": 350.59375,
+            "right": 1732,
+            "bottom": 870
+          }
+        ]
+      },
+      "mission": {
+        "width": 1920,
+        "height": 1080,
+        "scroll": 1920,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1632.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1900,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1748,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1748,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1900,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1748,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1900,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1778,
+            "y": 825,
+            "w": 78,
+            "h": 45,
+            "right": 1856,
+            "bottom": 870
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1863,
+            "y": 833,
+            "w": 37,
+            "h": 37,
+            "right": 1900,
+            "bottom": 870
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1748,
+            "y": 878,
+            "w": 152,
+            "h": 14,
+            "right": 1900,
+            "bottom": 892
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1748,
+            "y": 900,
+            "w": 152,
+            "h": 160,
+            "right": 1900,
+            "bottom": 1060
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 1432,
+            "y": 80,
+            "w": 300,
+            "h": 279.75,
+            "right": 1732,
+            "bottom": 359.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "base": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          }
+        ]
+      },
+      "menu": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 911,
+            "y": 80,
+            "w": 340,
+            "h": 152,
+            "right": 1251,
+            "bottom": 232
+          }
+        ]
+      },
+      "light": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 987,
+            "y": 80,
+            "w": 265,
+            "h": 263,
+            "right": 1252,
+            "bottom": 343
+          }
+        ]
+      },
+      "help": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          },
+          {
+            "selector": ".city-help",
+            "x": 952,
+            "y": 80,
+            "w": 300,
+            "h": 307.859375,
+            "right": 1252,
+            "bottom": 387.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 1062,
+            "y": 339.40625,
+            "w": 190,
+            "h": 350.59375,
+            "right": 1252,
+            "bottom": 690
+          }
+        ]
+      },
+      "mission": {
+        "width": 1440,
+        "height": 900,
+        "scroll": 1440,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1152.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1420,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1268,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1268,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1420,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1268,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1420,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1298,
+            "y": 645,
+            "w": 78,
+            "h": 45,
+            "right": 1376,
+            "bottom": 690
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1383,
+            "y": 653,
+            "w": 37,
+            "h": 37,
+            "right": 1420,
+            "bottom": 690
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1268,
+            "y": 698,
+            "w": 152,
+            "h": 14,
+            "right": 1420,
+            "bottom": 712
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1268,
+            "y": 720,
+            "w": 152,
+            "h": 160,
+            "right": 1420,
+            "bottom": 880
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 952,
+            "y": 80,
+            "w": 300,
+            "h": 279.75,
+            "right": 1252,
+            "bottom": 359.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "base": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          }
+        ]
+      },
+      "menu": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 751,
+            "y": 80,
+            "w": 340,
+            "h": 152,
+            "right": 1091,
+            "bottom": 232
+          }
+        ]
+      },
+      "light": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 827,
+            "y": 80,
+            "w": 265,
+            "h": 263,
+            "right": 1092,
+            "bottom": 343
+          }
+        ]
+      },
+      "help": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          },
+          {
+            "selector": ".city-help",
+            "x": 792,
+            "y": 80,
+            "w": 300,
+            "h": 307.859375,
+            "right": 1092,
+            "bottom": 387.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 902,
+            "y": 159.40625,
+            "w": 190,
+            "h": 350.59375,
+            "right": 1092,
+            "bottom": 510
+          }
+        ]
+      },
+      "mission": {
+        "width": 1280,
+        "height": 720,
+        "scroll": 1280,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 992.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1260,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1108,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1108,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1260,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1108,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1260,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1138,
+            "y": 465,
+            "w": 78,
+            "h": 45,
+            "right": 1216,
+            "bottom": 510
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1223,
+            "y": 473,
+            "w": 37,
+            "h": 37,
+            "right": 1260,
+            "bottom": 510
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1108,
+            "y": 518,
+            "w": 152,
+            "h": 14,
+            "right": 1260,
+            "bottom": 532
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1108,
+            "y": 540,
+            "w": 152,
+            "h": 160,
+            "right": 1260,
+            "bottom": 700
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 792,
+            "y": 80,
+            "w": 300,
+            "h": 279.75,
+            "right": 1092,
+            "bottom": 359.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "base": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          }
+        ]
+      },
+      "menu": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 495,
+            "y": 146,
+            "w": 340,
+            "h": 152,
+            "right": 835,
+            "bottom": 298
+          }
+        ]
+      },
+      "light": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 571,
+            "y": 145,
+            "w": 265,
+            "h": 263,
+            "right": 836,
+            "bottom": 408
+          }
+        ]
+      },
+      "help": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          },
+          {
+            "selector": ".city-help",
+            "x": 536,
+            "y": 145,
+            "w": 300,
+            "h": 307.859375,
+            "right": 836,
+            "bottom": 452.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 646,
+            "y": 207.40625,
+            "w": 190,
+            "h": 350.59375,
+            "right": 836,
+            "bottom": 558
+          }
+        ]
+      },
+      "mission": {
+        "width": 1024,
+        "height": 768,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 250,
+            "right": 1004,
+            "bottom": 442
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 513,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 558
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 521,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 558
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 566,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 588,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 748
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 536,
+            "y": 145,
+            "w": 300,
+            "h": 279.75,
+            "right": 836,
+            "bottom": 424.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "base": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          }
+        ]
+      },
+      "menu": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 495,
+            "y": 146,
+            "w": 340,
+            "h": 152,
+            "right": 835,
+            "bottom": 298
+          }
+        ]
+      },
+      "light": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 571,
+            "y": 145,
+            "w": 265,
+            "h": 263,
+            "right": 836,
+            "bottom": 408
+          }
+        ]
+      },
+      "help": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-help",
+            "x": 536,
+            "y": 145,
+            "w": 300,
+            "h": 307.859375,
+            "right": 836,
+            "bottom": 452.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 646,
+            "y": 157,
+            "w": 190,
+            "h": 233,
+            "right": 836,
+            "bottom": 390
+          }
+        ]
+      },
+      "mission": {
+        "width": 1024,
+        "height": 600,
+        "scroll": 1024,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 736.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1004,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 852,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 852,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1004,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 852,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1004,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 882,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 960,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 967,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1004,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 852,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1004,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 852,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1004,
+            "bottom": 580
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 536,
+            "y": 145,
+            "w": 300,
+            "h": 279.75,
+            "right": 836,
+            "bottom": 424.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 1366,
+      "height": 600,
+      "base": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          }
+        ]
+      },
+      "menu": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 837,
+            "y": 80,
+            "w": 340,
+            "h": 152,
+            "right": 1177,
+            "bottom": 232
+          }
+        ]
+      },
+      "light": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 913,
+            "y": 80,
+            "w": 265,
+            "h": 263,
+            "right": 1178,
+            "bottom": 343
+          }
+        ]
+      },
+      "help": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-help",
+            "x": 878,
+            "y": 80,
+            "w": 300,
+            "h": 307.859375,
+            "right": 1178,
+            "bottom": 387.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 988,
+            "y": 92,
+            "w": 190,
+            "h": 298,
+            "right": 1178,
+            "bottom": 390
+          }
+        ]
+      },
+      "mission": {
+        "width": 1366,
+        "height": 600,
+        "scroll": 1366,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 1078.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 1346,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 1194,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 1194,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 1346,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 1194,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 1346,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 1224,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 1302,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 1309,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 1346,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 1194,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 1346,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 1194,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 1346,
+            "bottom": 580
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 878,
+            "y": 80,
+            "w": 300,
+            "h": 279.75,
+            "right": 1178,
+            "bottom": 359.75
+          }
+        ]
+      }
+    },
+    {
+      "width": 901,
+      "height": 600,
+      "base": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          }
+        ]
+      },
+      "menu": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-toolbar-actions",
+            "x": 372,
+            "y": 146,
+            "w": 340,
+            "h": 152,
+            "right": 712,
+            "bottom": 298
+          }
+        ]
+      },
+      "light": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          },
+          {
+            "selector": ".lighting-panel",
+            "x": 448,
+            "y": 145,
+            "w": 265,
+            "h": 263,
+            "right": 713,
+            "bottom": 408
+          }
+        ]
+      },
+      "help": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          },
+          {
+            "selector": ".city-help",
+            "x": 413,
+            "y": 145,
+            "w": 300,
+            "h": 307.859375,
+            "right": 713,
+            "bottom": 452.859375
+          }
+        ]
+      },
+      "tour": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          },
+          {
+            "selector": ".island-navigation",
+            "x": 523,
+            "y": 157,
+            "w": 190,
+            "h": 233,
+            "right": 713,
+            "bottom": 390
+          }
+        ]
+      },
+      "mission": {
+        "width": 901,
+        "height": 600,
+        "scroll": 901,
+        "rects": [
+          {
+            "selector": ".city-toolbar",
+            "x": 613.15625,
+            "y": 20,
+            "w": 267.84375,
+            "h": 51,
+            "right": 881,
+            "bottom": 71
+          },
+          {
+            "selector": ".online-count",
+            "x": 729,
+            "y": 88,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 128
+          },
+          {
+            "selector": ".quality-control",
+            "x": 729,
+            "y": 140,
+            "w": 152,
+            "h": 40,
+            "right": 881,
+            "bottom": 180
+          },
+          {
+            "selector": ".journey-actions",
+            "x": 729,
+            "y": 192,
+            "w": 152,
+            "h": 143,
+            "right": 881,
+            "bottom": 335
+          },
+          {
+            "selector": ".island-zoom",
+            "x": 759,
+            "y": 345,
+            "w": 78,
+            "h": 45,
+            "right": 837,
+            "bottom": 390
+          },
+          {
+            "selector": ".island-menu",
+            "x": 844,
+            "y": 353,
+            "w": 37,
+            "h": 37,
+            "right": 881,
+            "bottom": 390
+          },
+          {
+            "selector": ".city-performance",
+            "x": 729,
+            "y": 398,
+            "w": 152,
+            "h": 14,
+            "right": 881,
+            "bottom": 412
+          },
+          {
+            "selector": ".education-launch",
+            "x": 729,
+            "y": 420,
+            "w": 152,
+            "h": 160,
+            "right": 881,
+            "bottom": 580
+          },
+          {
+            "selector": ".mission-panel",
+            "x": 413,
+            "y": 145,
+            "w": 300,
+            "h": 279.75,
+            "right": 713,
+            "bottom": 424.75
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "failedRequests": []
+}

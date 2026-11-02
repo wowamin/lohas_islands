@@ -11,6 +11,7 @@ import { useGameStore } from '../../game/store/useGameStore';
 import { useJourney } from '../../game/journey';
 import { createPawn, createIslandDice } from './gamePieces';
 import { buildDioramaBackdrop } from './cityEnvironment';
+import { usePanelDismiss } from '../UI/usePanelDismiss';
 import { diceAnimation, useDicePresentation } from '../../game/dice/presentation';
 import { resolveCharacter } from '../../game/characters';
 import type { createCharacterActor } from '../Characters/actor';
@@ -23,6 +24,7 @@ export default function CareIsland({night,resetKey,selected,labels,brightness,sh
   const quality=useCitySettings(s=>s.quality),explored=useCitySettings(s=>s.explored);
   const mode=useJourney(s=>s.mode),focusIndex=useJourney(s=>s.focusIndex),setMode=useJourney(s=>s.setMode);
   const [nav,setNav]=useState(false);
+  usePanelDismiss(nav,'.island-menu,.island-navigation',()=>setNav(false));
   const api=useRef<{focus:(at?:readonly number[])=>void;zoom:(factor:number)=>void;light:(b:number,s:number)=>void}|null>(null);
   useEffect(()=>{
     const parent=host.current!;if(!parent)return;
