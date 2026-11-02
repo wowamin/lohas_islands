@@ -1,9 +1,23 @@
+.journey-location-dock{display:contents}
 /* Reserve one fixed desktop rail. Transient panels open to its left. */
 @media(min-width:901px){
  .game-app:not(.is-setup){height:100vh;height:100dvh;min-height:0}
  .game-app{--desktop-rail-width:152px;--desktop-rail-edge:20px;--desktop-panel-top:80px;--desktop-menu-offset:59px;--desktop-controls-bottom:210px;--desktop-education-height:160px}
- .game-app .journey-hud .player-panel{max-height:calc(100dvh - 392px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
+ .game-app .journey-hud .player-panel{max-height:calc(100dvh - 430px);overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
  .game-app .journey-hud .player-panel .player-card{width:100%;max-width:100%;min-width:0}
+ /* One shared surface keeps the location summary aligned with all seven stops. */
+ .game-app .journey-location-dock{position:absolute;left:20px;bottom:20px;display:grid;width:clamp(300px,28vw,420px);min-width:0;border:2px solid #fff;border-radius:22px;background:#fffaf0f2;box-shadow:0 8px 26px #3c675514;pointer-events:auto;overflow:hidden;box-sizing:border-box}
+ .game-app .journey-hud .journey-location-dock .journey-footer{position:static;inset:auto;transform:none;width:100%;max-width:none;min-width:0;height:auto;min-height:105px;margin:0;padding:15px 17px;gap:13px;border:0;border-radius:0;background:transparent;box-shadow:none;box-sizing:border-box;backdrop-filter:none}
+ .game-app .journey-location-dock .location-illustration{width:44px;height:56px;font-size:32px;border-radius:14px}
+ .game-app .journey-hud .journey-location-dock .journey-footer small{display:block;font-size:11px;line-height:1.5;color:#718366}
+ .game-app .journey-hud .journey-location-dock .journey-footer strong{margin-top:4px;font-size:18px;line-height:1.4;overflow-wrap:anywhere}
+ .game-app .journey-hud .journey-location-dock .journey-footer p{font-size:11px;line-height:1.6;margin:4px 0 0;overflow-wrap:anywhere}
+ .game-app .journey-hud .journey-location-dock .journey-footer .location-note{font-size:10px;font-weight:400;color:#788576;margin-top:2px}
+ .game-app .journey-location-dock .city-route-progress{position:static;inset:auto;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));width:100%;min-width:0;gap:2px;margin:0;padding:10px 8px;border:0;border-top:1px solid #e1e6d7;border-radius:0;background:transparent;box-shadow:none;box-sizing:border-box}
+ .game-app .journey-location-dock .city-route-progress button{min-width:0;min-height:64px;padding:6px 2px;gap:4px}
+ .game-app .journey-location-dock .city-route-progress strong{font-size:10px;letter-spacing:0}
+ .game-app .journey-location-dock .city-route-progress small{font-size:10px}
+ .game-app .journey-location-dock .city-route-progress button:focus-visible{outline:2px solid #5c8973;outline-offset:-2px}
  .game-app:not(.is-setup) .online-count{top:88px;right:var(--desktop-rail-edge);left:auto;bottom:auto;width:var(--desktop-rail-width);height:40px;min-height:0;margin:0;justify-content:center;box-sizing:border-box}
  .game-app:not(.is-setup) .quality-control{top:140px;right:var(--desktop-rail-edge);left:auto;bottom:auto;width:var(--desktop-rail-width);height:40px;min-width:0;justify-content:center;padding:6px 8px;gap:5px;box-sizing:border-box;white-space:nowrap}
  .game-app:not(.is-setup) .quality-control label{min-width:0;display:flex;align-items:center;gap:4px}

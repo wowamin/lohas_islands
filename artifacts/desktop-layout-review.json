@@ -79,6 +79,33 @@
             "h": 160,
             "right": 1894,
             "bottom": 858
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           }
         ]
       },
@@ -158,6 +185,33 @@
             "h": 160,
             "right": 1894,
             "bottom": 858
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-toolbar-actions",
@@ -248,6 +302,33 @@
             "bottom": 858
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".lighting-panel",
             "x": 1461,
             "y": 80,
@@ -334,6 +415,33 @@
             "h": 160,
             "right": 1894,
             "bottom": 858
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-help",
@@ -424,6 +532,33 @@
             "bottom": 858
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".island-navigation",
             "x": 1536,
             "y": 317.40625,
@@ -510,6 +645,33 @@
             "h": 160,
             "right": 1894,
             "bottom": 858
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 648.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 764
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 764,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 856
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".mission-panel",
@@ -602,6 +764,33 @@
             "h": 160,
             "right": 1900,
             "bottom": 1060
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           }
         ]
       },
@@ -681,6 +870,33 @@
             "h": 160,
             "right": 1900,
             "bottom": 1060
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-toolbar-actions",
@@ -771,6 +987,33 @@
             "bottom": 1060
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".lighting-panel",
             "x": 1467,
             "y": 80,
@@ -857,6 +1100,33 @@
             "h": 160,
             "right": 1900,
             "bottom": 1060
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-help",
@@ -947,6 +1217,33 @@
             "bottom": 1060
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".island-navigation",
             "x": 1542,
             "y": 519.40625,
@@ -1033,6 +1330,33 @@
             "h": 160,
             "right": 1900,
             "bottom": 1060
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 850.71875,
+            "w": 416,
+            "h": 115.28125,
+            "right": 438,
+            "bottom": 966
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 966,
+            "w": 416,
+            "h": 92,
+            "right": 438,
+            "bottom": 1058
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".mission-panel",
@@ -1125,6 +1449,33 @@
             "h": 160,
             "right": 1420,
             "bottom": 880
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           }
         ]
       },
@@ -1204,6 +1555,33 @@
             "h": 160,
             "right": 1420,
             "bottom": 880
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-toolbar-actions",
@@ -1294,6 +1672,33 @@
             "bottom": 880
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".lighting-panel",
             "x": 987,
             "y": 80,
@@ -1380,6 +1785,33 @@
             "h": 160,
             "right": 1420,
             "bottom": 880
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".city-help",
@@ -1470,6 +1902,33 @@
             "bottom": 880
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
+          },
+          {
             "selector": ".island-navigation",
             "x": 1062,
             "y": 339.40625,
@@ -1556,6 +2015,33 @@
             "h": 160,
             "right": 1420,
             "bottom": 880
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 670.71875,
+            "w": 399.1875,
+            "h": 115.28125,
+            "right": 421.1875,
+            "bottom": 786
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 786,
+            "w": 399.1875,
+            "h": 92,
+            "right": 421.1875,
+            "bottom": 878
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 362,
+            "right": 224,
+            "bottom": 532
           },
           {
             "selector": ".mission-panel",
@@ -1648,6 +2134,33 @@
             "h": 160,
             "right": 1260,
             "bottom": 700
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
           }
         ]
       },
@@ -1727,6 +2240,33 @@
             "h": 160,
             "right": 1260,
             "bottom": 700
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
           },
           {
             "selector": ".city-toolbar-actions",
@@ -1817,6 +2357,33 @@
             "bottom": 700
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
+          },
+          {
             "selector": ".lighting-panel",
             "x": 827,
             "y": 80,
@@ -1903,6 +2470,33 @@
             "h": 160,
             "right": 1260,
             "bottom": 700
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
           },
           {
             "selector": ".city-help",
@@ -1993,6 +2587,33 @@
             "bottom": 700
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
+          },
+          {
             "selector": ".island-navigation",
             "x": 902,
             "y": 159.40625,
@@ -2079,6 +2700,33 @@
             "h": 160,
             "right": 1260,
             "bottom": 700
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 490.71875,
+            "w": 354.390625,
+            "h": 115.28125,
+            "right": 376.390625,
+            "bottom": 606
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 606,
+            "w": 354.390625,
+            "h": 92,
+            "right": 376.390625,
+            "bottom": 698
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 290,
+            "right": 224,
+            "bottom": 460
           },
           {
             "selector": ".mission-panel",
@@ -2171,6 +2819,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 748
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
           }
         ]
       },
@@ -2250,6 +2925,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 748
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
           },
           {
             "selector": ".city-toolbar-actions",
@@ -2340,6 +3042,33 @@
             "bottom": 748
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
+          },
+          {
             "selector": ".lighting-panel",
             "x": 571,
             "y": 145,
@@ -2426,6 +3155,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 748
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
           },
           {
             "selector": ".city-help",
@@ -2516,6 +3272,33 @@
             "bottom": 748
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
+          },
+          {
             "selector": ".island-navigation",
             "x": 646,
             "y": 207.40625,
@@ -2602,6 +3385,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 748
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 538.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 654
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 654,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 746
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 338,
+            "right": 200,
+            "bottom": 508
           },
           {
             "selector": ".mission-panel",
@@ -2694,6 +3504,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           }
         ]
       },
@@ -2773,6 +3610,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".city-toolbar-actions",
@@ -2863,6 +3727,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
+          },
+          {
             "selector": ".lighting-panel",
             "x": 571,
             "y": 145,
@@ -2949,6 +3840,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".city-help",
@@ -3039,6 +3957,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
+          },
+          {
             "selector": ".island-navigation",
             "x": 646,
             "y": 157,
@@ -3125,6 +4070,33 @@
             "h": 160,
             "right": 1004,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".mission-panel",
@@ -3217,6 +4189,33 @@
             "h": 160,
             "right": 1346,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
           }
         ]
       },
@@ -3296,6 +4295,33 @@
             "h": 160,
             "right": 1346,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
           },
           {
             "selector": ".city-toolbar-actions",
@@ -3386,6 +4412,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
+          },
+          {
             "selector": ".lighting-panel",
             "x": 913,
             "y": 80,
@@ -3472,6 +4525,33 @@
             "h": 160,
             "right": 1346,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
           },
           {
             "selector": ".city-help",
@@ -3562,6 +4642,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
+          },
+          {
             "selector": ".island-navigation",
             "x": 988,
             "y": 92,
@@ -3648,6 +4755,33 @@
             "h": 160,
             "right": 1346,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 378.46875,
+            "h": 115.28125,
+            "right": 400.46875,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 378.46875,
+            "h": 92,
+            "right": 400.46875,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 204,
+            "h": 170,
+            "right": 224,
+            "bottom": 340
           },
           {
             "selector": ".mission-panel",
@@ -3740,6 +4874,33 @@
             "h": 160,
             "right": 881,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           }
         ]
       },
@@ -3819,6 +4980,33 @@
             "h": 160,
             "right": 881,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".city-toolbar-actions",
@@ -3909,6 +5097,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
+          },
+          {
             "selector": ".lighting-panel",
             "x": 448,
             "y": 145,
@@ -3995,6 +5210,33 @@
             "h": 160,
             "right": 881,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".city-help",
@@ -4085,6 +5327,33 @@
             "bottom": 580
           },
           {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
+          },
+          {
             "selector": ".island-navigation",
             "x": 523,
             "y": 157,
@@ -4171,6 +5440,33 @@
             "h": 160,
             "right": 881,
             "bottom": 580
+          },
+          {
+            "selector": ".journey-footer",
+            "x": 22,
+            "y": 370.71875,
+            "w": 296,
+            "h": 115.28125,
+            "right": 318,
+            "bottom": 486
+          },
+          {
+            "selector": ".city-route-progress",
+            "x": 22,
+            "y": 486,
+            "w": 296,
+            "h": 92,
+            "right": 318,
+            "bottom": 578
+          },
+          {
+            "selector": ".player-panel",
+            "x": 20,
+            "y": 170,
+            "w": 180,
+            "h": 170,
+            "right": 200,
+            "bottom": 340
           },
           {
             "selector": ".mission-panel",
