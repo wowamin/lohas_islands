@@ -1,4 +1,4 @@
-﻿import './register-ts.mjs';
+import './register-ts.mjs';
 import assert from 'node:assert/strict';
 const {LocalGameSession}=await import('../src/game/session/LocalGameSession.ts');
 const {LocalSaveRepository}=await import('../src/game/storage/LocalSaveRepository.ts');
@@ -19,7 +19,7 @@ clock.flush();assert.equal(a.getSnapshot().phase,'MOVING');const moving=a.getSna
 a.dispatch({type:'COMPLETE_MOVEMENT',expectedRevision:moving.revision});assert.equal(a.getSnapshot().players[0].position,3);assert.equal(a.dispatch({type:'COMPLETE_MOVEMENT'}).accepted,false);
 const event=a.getSnapshot().selectedEvent;assert.equal(a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:99}).accepted,false);
 assert.equal(a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:0,effect:{money:999999}}).accepted,false);
-a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:0});assert.equal(a.getSnapshot().players[0].money,9700);assert.equal(a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:0}).accepted,false);
+a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:0});assert.equal(a.getSnapshot().players[0].money,10000);assert.equal(a.dispatch({type:'CHOOSE_EVENT',eventId:event.id,optionIndex:0}).accepted,false);
 a.dispatch({type:'ADVANCE_TURN'});assert.equal(a.getSnapshot().currentPlayerIndex,1);
 a.load();assert.equal(a.getSnapshot().players[0].position,0);assert.equal(a.getSnapshot().currentPlayerIndex,0);assert.ok(a.getSnapshot().revision>before.revision);
 const repoB=new LocalSaveRepository(raw,'visitor-b'),b=new LocalGameSession({id:'visitor-b',repository:repoB,random:()=>0,scheduler:fakeClock()});
@@ -32,11 +32,19 @@ let calls=0;const unsubscribe=a.subscribe(()=>calls++);a.dispatch({type:'RESET_G
 // A replacement adapter works through the same Zustand projection used by the existing scene.
 const first=new LocalGameSession({id:'first'}),client=createGameClient(first),second=new LocalGameSession({id:'second'});client.useStore.getState().startGame(['甲','乙']);assert.equal(client.useStore.getState().players.length,2);client.setAdapter(second);assert.equal(client.useStore.getState().sessionId,'second');client.useStore.getState().startGame(['新旅人']);assert.equal(second.getSnapshot().players.length,1);assert.equal(first.dispatch({type:'ROLL_DICE'}).accepted,false);client.dispose();
 // Old source and backups survive migration; unsupported data blocks automatic writes.
-for(const version of [1,2]){const storage=new MemoryStorage(),state=startGame(initialGame(),['舊甲','舊乙']);state.players[0].position=39;const key='long-care-game-save-v'+version,old=JSON.stringify({version,state});storage.setItem(key,old);const repository=new LocalSaveRepository(storage,'migration-'+version);const restored=repository.loadAuto();assert.equal(restored.players[0].position,version===1?47:39);assert.equal(storage.getItem(key),old);assert.equal(storage.getItem(key+'-backup-before-v3'),old);assert.equal(JSON.parse(storage.getItem(repository.autoKey)).version,SAVE_VERSION);}
+for(const version of [1,2]){const storage=new MemoryStorage(),state=startGame(initialGame(),['舊甲','舊乙']);state.players[0].position=39;const key='long-care-game-save-v'+version,old=JSON.stringify({version,state});storage.setItem(key,old);const repository=new LocalSaveRepository(storage,'migration-'+version);const restored=repository.loadAuto();assert.equal(restored.players[0].position,version===1?69:58);assert.equal(storage.getItem(key),old);assert.equal(storage.getItem(key+'-backup-before-v4'),old);assert.equal(JSON.parse(storage.getItem(repository.autoKey)).version,SAVE_VERSION);}
 const corrupt=new MemoryStorage(),badNotices=[],badRepo=new LocalSaveRepository(corrupt,'bad',n=>badNotices.push(n));const unknown=JSON.stringify({version:99,state:before});corrupt.setItem(badRepo.autoKey,unknown);assert.equal(badRepo.loadAuto(),null);badRepo.saveAuto(initialGame());assert.equal(corrupt.getItem(badRepo.autoKey),unknown);assert.ok(badNotices.at(-1).blocked);
 const storageError={getItem(){throw Error('denied');},setItem(){throw Error('denied');},removeItem(){throw Error('denied');}};const noStorage=new LocalGameSession({id:'volatile',repository:new LocalSaveRepository(storageError,'volatile')});assert.ok(noStorage.dispatch({type:'START_GAME',names:['旅人']}).accepted);noStorage.dispose();
-const m=new MemoryStorage(),manualRepo=new LocalSaveRepository(m,'manual'),legacy=startGame(initialGame(),['甲','乙']);legacy.players[0].position=39;m.setItem('lohas-manual-save-v1',JSON.stringify({version:1,state:legacy}));assert.equal(manualRepo.loadManual().players[0].position,47);assert.ok(m.getItem('lohas-manual-save-v1-backup-before-v3'));
+const m=new MemoryStorage(),manualRepo=new LocalSaveRepository(m,'manual'),legacy=startGame(initialGame(),['甲','乙']);legacy.players[0].position=39;m.setItem('lohas-manual-save-v1',JSON.stringify({version:1,state:legacy}));assert.equal(manualRepo.loadManual().players[0].position,69);assert.ok(m.getItem('lohas-manual-save-v1-backup-before-v4'));
 const incompatible=new MemoryStorage(),incompatibleRepo=new LocalSaveRepository(incompatible,'future');const future=JSON.stringify({version:3,state:{...before,mapVersion:999}});incompatible.setItem(incompatibleRepo.autoKey,future);assert.equal(incompatibleRepo.loadAuto(),null);incompatibleRepo.saveAuto(initialGame());assert.equal(incompatible.getItem(incompatibleRepo.autoKey),future);
+// v3 same-tab migration keeps its own slot and exact original backup before writing v4.
+const v3Storage=new MemoryStorage(),v3Notices=[],v3Repo=new LocalSaveRepository(v3Storage,'old-tab',n=>v3Notices.push(n));
+const oldState={...structuredClone(before),mapId:'lohas-city-50',mapVersion:1,rulesVersion:1,round:12};oldState.players[0].position=49;
+const oldV3=JSON.stringify({version:3,state:oldState});v3Storage.setItem(v3Repo.autoKey,oldV3);v3Storage.setItem(v3Repo.manualKey,oldV3);
+assert.equal(v3Repo.loadAuto().players[0].position,71);assert.equal(v3Repo.loadManual().players[0].position,71);assert.equal(v3Storage.getItem(v3Repo.autoKey+'-backup-before-v4'),oldV3);assert.equal(v3Storage.getItem(v3Repo.manualKey+'-backup-before-v4'),oldV3);assert.ok(v3Notices.some(n=>n.message.includes('80 格')));assert.equal(JSON.parse(v3Storage.getItem(v3Repo.autoKey)).version,4);
 assert.throws(()=>decodeSave({version:3,state:{...before,players:[{...before.players[0],position:50},before.players[1]]}}));
 assert.ok(raw.getItem(RECENT_AUTO_KEY));b.dispose();aReload.dispose();
+const interruptedState=startGame(initialGame(),['旅人']);Object.assign(interruptedState,{phase:'MOVING',pendingMoveTarget:15});
+const interruptedClient=createGameClient(new LocalGameSession({id:'interrupted',initialSnapshot:interruptedState}));
+assert.equal(interruptedClient.useStore.getState().pendingMoveTarget,15);interruptedClient.useStore.getState().resetGame();interruptedClient.useStore.getState().startGame(['新旅人']);assert.equal(interruptedClient.useStore.getState().pendingMoveTarget,undefined,'restart clears migrated target from Zustand projection');interruptedClient.dispose();
 console.log('PASS: LocalGameSession commands, canonical effects, stale/forged command rejection, immutable snapshots, independent slots, reload, manual saves, migration/backups, storage failure and adapter replacement.');

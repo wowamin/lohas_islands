@@ -41,10 +41,10 @@ for(let value=1;value<=6;value++){
 }
 die.root.traverse(o=>{if(o.isMesh){assert.ok(geometryIds.has(o.geometry.uuid));assert.ok(materialIds.has(o.material.uuid));}});die.dispose();
 const invalid=new DiceAnimationController();assert.equal(invalid.start(0,'bad',0,'standard'),false);assert.equal(invalid.start(7,'bad',0,'standard'),false);
-const saved=startGame(initialGame(),['甲','乙']);saved.phase='ROLLING';saved.diceValue=6;const restored=decodeSave({version:3,state:saved}).state;assert.equal(restored.phase,'MOVING');assert.equal(restored.diceValue,6,'reload reuses authoritative result');
+const saved=startGame(initialGame(),['甲','乙']);saved.phase='ROLLING';saved.diceValue=6;const restored=decodeSave({version:4,state:saved}).state;assert.equal(restored.phase,'MOVING');assert.equal(restored.diceValue,6,'reload reuses authoritative result');
 for(const event of ALL_GAME_EVENTS)for(const [index] of (event.options??[{}]).entries()){
  const state=startGame(initialGame(),['旅人']);state.phase='EVENT';state.selectedEvent=event;state.players[0]={...state.players[0],money:0,health:100,stress:0};
  const result=chooseEvent(state,event.id,event.options?index:undefined),p=result.players[0];assert.deepEqual(result.eventOutcome,{money:p.money,health:p.health-100,stress:p.stress},'reveal reports actual bounded delta');
- assert.deepEqual(decodeSave({version:3,state:result}).state.eventOutcome,result.eventOutcome,'revealed outcome survives reload without another choice');
+ assert.deepEqual(decodeSave({version:4,state:result}).state.eventOutcome,result.eventOutcome,'revealed outcome survives reload without another choice');
 }
 console.log('PASS: six fixed faces/opposites, exact final orientations, reusable resources, standard/quick/reduced phases, skip, single dice sample, stale/forged/duplicate protection, one movement/event/turn, fallback cancellation and saved-roll recovery.');

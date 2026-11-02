@@ -5,6 +5,7 @@ export type Player = {
   color: string;
   characterId?: CharacterId;
   position: number;
+  reachedFinish?: boolean;
   money: number;
   health: number;
   stress: number;
@@ -14,7 +15,7 @@ export type Player = {
 
 export type ServiceKey = 'care' | 'transport' | 'equipment' | 'respite' | 'meal' | 'community';
 
-export type TileType = 'START' | 'LIVING' | 'SERVICE' | 'OPPORTUNITY' | 'ACCIDENT' | 'REST' | 'RESOURCE';
+export type TileType = 'START' | 'LIVING' | 'SERVICE' | 'OPPORTUNITY' | 'ACCIDENT' | 'REST' | 'RESOURCE' | 'FINISH';
 
 export interface GameEvent {
   id: string;

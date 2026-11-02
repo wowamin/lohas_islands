@@ -14,7 +14,7 @@ export class LocalSaveRepository implements GameSaveRepository {
     this.storage=storage;this.autoKey=AUTO_KEY+':'+sessionId;this.manualKey=MANUAL_KEY+':'+sessionId;this.notice=notice;
   }
   private backup(key:string,raw:string){
-    const base=key+'-backup-before-v3',old=this.storage.getItem(base);
+    const base=key+'-backup-before-v4',old=this.storage.getItem(base);
     if(old===null)this.storage.setItem(base,raw);
     else if(old!==raw){let n=2;while(this.storage.getItem(base+'-'+n)!==null)n++;this.storage.setItem(base+'-'+n,raw);}
     // Retain the original migration backup key for the original 40-stop source too.
@@ -26,7 +26,7 @@ export class LocalSaveRepository implements GameSaveRepository {
     if(raw===null)for(const legacy of legacyKeys){const candidate=this.storage.getItem(legacy);if(candidate!==null){source=legacy;raw=candidate;break;}}
     if(raw===null)return null;
     const decoded=decodeSave(JSON.parse(raw));
-    if(decoded.migrated){this.backup(source,raw);this.notice({message:'已將舊進度轉為獨立體驗版本，原始存檔與備份均已保留。',blocked:false});}
+    if(decoded.migrated){this.backup(source,raw);this.notice({message:'已將舊進度轉為 80 格城市旅程，原始內容已備份保留。位置依原站點對應；本輪結束後依終點規則繼續。',blocked:false});}
     // A new tab forks a saved snapshot into its own slot; it never writes the source slot.
     if(source!==key||decoded.migrated){this.storage.setItem(key,encodeSave(decoded.state));this.storage.setItem(recentKey,key);}
     return decoded.state;

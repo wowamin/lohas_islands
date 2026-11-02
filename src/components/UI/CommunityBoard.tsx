@@ -3,13 +3,13 @@ import { getResource, CORE_SERVICES } from '../../game/resources';
 import { useGameStore } from '../../game/store/useGameStore';
 import type { ServiceKey } from '../../game/types';
 
-const symbols = { START: '⌂', LIVING: '♡', SERVICE: '✚', OPPORTUNITY: '✦', ACCIDENT: '!', REST: '☼', RESOURCE: '＋' };
+const symbols = { START: '⌂', LIVING: '♡', SERVICE: '✚', OPPORTUNITY: '✦', ACCIDENT: '!', REST: '☼', RESOURCE: '＋', FINISH: '⚑' };
 export function CommunityBoard({ onResource }: { onResource: (key: ServiceKey) => void }) {
   const players = useGameStore((state) => state.players);
   const currentIndex = useGameStore((state) => state.currentPlayerIndex);
   const current = players[currentIndex];
   return (
-    <div className="community-board" aria-label="50 格社區棋盤">
+    <div className="community-board" aria-label="80 格社區棋盤">
       {BOARD_DATA.map((tile) => {
         const occupants = players.filter((player) => player.position === tile.id);
         return <button key={tile.id} type="button" className={'board-space space-' + tile.id + ' category-' + tile.type.toLowerCase() + (current?.position === tile.id ? ' is-active-space' : '')} onClick={() => onResource(tile.serviceKey ?? 'community')} aria-label={`${tile.id + 1} ${tile.name}，查看相關資源${occupants.length ? '，' + occupants.map((p) => p.name).join('、') + '在此' : ''}`} aria-current={current?.position === tile.id ? 'location' : undefined}>

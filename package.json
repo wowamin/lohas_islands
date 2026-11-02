@@ -6,6 +6,9 @@
   "scripts": {
     "test": "node scripts/test-education.mjs",
     "test:browser": "node scripts/test-browser.mjs",
+    "test:journey": "node scripts/test-browser.mjs --journey",
+    "test:diorama": "node scripts/test-browser.mjs --diorama",
+    "test:mobile-layout": "node scripts/test-browser.mjs --mobile-layout",
     "test:characters": "node scripts/test-characters.mjs",
     "test:characters:browser": "node scripts/test-browser.mjs --characters",
     "test:isolation": "node scripts/test-browser.mjs --isolation",

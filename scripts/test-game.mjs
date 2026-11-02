@@ -6,11 +6,11 @@ import * as THREE from 'three';
 const {BOARD_DATA,LEGACY_TO_CURRENT}=await import('../src/game/board.ts');
 const {missionSummary}=await import('../src/game/resources.ts');
 const {initialGame,startGame,completeMovement,chooseEvent,advanceTurn,applyEventEffect}=await import('../src/game/rules/engine.ts');
-const moveToLegacy=id=>{const state=startGame(initialGame(),['甲','乙']),destination=LEGACY_TO_CURRENT[id];state.players[0].position=(destination+49)%50;return completeMovement({...state,phase:'MOVING',diceValue:1},0);};
+const moveToLegacy=id=>{const state=startGame(initialGame(),['甲','乙']),destination=LEGACY_TO_CURRENT[id];state.players[0].position=destination-1;return completeMovement({...state,phase:'MOVING',diceValue:1},0);};
 let state=moveToLegacy(13);const event=state.selectedEvent;assert.equal(event.serviceKey,'transport');state=chooseEvent(state,event.id,0);assert.equal(state.players[0].money,9800);assert.deepEqual(state.players[0].learnedServices,['transport']);assert.equal(chooseEvent(state,event.id,0),state);state=advanceTurn(state);assert.equal(state.currentPlayerIndex,1);assert.equal(advanceTurn(state),state);
 state=moveToLegacy(2);const bounded=applyEventEffect(state.players[0],{health:200,stress:-200,money:-50000},state.selectedEvent);assert.deepEqual(bounded.completedActivities,['meal']);assert.equal(bounded.health,100);assert.equal(bounded.stress,0);assert.equal(bounded.money,0);
 state=moveToLegacy(18);state=chooseEvent(state,state.selectedEvent.id,0);assert.deepEqual(state.players[0].completedActivities,['respite']);assert.equal(missionSummary(['respite'],80,20,[])[2].done,false);
-state=advanceTurn({...state,round:12,currentPlayerIndex:1,phase:'EVENT',selectedEvent:null});assert.equal(state.phase,'RESULT');
+state=advanceTurn({...state,round:12,currentPlayerIndex:1,phase:'EVENT',selectedEvent:null});assert.equal(state.phase,'WAITING_ROLL');
 const {CITY_BASE,CITY_SURFACE,createCityBoxGeometry}=await import('../src/components/Three/cityGeometry.ts');
 for(const layer of [CITY_BASE,CITY_SURFACE]){const g=createCityBoxGeometry(layer.size,layer.radius);g.computeBoundingBox();assert.ok(g.boundingBox.max.y+layer.y<.1);assert.ok(Math.abs(g.boundingBox.max.y-g.boundingBox.min.y-layer.size[1])<.0001);g.dispose();}
 const thin=createCityBoxGeometry([2,.14,2],.8);thin.computeBoundingBox();assert.ok(thin.boundingBox.max.y<.071);thin.dispose();
@@ -33,6 +33,6 @@ for(const night of [false,true])for(const layout of ['island','district']){
  for(const x of[bounds.min.x,bounds.max.x])for(const y of[bounds.min.y,bounds.max.y])for(const z of[bounds.min.z,bounds.max.z]){const p=new THREE.Vector3(x,y,z).project(camera);assert.ok(Math.abs(p.x)<1&&Math.abs(p.y)<1&&Math.abs(p.z)<1,'shadow volume covers scene');}
  let casters=0,points=0;scene.traverse(o=>{if(o.isLight&&o.castShadow)casters++;if(o.isPointLight)points++;});assert.equal(casters,1);assert.ok(points<=3);assert.ok(rig.sun.shadow.mapSize.x<=1024);rig.setShadow(99);assert.ok(rig.sun.shadow.intensity<=.9);restore();for(const[o,m]of originals)assert.equal(o.material,m);rig.dispose();model.dispose();
 }
-console.log('PASS: original event effects, duplicate guards, tasks, bounds, 12-round result, scene thickness, district links, day/night materials and bounded shadows.');
+console.log('PASS: original event effects, duplicate guards, tasks, bounds, finish-round result, scene thickness, district links, day/night materials and bounded shadows.');
 await import('./test-dice.mjs');
 await import('./test-characters.mjs');

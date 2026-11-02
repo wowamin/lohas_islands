@@ -1,4 +1,5 @@
 import * as T from 'three';
+import { FINISH_INDEX } from '../../game/mapDefinition';
 import { createCharacterModel } from './model';
 import type { CharacterOptions, CharacterMotion } from './types';
 import type { GamePhase } from '../../game/rules/model';
@@ -15,15 +16,15 @@ export function createCharacterActor(options:CharacterOptions&{playerId:number})
     const index=frame.moving&&frame.visualPosition!==null?frame.visualPosition:frame.position,p=frame.worldPosition(index),dt=Math.min(.1,Math.max(0,frame.delta));
     const offsetX=(options.playerId%2-.5)*.65,offsetZ=(Math.floor(options.playerId/2)-.5)*.65;target.set(p[0]+offsetX,p[1],p[2]+offsetZ);
     const changed=lastIndex!==null&&lastIndex!==index;
-    if(lastIndex===null){root.position.copy(target);const next=frame.worldPosition((index+1)%50);yaw=Math.atan2(next[0]-p[0],next[2]-p[2]);root.rotation.y=yaw;}
+    if(lastIndex===null){root.position.copy(target);const next=frame.worldPosition(Math.min(index+1,FINISH_INDEX));yaw=Math.atan2(next[0]-p[0],next[2]-p[2]);root.rotation.y=yaw;}
     if(changed){
       const dx=target.x-root.position.x,dz=target.z-root.position.z;if(Math.hypot(dx,dz)>.001)yaw=Math.atan2(dx,dz);
-      const advance=(index-lastIndex!+50)%50;if(frame.phase!=='MOVING'&&advance>1)root.position.copy(target);
+      const advance=Math.abs(index-lastIndex!);if(frame.phase!=='MOVING'&&advance>1)root.position.copy(target);
       landing=.34;
     }
     lastIndex=index;
     if(wasMoving&&!frame.moving)landing=.34;wasMoving=frame.moving;
-    if(frame.moving&&root.position.distanceToSquared(target)<.0001){const next=frame.worldPosition((index+1)%50);yaw=Math.atan2(next[0]-p[0],next[2]-p[2]);}
+    if(frame.moving&&root.position.distanceToSquared(target)<.0001){const next=frame.worldPosition(Math.min(index+1,FINISH_INDEX));yaw=Math.atan2(next[0]-p[0],next[2]-p[2]);}
     root.position.lerp(target,frame.reducedMotion?1:1-Math.exp(-dt*15));
     const turn=Math.atan2(Math.sin(yaw-root.rotation.y),Math.cos(yaw-root.rotation.y));root.rotation.y+=turn*(frame.reducedMotion?1:1-Math.exp(-dt*11));
     landing=Math.max(0,landing-dt);

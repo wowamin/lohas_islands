@@ -1,0 +1,25 @@
+{
+  "journeys": [
+    {
+      "mode": "3D",
+      "turns": 22,
+      "position": 79
+    },
+    {
+      "mode": "2D",
+      "turns": 23,
+      "position": 79
+    }
+  ],
+  "fourPlayers": true,
+  "pendingFinishReload": true,
+  "blockedSaveFreshSlot": true,
+  "viewports": [
+    1440,
+    768,
+    390,
+    320
+  ],
+  "errors": [],
+  "failedRequests": []
+}

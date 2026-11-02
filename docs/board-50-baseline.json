@@ -1,0 +1,1340 @@
+{
+  "tiles": [
+    {
+      "id": 0,
+      "index": 0,
+      "name": "樂活起點",
+      "type": "START",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 49,
+      "next": 1,
+      "educationModule": "C",
+      "role": "入口",
+      "legacyId": 0,
+      "position": [
+        -10.2,
+        0.24,
+        4.500000000000001
+      ]
+    },
+    {
+      "id": 1,
+      "index": 1,
+      "name": "居家安全",
+      "type": "LIVING",
+      "eventIds": [
+        "safety"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 0,
+      "next": 2,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 1,
+      "position": [
+        -8.8,
+        0.24,
+        3.7000000000000006
+      ]
+    },
+    {
+      "id": 2,
+      "index": 2,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 1,
+      "next": 3,
+      "educationModule": "C",
+      "role": "活動區",
+      "legacyId": 2,
+      "position": [
+        -7.7,
+        0.24,
+        2.6000000000000005
+      ]
+    },
+    {
+      "id": 3,
+      "index": 3,
+      "name": "居家服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "home"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 2,
+      "next": 4,
+      "educationModule": "C",
+      "role": "活動區",
+      "legacyId": 3,
+      "position": [
+        -7,
+        0.24,
+        1.4000000000000008
+      ]
+    },
+    {
+      "id": 4,
+      "index": 4,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 3,
+      "next": 5,
+      "educationModule": "C",
+      "role": "休憩區",
+      "legacyId": 4,
+      "position": [
+        -6.8,
+        0.24,
+        8.694992273946208e-16
+      ]
+    },
+    {
+      "id": 5,
+      "index": 5,
+      "name": "日照中心",
+      "type": "SERVICE",
+      "eventIds": [
+        "day"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 4,
+      "next": 6,
+      "educationModule": "C",
+      "role": "庭院活動",
+      "legacyId": 5,
+      "position": [
+        -7,
+        0.24,
+        -1.399999999999999
+      ]
+    },
+    {
+      "id": 6,
+      "index": 6,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 5,
+      "next": 7,
+      "educationModule": "C",
+      "role": "生活事件",
+      "legacyId": 6,
+      "position": [
+        -7.7,
+        0.24,
+        -2.5999999999999996
+      ]
+    },
+    {
+      "id": 7,
+      "index": 7,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 6,
+      "next": 8,
+      "educationModule": "C",
+      "role": "機會探索",
+      "legacyId": 7,
+      "position": [
+        -8.6,
+        0.24,
+        -3.4999999999999996
+      ]
+    },
+    {
+      "id": 8,
+      "index": 8,
+      "name": "大和知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-C"
+      ],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 7,
+      "next": 9,
+      "educationModule": "C",
+      "role": "知識格",
+      "legacyId": null,
+      "position": [
+        -9.5,
+        0.24,
+        -3.9999999999999996
+      ]
+    },
+    {
+      "id": 9,
+      "index": 9,
+      "name": "大和出口",
+      "type": "REST",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#A9CCE2",
+      "previous": 8,
+      "next": 10,
+      "educationModule": "C",
+      "role": "出口轉場",
+      "legacyId": null,
+      "position": [
+        -10.2,
+        0.24,
+        -4.499999999999999
+      ]
+    },
+    {
+      "id": 10,
+      "index": 10,
+      "name": "輔具資源",
+      "type": "SERVICE",
+      "eventIds": [
+        "equipment"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 9,
+      "next": 11,
+      "educationModule": "A",
+      "role": "入口",
+      "legacyId": 8,
+      "position": [
+        -7.431727665952655,
+        0.24,
+        -8.310199991523302
+      ]
+    },
+    {
+      "id": 11,
+      "index": 11,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 10,
+      "next": 12,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 9,
+      "position": [
+        -6.238258660791606,
+        0.24,
+        -7.225934464210045
+      ]
+    },
+    {
+      "id": 12,
+      "index": 12,
+      "name": "休息站",
+      "type": "REST",
+      "eventIds": [
+        "rest"
+      ],
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 11,
+      "next": 13,
+      "educationModule": "A",
+      "role": "活動區",
+      "legacyId": 10,
+      "position": [
+        -4.852177799054495,
+        0.24,
+        -6.5196909900978195
+      ]
+    },
+    {
+      "id": 13,
+      "index": 13,
+      "name": "社區活動",
+      "type": "LIVING",
+      "eventIds": [
+        "community"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 12,
+      "next": 14,
+      "educationModule": "A",
+      "role": "活動區",
+      "legacyId": 11,
+      "position": [
+        -3.4945980834378476,
+        0.24,
+        -6.224771821941147
+      ]
+    },
+    {
+      "id": 14,
+      "index": 14,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 13,
+      "next": 15,
+      "educationModule": "A",
+      "role": "休憩區",
+      "legacyId": 12,
+      "position": [
+        -2.1013155617496433,
+        0.24,
+        -6.467184310807044
+      ]
+    },
+    {
+      "id": 15,
+      "index": 15,
+      "name": "交通接送",
+      "type": "SERVICE",
+      "eventIds": [
+        "transport"
+      ],
+      "serviceKey": "transport",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 14,
+      "next": 16,
+      "educationModule": "A",
+      "role": "庭院活動",
+      "legacyId": 13,
+      "position": [
+        -0.831639837811418,
+        0.24,
+        -7.090019406191001
+      ]
+    },
+    {
+      "id": 16,
+      "index": 16,
+      "name": "專業服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "professional"
+      ],
+      "serviceKey": "care",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 15,
+      "next": 17,
+      "educationModule": "A",
+      "role": "生活事件",
+      "legacyId": 14,
+      "position": [
+        0.09331608568030314,
+        0.24,
+        -8.126579360847545
+      ]
+    },
+    {
+      "id": 17,
+      "index": 17,
+      "name": "聚飽棚",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 16,
+      "next": 18,
+      "educationModule": "A",
+      "role": "機會探索",
+      "legacyId": 15,
+      "position": [
+        0.6711516554084886,
+        0.24,
+        -9.260645520450636
+      ]
+    },
+    {
+      "id": 18,
+      "index": 18,
+      "name": "安南知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-A"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 17,
+      "next": 19,
+      "educationModule": "A",
+      "role": "知識格",
+      "legacyId": null,
+      "position": [
+        0.8685646186186129,
+        0.24,
+        -10.271104882303748
+      ]
+    },
+    {
+      "id": 19,
+      "index": 19,
+      "name": "安南出口",
+      "type": "REST",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#C8B9D9",
+      "previous": 18,
+      "next": 20,
+      "educationModule": "A",
+      "role": "出口轉場",
+      "legacyId": null,
+      "position": [
+        1.127780980703726,
+        0.24,
+        -11.091352940897828
+      ]
+    },
+    {
+      "id": 20,
+      "index": 20,
+      "name": "照顧支持",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 19,
+      "next": 21,
+      "educationModule": "B",
+      "role": "入口",
+      "legacyId": 16,
+      "position": [
+        5.606939707308334,
+        0.24,
+        -9.63598604807049
+      ]
+    },
+    {
+      "id": 21,
+      "index": 21,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 20,
+      "next": 22,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 17,
+      "position": [
+        4.9445441170173865,
+        0.24,
+        -8.165873099361072
+      ]
+    },
+    {
+      "id": 22,
+      "index": 22,
+      "name": "喘息服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 21,
+      "next": 23,
+      "educationModule": "B",
+      "role": "活動區",
+      "legacyId": 18,
+      "position": [
+        4.701189200726665,
+        0.24,
+        -6.6293906280269095
+      ]
+    },
+    {
+      "id": 23,
+      "index": 23,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 22,
+      "next": 24,
+      "educationModule": "B",
+      "role": "活動區",
+      "legacyId": 19,
+      "position": [
+        4.84021960741517,
+        0.24,
+        -5.24712055817224
+      ]
+    },
+    {
+      "id": 24,
+      "index": 24,
+      "name": "樂活社區",
+      "type": "RESOURCE",
+      "eventIds": [
+        "resource"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 23,
+      "next": 25,
+      "educationModule": "B",
+      "role": "休憩區",
+      "legacyId": 20,
+      "position": [
+        5.501315561749642,
+        0.24,
+        -3.9969397155888187
+      ]
+    },
+    {
+      "id": 25,
+      "index": 25,
+      "name": "環境改善",
+      "type": "LIVING",
+      "eventIds": [
+        "safety"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 24,
+      "next": 26,
+      "educationModule": "B",
+      "role": "庭院活動",
+      "legacyId": 21,
+      "position": [
+        6.486018313834094,
+        0.24,
+        -2.9818729739223873
+      ]
+    },
+    {
+      "id": 26,
+      "index": 26,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 25,
+      "next": 27,
+      "educationModule": "B",
+      "role": "生活事件",
+      "legacyId": 22,
+      "position": [
+        7.757672512647526,
+        0.24,
+        -2.422502257277181
+      ]
+    },
+    {
+      "id": 27,
+      "index": 27,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 26,
+      "next": 28,
+      "educationModule": "B",
+      "role": "機會探索",
+      "legacyId": 23,
+      "position": [
+        9.014794534648203,
+        0.24,
+        -2.2233936894029545
+      ]
+    },
+    {
+      "id": 28,
+      "index": 28,
+      "name": "新營知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-B"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 27,
+      "next": 29,
+      "educationModule": "B",
+      "role": "知識格",
+      "legacyId": null,
+      "position": [
+        10.036802455731895,
+        0.24,
+        -2.347891919278706
+      ]
+    },
+    {
+      "id": 29,
+      "index": 29,
+      "name": "新營出口",
+      "type": "REST",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#E8B29B",
+      "previous": 28,
+      "next": 30,
+      "educationModule": "B",
+      "role": "出口轉場",
+      "legacyId": null,
+      "position": [
+        10.897006977940592,
+        0.24,
+        -2.354833098695964
+      ]
+    },
+    {
+      "id": 30,
+      "index": 30,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 29,
+      "next": 31,
+      "educationModule": "E",
+      "role": "入口",
+      "legacyId": 24,
+      "position": [
+        10.897006977940594,
+        0.24,
+        2.3548330986959605
+      ]
+    },
+    {
+      "id": 31,
+      "index": 31,
+      "name": "日照中心",
+      "type": "SERVICE",
+      "eventIds": [
+        "day"
+      ],
+      "serviceKey": "care",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 30,
+      "next": 32,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 25,
+      "position": [
+        9.29415498398169,
+        0.24,
+        2.179147340986456
+      ]
+    },
+    {
+      "id": 32,
+      "index": 32,
+      "name": "專業服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "professional"
+      ],
+      "serviceKey": "care",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 31,
+      "next": 33,
+      "educationModule": "E",
+      "role": "活動區",
+      "legacyId": 26,
+      "position": [
+        7.757672512647527,
+        0.24,
+        2.422502257277178
+      ]
+    },
+    {
+      "id": 33,
+      "index": 33,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 32,
+      "next": 34,
+      "educationModule": "E",
+      "role": "活動區",
+      "legacyId": 27,
+      "position": [
+        6.486018313834096,
+        0.24,
+        2.981872973922384
+      ]
+    },
+    {
+      "id": 34,
+      "index": 34,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 33,
+      "next": 35,
+      "educationModule": "E",
+      "role": "休憩區",
+      "legacyId": 28,
+      "position": [
+        5.501315561749644,
+        0.24,
+        3.9969397155888156
+      ]
+    },
+    {
+      "id": 35,
+      "index": 35,
+      "name": "交通接送",
+      "type": "SERVICE",
+      "eventIds": [
+        "transport"
+      ],
+      "serviceKey": "transport",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 34,
+      "next": 36,
+      "educationModule": "E",
+      "role": "庭院活動",
+      "legacyId": 29,
+      "position": [
+        4.840219607415172,
+        0.24,
+        5.247120558172236
+      ]
+    },
+    {
+      "id": 36,
+      "index": 36,
+      "name": "聚飽棚",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 35,
+      "next": 37,
+      "educationModule": "E",
+      "role": "生活事件",
+      "legacyId": 30,
+      "position": [
+        4.701189200726667,
+        0.24,
+        6.629390628026906
+      ]
+    },
+    {
+      "id": 37,
+      "index": 37,
+      "name": "社區活動",
+      "type": "LIVING",
+      "eventIds": [
+        "community"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 36,
+      "next": 38,
+      "educationModule": "E",
+      "role": "機會探索",
+      "legacyId": 31,
+      "position": [
+        4.900297768600895,
+        0.24,
+        7.886512650027583
+      ]
+    },
+    {
+      "id": 38,
+      "index": 38,
+      "name": "義合知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-E"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 37,
+      "next": 39,
+      "educationModule": "E",
+      "role": "知識格",
+      "legacyId": null,
+      "position": [
+        5.3345204373921105,
+        0.24,
+        8.820027874278281
+      ]
+    },
+    {
+      "id": 39,
+      "index": 39,
+      "name": "義合出口",
+      "type": "REST",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F1D69C",
+      "previous": 38,
+      "next": 40,
+      "educationModule": "E",
+      "role": "出口轉場",
+      "legacyId": null,
+      "position": [
+        5.606939707308337,
+        0.24,
+        9.635986048070487
+      ]
+    },
+    {
+      "id": 40,
+      "index": 40,
+      "name": "輔具資源",
+      "type": "SERVICE",
+      "eventIds": [
+        "equipment"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 39,
+      "next": 41,
+      "educationModule": "F",
+      "role": "入口",
+      "legacyId": 32,
+      "position": [
+        1.1277809807037305,
+        0.24,
+        11.09135294089783
+      ]
+    },
+    {
+      "id": 41,
+      "index": 41,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 40,
+      "next": 42,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 33,
+      "position": [
+        0.7995595597925339,
+        0.24,
+        9.512660222584657
+      ]
+    },
+    {
+      "id": 42,
+      "index": 42,
+      "name": "喘息服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 41,
+      "next": 43,
+      "educationModule": "F",
+      "role": "活動區",
+      "legacyId": 34,
+      "position": [
+        0.0933160856803068,
+        0.24,
+        8.126579360847547
+      ]
+    },
+    {
+      "id": 43,
+      "index": 43,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 42,
+      "next": 44,
+      "educationModule": "F",
+      "role": "活動區",
+      "legacyId": 35,
+      "position": [
+        -0.8316398378114147,
+        0.24,
+        7.0900194061910025
+      ]
+    },
+    {
+      "id": 44,
+      "index": 44,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 43,
+      "next": 45,
+      "educationModule": "F",
+      "role": "休憩區",
+      "legacyId": 36,
+      "position": [
+        -2.10131556174964,
+        0.24,
+        6.467184310807045
+      ]
+    },
+    {
+      "id": 45,
+      "index": 45,
+      "name": "照顧支持",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 44,
+      "next": 46,
+      "educationModule": "F",
+      "role": "庭院活動",
+      "legacyId": 37,
+      "position": [
+        -3.494598083437844,
+        0.24,
+        6.2247718219411485
+      ]
+    },
+    {
+      "id": 46,
+      "index": 46,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 45,
+      "next": 47,
+      "educationModule": "F",
+      "role": "生活事件",
+      "legacyId": 38,
+      "position": [
+        -4.852177799054493,
+        0.24,
+        6.51969099009782
+      ]
+    },
+    {
+      "id": 47,
+      "index": 47,
+      "name": "資源補給",
+      "type": "RESOURCE",
+      "eventIds": [
+        "resource"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 46,
+      "next": 48,
+      "educationModule": "F",
+      "role": "機會探索",
+      "legacyId": 39,
+      "position": [
+        -5.9862439586575835,
+        0.24,
+        7.097526559826006
+      ]
+    },
+    {
+      "id": 48,
+      "index": 48,
+      "name": "龍山知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-F"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 47,
+      "next": 49,
+      "educationModule": "F",
+      "role": "知識格",
+      "legacyId": null,
+      "position": [
+        -6.739887511742612,
+        0.24,
+        7.79896892730417
+      ]
+    },
+    {
+      "id": 49,
+      "index": 49,
+      "name": "龍山出口",
+      "type": "REST",
+      "eventIds": [],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#A9C8A2",
+      "previous": 48,
+      "next": 0,
+      "educationModule": "F",
+      "role": "出口轉場",
+      "legacyId": null,
+      "position": [
+        -7.4317276659526526,
+        0.24,
+        8.310199991523303
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "home",
+      "title": "為日常找一位幫手",
+      "description": "家人需要日常起居協助，你想重新安排照顧工作。",
+      "category": "SERVICE",
+      "serviceKey": "care",
+      "lesson": "先說明需求，再透過評估安排服務；每個家庭的照顧計畫都可能不同。",
+      "options": [
+        {
+          "text": "先討論居家服務需求",
+          "effect": {
+            "money": -300,
+            "stress": -8
+          },
+          "result": "你與家人一起整理需求，為日常照顧找到支持。"
+        },
+        {
+          "text": "先與家人分工，再諮詢服務",
+          "effect": {
+            "stress": -5
+          },
+          "result": "大家釐清可以分擔的工作，也留下需要專業協助的項目。"
+        }
+      ]
+    },
+    {
+      "id": "day",
+      "title": "走進日照中心",
+      "description": "家人想參與白天的活動，你們一起了解日間照顧。",
+      "category": "SERVICE",
+      "serviceKey": "care",
+      "effect": {
+        "money": -200,
+        "health": 5,
+        "stress": -8
+      },
+      "result": "你們認識了日照活動與服務流程，也討論了合適的安排。",
+      "lesson": "日間照顧屬照顧服務的一種，可依需求與照顧計畫討論使用。"
+    },
+    {
+      "id": "transport",
+      "title": "安排下一次回診",
+      "description": "回診時間已確定，家人當天無法接送。你會如何準備？",
+      "category": "SERVICE",
+      "serviceKey": "transport",
+      "lesson": "預約前確認目的地、時間、移動需求及適用服務，實際費用依地方規定。",
+      "options": [
+        {
+          "text": "詢問長照交通接送與預約",
+          "effect": {
+            "money": -200,
+            "stress": -8
+          },
+          "result": "你確認了預約方式，為回診安排接送支持。"
+        },
+        {
+          "text": "先協調親友接送，保留備案",
+          "effect": {
+            "money": -100,
+            "stress": -4
+          },
+          "result": "親友協助這次接送，你也記下可諮詢的交通資源。"
+        }
+      ]
+    },
+    {
+      "id": "equipment",
+      "title": "找到合適的輔具",
+      "description": "日常移動開始需要更多協助，你準備了解輔具。",
+      "category": "SERVICE",
+      "serviceKey": "equipment",
+      "effect": {
+        "money": -400,
+        "stress": -8
+      },
+      "result": "先評估、再選擇，你學會把使用需求放在購買之前。",
+      "lesson": "輔具可有租賃或購買方式，應先確認需求評估、適用項目及申請流程。"
+    },
+    {
+      "id": "safety",
+      "title": "一起檢查居家動線",
+      "description": "家人覺得浴室與走道不太好通行，你們決定一起整理。",
+      "category": "LIVING",
+      "serviceKey": "equipment",
+      "effect": {
+        "money": -200,
+        "health": 5
+      },
+      "result": "你整理了動線，也記下需要專業評估的環境改善項目。",
+      "lesson": "居家環境改善可先向照管中心提出需求，依評估與核定內容安排。"
+    },
+    {
+      "id": "respite",
+      "title": "把休息排進行事曆",
+      "description": "你希望有一段時間休息，也讓家人的照顧持續有人接手。",
+      "category": "SERVICE",
+      "serviceKey": "respite",
+      "lesson": "喘息是照顧支持的一部分，可和個管員討論合適的服務方式。",
+      "options": [
+        {
+          "text": "討論居家喘息安排",
+          "effect": {
+            "money": -500,
+            "stress": -16
+          },
+          "result": "你為家中照顧安排替手，留出一段自己的時間。"
+        },
+        {
+          "text": "了解社區或機構喘息",
+          "effect": {
+            "money": -600,
+            "stress": -18
+          },
+          "result": "你認識了不同的替代照顧選擇，開始規劃休息。"
+        }
+      ]
+    },
+    {
+      "id": "meal",
+      "title": "樂活聚飽棚・一起吃飯",
+      "description": "你來到共餐站，準備認識一起吃飯的鄰里朋友。",
+      "category": "LIVING",
+      "serviceKey": "meal",
+      "effect": {
+        "health": 5,
+        "stress": -6
+      },
+      "result": "一頓飯連結了社區，你完成一次共餐任務。",
+      "lesson": "共餐資訊取自提供的文宣，參與前請先致電確認服務對象、時間與方式。"
+    },
+    {
+      "id": "professional",
+      "title": "練習生活中的小目標",
+      "description": "你和家人想為日常活動訂一個合適的小目標。",
+      "category": "SERVICE",
+      "serviceKey": "care",
+      "effect": {
+        "money": -300,
+        "health": 8
+      },
+      "result": "你學會和專業人員一起討論需求，再安排練習。",
+      "lesson": "專業服務應依個別評估與照顧目標安排，遊戲中的健康變化只是模擬。"
+    },
+    {
+      "id": "family",
+      "title": "把照顧工作說清楚",
+      "description": "大家坐下來討論本週的陪伴、採買與照顧分工。",
+      "category": "LIVING",
+      "serviceKey": "community",
+      "effect": {
+        "stress": -6
+      },
+      "result": "把需求說出來，也讓身邊的人有機會提供支持。",
+      "lesson": "社區資源與家庭分工可以一起規劃。"
+    },
+    {
+      "id": "health",
+      "title": "留意自己的生活節奏",
+      "description": "忙碌的一週，你決定留時間整理睡眠、飲食與休息安排。",
+      "category": "LIVING",
+      "effect": {
+        "health": 6,
+        "stress": -3
+      },
+      "result": "你為照顧者的生活留了一點空間。",
+      "lesson": "健康數值是遊戲指標，不能代替實際健康評估。"
+    },
+    {
+      "id": "community",
+      "title": "參加社區活動",
+      "description": "附近據點舉辦交流活動，你與家人一起參加。",
+      "category": "LIVING",
+      "serviceKey": "community",
+      "effect": {
+        "stress": -6,
+        "health": 3
+      },
+      "result": "你多認識了幾位鄰居，也知道能向哪裡詢問資源。",
+      "lesson": "各據點活動與服務時間，請向實際主辦單位確認。"
+    },
+    {
+      "id": "opportunity-care",
+      "title": "機會卡・服務分享",
+      "description": "鄰居分享了居家服務與日照的諮詢管道。",
+      "category": "OPPORTUNITY",
+      "serviceKey": "care",
+      "effect": {
+        "stress": -5
+      },
+      "result": "你記下需要詢問的問題，準備了解照顧服務。",
+      "lesson": "認識管道是第一步，能否使用服務仍需依評估與核定結果。"
+    },
+    {
+      "id": "opportunity-respite",
+      "title": "機會卡・照顧者聚會",
+      "description": "一位照顧者分享如何把喘息時間安排進日常。",
+      "category": "OPPORTUNITY",
+      "serviceKey": "respite",
+      "effect": {
+        "stress": -7
+      },
+      "result": "你得知休息也可以列入照顧計畫。",
+      "lesson": "有喘息需求時，可向照管中心或個管員提出。"
+    },
+    {
+      "id": "accident",
+      "title": "臨時調整照顧安排",
+      "description": "原本約好的親友臨時有事，需要重新協調今天的安排。",
+      "category": "ACCIDENT",
+      "serviceKey": "community",
+      "options": [
+        {
+          "text": "聯絡其他家人，調整分工",
+          "effect": {
+            "stress": 3
+          },
+          "result": "你和家人完成協調，也發現事先準備備案很有幫助。"
+        },
+        {
+          "text": "詢問既有服務單位能否調整",
+          "effect": {
+            "money": -300,
+            "stress": 1
+          },
+          "result": "你了解了服務安排的限制，並和家人一起找到備案。"
+        }
+      ],
+      "lesson": "服務是否能臨時調整，仍需依實際人力與預約情況確認。"
+    },
+    {
+      "id": "rest",
+      "title": "在休息站停一會",
+      "description": "暫時放慢腳步，和同行的人聊聊這段旅程。",
+      "category": "REST",
+      "effect": {
+        "health": 5,
+        "stress": -8
+      },
+      "result": "你整理了心情，準備繼續出發。",
+      "lesson": "持續照顧的同時，也記得安排自己的休息。"
+    },
+    {
+      "id": "resource",
+      "title": "整理社區資源筆記",
+      "description": "你收到一份資源介紹，準備記下可能用得到的聯絡管道。",
+      "category": "RESOURCE",
+      "serviceKey": "community",
+      "effect": {
+        "money": 300,
+        "stress": -3
+      },
+      "result": "你獲得 300 遊戲幣，並整理好自己的社區資源筆記。",
+      "lesson": "這是遊戲獎勵，不代表可申請或領取的實際補助。"
+    }
+  ]
+}

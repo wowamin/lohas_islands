@@ -1,0 +1,2231 @@
+{
+  "version": 4,
+  "mapId": "lohas-city-80",
+  "mapVersion": 2,
+  "rulesVersion": 2,
+  "seed": 3080,
+  "notice": "中心主題是遊戲場景設計，不代表真實服務。",
+  "centers": [
+    {
+      "id": "dahe",
+      "title": "大和日照中心",
+      "color": "#E8B17B",
+      "theme": "健康管理與生活照顧",
+      "features": [
+        "健康步道",
+        "香草花園",
+        "休憩涼亭"
+      ],
+      "module": "C",
+      "index": 0,
+      "angle": -1.5707963267948966,
+      "rotation": 1.5707963267948966,
+      "position": [
+        -10.5,
+        6.429395695523604e-16
+      ],
+      "start": 10,
+      "end": 22
+    },
+    {
+      "id": "annan",
+      "title": "安南日照中心",
+      "color": "#8BCAD8",
+      "theme": "社區參與與社交活動",
+      "features": [
+        "社區交流廣場",
+        "戶外桌椅",
+        "社區市集"
+      ],
+      "module": "A",
+      "index": 1,
+      "angle": -2.827433388230814,
+      "rotation": 0.3141592653589793,
+      "position": [
+        -3.2446784409369487,
+        -9.986093421099111
+      ],
+      "start": 23,
+      "end": 35
+    },
+    {
+      "id": "xinying",
+      "title": "新營日照中心",
+      "color": "#A8C7A0",
+      "theme": "認知訓練與懷舊活動",
+      "features": [
+        "記憶花園",
+        "懷舊小巷",
+        "回憶展示牆"
+      ],
+      "module": "B",
+      "index": 2,
+      "angle": -4.084070449666731,
+      "rotation": -0.9424777960769379,
+      "position": [
+        8.494678440936948,
+        -6.171745149070969
+      ],
+      "start": 36,
+      "end": 48
+    },
+    {
+      "id": "yihe",
+      "title": "義合日照中心",
+      "color": "#F3B7C7",
+      "theme": "復能運動與生活自立",
+      "features": [
+        "復能步道",
+        "平衡訓練區",
+        "無障礙活動空間"
+      ],
+      "module": "E",
+      "index": 3,
+      "angle": -5.340707511102648,
+      "rotation": -2.199114857512855,
+      "position": [
+        8.49467844093695,
+        6.171745149070966
+      ],
+      "start": 49,
+      "end": 61
+    },
+    {
+      "id": "longshan",
+      "title": "龍山日照中心",
+      "color": "#C9B5DF",
+      "theme": "藝術創作與身心療癒",
+      "features": [
+        "藝術花園",
+        "戶外畫架",
+        "音樂休憩區"
+      ],
+      "module": "F",
+      "index": 4,
+      "angle": -6.5973445725385655,
+      "rotation": -3.4557519189487724,
+      "position": [
+        -3.244678440936945,
+        9.986093421099113
+      ],
+      "start": 62,
+      "end": 74
+    }
+  ],
+  "legacyPositionMap": [
+    0,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69
+  ],
+  "tiles": [
+    {
+      "id": 0,
+      "index": 0,
+      "displayNumber": 1,
+      "name": "樂活起點",
+      "type": "START",
+      "eventIds": [
+        "city-entrance"
+      ],
+      "serviceKey": "community",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 0,
+      "next": 1,
+      "educationModule": "A",
+      "role": "城市入口",
+      "legacyId": 0,
+      "old50Id": 0,
+      "interaction": "start",
+      "position": [
+        -3,
+        0.24,
+        1.4
+      ],
+      "rotation": -0.39037140056955355
+    },
+    {
+      "id": 1,
+      "index": 1,
+      "displayNumber": 2,
+      "name": "長照 3.0 導覽",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "policy-30"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 0,
+      "next": 2,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -3.398210210340324,
+        0.24,
+        2.367729583487548
+      ],
+      "rotation": -0.6492985311638872
+    },
+    {
+      "id": 2,
+      "index": 2,
+      "displayNumber": 3,
+      "name": "第一通求助電話",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "apply-call"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 1,
+      "next": 3,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -4.0318032382299975,
+        0.24,
+        3.2023950895411013
+      ],
+      "rotation": -0.8416671318020156
+    },
+    {
+      "id": 3,
+      "index": 3,
+      "displayNumber": 4,
+      "name": "需求小筆記",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "needs-notes"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 2,
+      "next": 4,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -4.813956898052487,
+        0.24,
+        3.9011324815298463
+      ],
+      "rotation": -0.985356808159662
+    },
+    {
+      "id": 4,
+      "index": 4,
+      "displayNumber": 5,
+      "name": "到府評估日",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "assessment"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 3,
+      "next": 5,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -5.688525580224857,
+        0.24,
+        4.480945928041348
+      ],
+      "rotation": -1.1022485147633032
+    },
+    {
+      "id": 5,
+      "index": 5,
+      "displayNumber": 6,
+      "name": "A 單位協調站",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "a-plan"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 4,
+      "next": 6,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -6.624956593734093,
+        0.24,
+        4.954911446544765
+      ],
+      "rotation": -1.205353941452883
+    },
+    {
+      "id": 6,
+      "index": 6,
+      "displayNumber": 7,
+      "name": "B 單位服務街",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "b-services"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 5,
+      "next": 7,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -7.605223523680495,
+        0.24,
+        5.329990124663353
+      ],
+      "rotation": -1.312043232305773
+    },
+    {
+      "id": 7,
+      "index": 7,
+      "displayNumber": 8,
+      "name": "C 單位鄰里站",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "c-neighbors"
+      ],
+      "serviceKey": "community",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 6,
+      "next": 8,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -8.619726364018346,
+        0.24,
+        5.598515673526345
+      ],
+      "rotation": -1.4562131396274025
+    },
+    {
+      "id": 8,
+      "index": 8,
+      "displayNumber": 9,
+      "name": "資源媒合櫃台",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "service-match"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 7,
+      "next": 9,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -9.661340388657228,
+        0.24,
+        5.718392220031384
+      ],
+      "rotation": -1.8921412065024426
+    },
+    {
+      "id": 9,
+      "index": 9,
+      "displayNumber": 10,
+      "name": "追蹤關懷路口",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "follow-up"
+      ],
+      "serviceKey": "care",
+      "centerId": "entrance",
+      "color": "#F8F2E7",
+      "previous": 8,
+      "next": 10,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -10.614047435071857,
+        0.24,
+        5.401252578893356
+      ],
+      "rotation": 2.7109382439178606
+    },
+    {
+      "id": 10,
+      "index": 10,
+      "displayNumber": 11,
+      "name": "大和迎賓庭院",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "day-arrival"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 9,
+      "next": 11,
+      "educationModule": "C",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -10.2,
+        0.24,
+        4.500000000000001
+      ],
+      "rotation": 2.089942441041419
+    },
+    {
+      "id": 11,
+      "index": 11,
+      "displayNumber": 12,
+      "name": "居家安全",
+      "type": "LIVING",
+      "eventIds": [
+        "safety"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 10,
+      "next": 12,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 1,
+      "old50Id": 1,
+      "interaction": "landing-event",
+      "position": [
+        -9.336272435776957,
+        0.24,
+        4.006441391872548
+      ],
+      "rotation": 2.190703342796306
+    },
+    {
+      "id": 12,
+      "index": 12,
+      "displayNumber": 13,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 11,
+      "next": 13,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 2,
+      "old50Id": 2,
+      "interaction": "landing-event",
+      "position": [
+        -8.533316935516494,
+        0.24,
+        3.433316935516495
+      ],
+      "rotation": 2.3561944901923457
+    },
+    {
+      "id": 13,
+      "index": 13,
+      "displayNumber": 14,
+      "name": "居家服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "home"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 12,
+      "next": 14,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 3,
+      "old50Id": 3,
+      "interaction": "landing-event",
+      "position": [
+        -7.829887690725172,
+        0.24,
+        2.729887690725173
+      ],
+      "rotation": 2.5662739437472744
+    },
+    {
+      "id": 14,
+      "index": 14,
+      "displayNumber": 15,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 13,
+      "next": 15,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 4,
+      "old50Id": 4,
+      "interaction": "landing-event",
+      "position": [
+        -7.291305049368848,
+        0.24,
+        1.899380084632312
+      ],
+      "rotation": 2.7748812940806062
+    },
+    {
+      "id": 15,
+      "index": 15,
+      "displayNumber": 16,
+      "name": "日照中心",
+      "type": "SERVICE",
+      "eventIds": [
+        "day"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 14,
+      "next": 16,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 5,
+      "old50Id": 5,
+      "interaction": "landing-event",
+      "position": [
+        -6.941074667272391,
+        0.24,
+        0.9875226709067362
+      ],
+      "rotation": 2.9996955989856287
+    },
+    {
+      "id": 16,
+      "index": 16,
+      "displayNumber": 17,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 15,
+      "next": 17,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 6,
+      "old50Id": 6,
+      "interaction": "landing-event",
+      "position": [
+        -6.800388818314126,
+        0.24,
+        0.0027217281988862565
+      ],
+      "rotation": -3.000469530008311
+    },
+    {
+      "id": 17,
+      "index": 17,
+      "displayNumber": 18,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 16,
+      "next": 18,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": 7,
+      "old50Id": 7,
+      "interaction": "landing-event",
+      "position": [
+        -6.940297030644138,
+        0.24,
+        -0.9820792145089648
+      ],
+      "rotation": -2.777040777058131
+    },
+    {
+      "id": 18,
+      "index": 18,
+      "displayNumber": 19,
+      "name": "大和知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-C"
+      ],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 17,
+      "next": 19,
+      "educationModule": "C",
+      "role": "庭院步道",
+      "legacyId": null,
+      "old50Id": 8,
+      "interaction": "landing-event",
+      "position": [
+        -7.288534403012542,
+        0.24,
+        -1.894630405164356
+      ],
+      "rotation": -2.5676945677133878
+    },
+    {
+      "id": 19,
+      "index": 19,
+      "displayNumber": 20,
+      "name": "大和出口",
+      "type": "REST",
+      "eventIds": [
+        "city-rest-dahe"
+      ],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 18,
+      "next": 20,
+      "educationModule": "C",
+      "role": "出口轉場",
+      "legacyId": null,
+      "old50Id": 9,
+      "interaction": "rest",
+      "position": [
+        -7.825999507583908,
+        0.24,
+        -2.725999507583907
+      ],
+      "rotation": -2.3561944901923453
+    },
+    {
+      "id": 20,
+      "index": 20,
+      "displayNumber": 21,
+      "name": "健康伸展角",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "movement-break"
+      ],
+      "serviceKey": "community",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 19,
+      "next": 21,
+      "educationModule": "C",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -8.52942875237523,
+        0.24,
+        -3.42942875237523
+      ],
+      "rotation": -2.1055558590198693
+    },
+    {
+      "id": 21,
+      "index": 21,
+      "displayNumber": 22,
+      "name": "營養討論桌",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "nutrition-chat"
+      ],
+      "serviceKey": "meal",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 20,
+      "next": 22,
+      "educationModule": "C",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -9.382367582512119,
+        0.24,
+        -3.9346486569511767
+      ],
+      "rotation": -2.175760467775177
+    },
+    {
+      "id": 22,
+      "index": 22,
+      "displayNumber": 23,
+      "name": "一天的生活節奏",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "day-schedule"
+      ],
+      "serviceKey": "care",
+      "centerId": "dahe",
+      "color": "#E8B17B",
+      "previous": 21,
+      "next": 23,
+      "educationModule": "C",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -10.2,
+        0.24,
+        -4.499999999999999
+      ],
+      "rotation": 2.5132741228718345
+    },
+    {
+      "id": 23,
+      "index": 23,
+      "displayNumber": 24,
+      "name": "輔具資源",
+      "type": "SERVICE",
+      "eventIds": [
+        "equipment"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 22,
+      "next": 24,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 8,
+      "old50Id": 10,
+      "interaction": "landing-event",
+      "position": [
+        -7.431727665952655,
+        0.24,
+        -8.310199991523302
+      ],
+      "rotation": 0.8333053796055024
+    },
+    {
+      "id": 24,
+      "index": 24,
+      "displayNumber": 25,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 23,
+      "next": 25,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 9,
+      "old50Id": 11,
+      "interaction": "landing-event",
+      "position": [
+        -6.695419039664476,
+        0.24,
+        -7.641264260896665
+      ],
+      "rotation": 0.9340662813603887
+    },
+    {
+      "id": 25,
+      "index": 25,
+      "displayNumber": 26,
+      "name": "休息站",
+      "type": "REST",
+      "eventIds": [
+        "rest"
+      ],
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 24,
+      "next": 26,
+      "educationModule": "A",
+      "role": "出口轉場",
+      "legacyId": 10,
+      "old50Id": 12,
+      "interaction": "rest",
+      "position": [
+        -5.902218395491614,
+        0.24,
+        -7.05471339698484
+      ],
+      "rotation": 1.0995574287564274
+    },
+    {
+      "id": 26,
+      "index": 26,
+      "displayNumber": 27,
+      "name": "社區活動",
+      "type": "LIVING",
+      "eventIds": [
+        "community"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 25,
+      "next": 27,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 11,
+      "old50Id": 13,
+      "interaction": "landing-event",
+      "position": [
+        -5.015845837499396,
+        0.24,
+        -6.603084020954328
+      ],
+      "rotation": 1.3096368823113578
+    },
+    {
+      "id": 27,
+      "index": 27,
+      "displayNumber": 28,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 26,
+      "next": 28,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 12,
+      "old50Id": 14,
+      "interaction": "landing-event",
+      "position": [
+        -4.05955497783764,
+        0.24,
+        -6.347502454569289
+      ],
+      "rotation": 1.518244232644688
+    },
+    {
+      "id": 28,
+      "index": 28,
+      "displayNumber": 29,
+      "name": "交通接送",
+      "type": "SERVICE",
+      "eventIds": [
+        "transport"
+      ],
+      "serviceKey": "transport",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 27,
+      "next": 29,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 13,
+      "old50Id": 15,
+      "interaction": "landing-event",
+      "position": [
+        -3.0840999025676483,
+        0.24,
+        -6.2961930047599015
+      ],
+      "rotation": 1.7430585375497114
+    },
+    {
+      "id": 29,
+      "index": 29,
+      "displayNumber": 30,
+      "name": "專業服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "professional"
+      ],
+      "serviceKey": "care",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 28,
+      "next": 30,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 14,
+      "old50Id": 16,
+      "interaction": "landing-event",
+      "position": [
+        -2.1040242305555665,
+        0.24,
+        -6.4667130387308225
+      ],
+      "rotation": 2.0260787157353572
+    },
+    {
+      "id": 30,
+      "index": 30,
+      "displayNumber": 31,
+      "name": "聚飽棚",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 29,
+      "next": 31,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": 15,
+      "old50Id": 17,
+      "interaction": "landing-event",
+      "position": [
+        -1.2106568920022471,
+        0.24,
+        -6.90409388312368
+      ],
+      "rotation": 2.2495074686855387
+    },
+    {
+      "id": 31,
+      "index": 31,
+      "displayNumber": 32,
+      "name": "安南知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-A"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 30,
+      "next": 32,
+      "educationModule": "A",
+      "role": "庭院步道",
+      "legacyId": null,
+      "old50Id": 18,
+      "interaction": "landing-event",
+      "position": [
+        -0.4503804018148495,
+        0.24,
+        -7.517281131481763
+      ],
+      "rotation": 2.4588536780302808
+    },
+    {
+      "id": 32,
+      "index": 32,
+      "displayNumber": 33,
+      "name": "安南出口",
+      "type": "REST",
+      "eventIds": [
+        "city-rest-annan"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 31,
+      "next": 33,
+      "educationModule": "A",
+      "role": "出口轉場",
+      "legacyId": null,
+      "old50Id": 19,
+      "interaction": "rest",
+      "position": [
+        0.17421274929165664,
+        0.24,
+        -8.285348002711503
+      ],
+      "rotation": 2.670353755551324
+    },
+    {
+      "id": 33,
+      "index": 33,
+      "displayNumber": 34,
+      "name": "照顧者交流圈",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "caregiver-circle"
+      ],
+      "serviceKey": "community",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 32,
+      "next": 34,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        0.6258421253221692,
+        0.24,
+        -9.171720560703722
+      ],
+      "rotation": 2.9209923867238006
+    },
+    {
+      "id": 34,
+      "index": 34,
+      "displayNumber": 35,
+      "name": "喘息預約日曆",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "respite-plan"
+      ],
+      "serviceKey": "respite",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 33,
+      "next": 35,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        0.8427622140565536,
+        0.24,
+        -10.139035129517033
+      ],
+      "rotation": 2.8507877779684914
+    },
+    {
+      "id": 35,
+      "index": 35,
+      "displayNumber": 36,
+      "name": "友善交通月台",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "ride-check"
+      ],
+      "serviceKey": "transport",
+      "centerId": "annan",
+      "color": "#8BCAD8",
+      "previous": 34,
+      "next": 36,
+      "educationModule": "A",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        1.1277809807037262,
+        0.24,
+        -11.091352940897828
+      ],
+      "rotation": 1.256637061435918
+    },
+    {
+      "id": 36,
+      "index": 36,
+      "displayNumber": 37,
+      "name": "照顧支持",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 35,
+      "next": 37,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 16,
+      "old50Id": 20,
+      "interaction": "landing-event",
+      "position": [
+        5.606939707308334,
+        0.24,
+        -9.63598604807049
+      ],
+      "rotation": -0.42333168183041564
+    },
+    {
+      "id": 37,
+      "index": 37,
+      "displayNumber": 38,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 36,
+      "next": 38,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 17,
+      "old50Id": 21,
+      "interaction": "landing-event",
+      "position": [
+        5.19827590034113,
+        0.24,
+        -8.729002422126532
+      ],
+      "rotation": -0.32257078007552836
+    },
+    {
+      "id": 38,
+      "index": 38,
+      "displayNumber": 39,
+      "name": "喘息服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 37,
+      "next": 39,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 18,
+      "old50Id": 22,
+      "interaction": "landing-event",
+      "position": [
+        4.885545358077808,
+        0.24,
+        -7.793369595742357
+      ],
+      "rotation": -0.1570796326794896
+    },
+    {
+      "id": 39,
+      "index": 39,
+      "displayNumber": 40,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 38,
+      "next": 40,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 19,
+      "old50Id": 23,
+      "interaction": "landing-event",
+      "position": [
+        4.7299244808208645,
+        0.24,
+        -6.810818046246271
+      ],
+      "rotation": 0.05299982087543991
+    },
+    {
+      "id": 40,
+      "index": 40,
+      "displayNumber": 41,
+      "name": "樂活社區",
+      "type": "RESOURCE",
+      "eventIds": [
+        "resource"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 39,
+      "next": 41,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 20,
+      "old50Id": 24,
+      "interaction": "landing-event",
+      "position": [
+        4.782362093866361,
+        0.24,
+        -5.822352345229518
+      ],
+      "rotation": 0.26160717120877264
+    },
+    {
+      "id": 41,
+      "index": 41,
+      "displayNumber": 42,
+      "name": "環境改善",
+      "type": "LIVING",
+      "eventIds": [
+        "safety"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 40,
+      "next": 42,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 21,
+      "old50Id": 25,
+      "interaction": "landing-event",
+      "position": [
+        5.034996102785346,
+        0.24,
+        -4.878783947577685
+      ],
+      "rotation": 0.4864214761137942
+    },
+    {
+      "id": 42,
+      "index": 42,
+      "displayNumber": 43,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 41,
+      "next": 43,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 22,
+      "old50Id": 26,
+      "interaction": "landing-event",
+      "position": [
+        5.500030330677442,
+        0.24,
+        -3.9993701816266514
+      ],
+      "rotation": 0.7694416542994407
+    },
+    {
+      "id": 43,
+      "index": 43,
+      "displayNumber": 44,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 42,
+      "next": 44,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": 23,
+      "old50Id": 27,
+      "interaction": "landing-event",
+      "position": [
+        6.19206992267244,
+        0.24,
+        -3.2848854667817156
+      ],
+      "rotation": 0.9928704072496202
+    },
+    {
+      "id": 44,
+      "index": 44,
+      "displayNumber": 45,
+      "name": "新營知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-B"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 43,
+      "next": 45,
+      "educationModule": "B",
+      "role": "庭院步道",
+      "legacyId": null,
+      "old50Id": 28,
+      "interaction": "landing-event",
+      "position": [
+        7.01018400682413,
+        0.24,
+        -2.7513048370796414
+      ],
+      "rotation": 1.202216616594364
+    },
+    {
+      "id": 45,
+      "index": 45,
+      "displayNumber": 46,
+      "name": "新營出口",
+      "type": "REST",
+      "eventIds": [
+        "city-rest-xinying"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 44,
+      "next": 46,
+      "educationModule": "B",
+      "role": "出口轉場",
+      "legacyId": null,
+      "old50Id": 29,
+      "interaction": "rest",
+      "position": [
+        7.933668907919715,
+        0.24,
+        -2.3946271667128594
+      ],
+      "rotation": 1.4137166941154071
+    },
+    {
+      "id": 46,
+      "index": 46,
+      "displayNumber": 47,
+      "name": "出院銜接會議",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "discharge-team"
+      ],
+      "serviceKey": "care",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 45,
+      "next": 47,
+      "educationModule": "B",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        8.916220457415802,
+        0.24,
+        -2.239006289455916
+      ],
+      "rotation": 1.6643553252878827
+    },
+    {
+      "id": 47,
+      "index": 47,
+      "displayNumber": 48,
+      "name": "ABC 分工挑戰",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "abc-challenge"
+      ],
+      "serviceKey": "community",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 46,
+      "next": 48,
+      "educationModule": "B",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        9.903223275233184,
+        0.24,
+        -2.3316196662195434
+      ],
+      "rotation": 1.5941507165325743
+    },
+    {
+      "id": 48,
+      "index": 48,
+      "displayNumber": 49,
+      "name": "跨專業討論室",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "team-huddle"
+      ],
+      "serviceKey": "care",
+      "centerId": "xinying",
+      "color": "#A8C7A0",
+      "previous": 47,
+      "next": 49,
+      "educationModule": "B",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        10.897006977940592,
+        0.24,
+        -2.3548330986959636
+      ],
+      "rotation": 3.771725563871056e-16
+    },
+    {
+      "id": 49,
+      "index": 49,
+      "displayNumber": 50,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 48,
+      "next": 50,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 24,
+      "old50Id": 30,
+      "interaction": "landing-event",
+      "position": [
+        10.897006977940594,
+        0.24,
+        2.3548330986959605
+      ],
+      "rotation": -1.6799687432663328
+    },
+    {
+      "id": 50,
+      "index": 50,
+      "displayNumber": 51,
+      "name": "日照中心",
+      "type": "SERVICE",
+      "eventIds": [
+        "day"
+      ],
+      "serviceKey": "care",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 49,
+      "next": 51,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 25,
+      "old50Id": 31,
+      "interaction": "landing-event",
+      "position": [
+        9.908130228974757,
+        0.24,
+        2.24644407614231
+      ],
+      "rotation": -1.579207841511446
+    },
+    {
+      "id": 51,
+      "index": 51,
+      "displayNumber": 52,
+      "name": "專業服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "professional"
+      ],
+      "serviceKey": "care",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 50,
+      "next": 52,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 26,
+      "old50Id": 32,
+      "interaction": "landing-event",
+      "position": [
+        8.921651480362975,
+        0.24,
+        2.238146099926035
+      ],
+      "rotation": -1.4137166941154067
+    },
+    {
+      "id": 52,
+      "index": 52,
+      "displayNumber": 53,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 51,
+      "next": 53,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 27,
+      "old50Id": 33,
+      "interaction": "landing-event",
+      "position": [
+        7.939099930866892,
+        0.24,
+        2.3937669771829784
+      ],
+      "rotation": -1.203637240560477
+    },
+    {
+      "id": 53,
+      "index": 53,
+      "displayNumber": 54,
+      "name": "家庭支持",
+      "type": "LIVING",
+      "eventIds": [
+        "family"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 52,
+      "next": 54,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 28,
+      "old50Id": 34,
+      "interaction": "landing-event",
+      "position": [
+        7.015217298356167,
+        0.24,
+        2.7490908107397845
+      ],
+      "rotation": -0.9950298902271463
+    },
+    {
+      "id": 54,
+      "index": 54,
+      "displayNumber": 55,
+      "name": "交通接送",
+      "type": "SERVICE",
+      "eventIds": [
+        "transport"
+      ],
+      "serviceKey": "transport",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 53,
+      "next": 55,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 29,
+      "old50Id": 35,
+      "interaction": "landing-event",
+      "position": [
+        6.195898627312252,
+        0.24,
+        3.280938701389507
+      ],
+      "rotation": -0.7702155853221228
+    },
+    {
+      "id": 55,
+      "index": 55,
+      "displayNumber": 56,
+      "name": "聚飽棚",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 54,
+      "next": 56,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 30,
+      "old50Id": 36,
+      "interaction": "landing-event",
+      "position": [
+        5.50322991406955,
+        0.24,
+        3.994966332892712
+      ],
+      "rotation": -0.48719540713647663
+    },
+    {
+      "id": 56,
+      "index": 56,
+      "displayNumber": 57,
+      "name": "社區活動",
+      "type": "LIVING",
+      "eventIds": [
+        "community"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 55,
+      "next": 57,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": 31,
+      "old50Id": 37,
+      "interaction": "landing-event",
+      "position": [
+        5.037566564929748,
+        0.24,
+        4.873923015502018
+      ],
+      "rotation": -0.26376665418629663
+    },
+    {
+      "id": 57,
+      "index": 57,
+      "displayNumber": 58,
+      "name": "義合知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-E"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 56,
+      "next": 58,
+      "educationModule": "E",
+      "role": "庭院步道",
+      "legacyId": null,
+      "old50Id": 38,
+      "interaction": "landing-event",
+      "position": [
+        4.782912385423088,
+        0.24,
+        5.816881228754553
+      ],
+      "rotation": -0.05442044484155279
+    },
+    {
+      "id": 58,
+      "index": 58,
+      "displayNumber": 59,
+      "name": "義合出口",
+      "type": "REST",
+      "eventIds": [
+        "city-rest-yihe"
+      ],
+      "serviceKey": "community",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 57,
+      "next": 59,
+      "educationModule": "E",
+      "role": "出口轉場",
+      "legacyId": null,
+      "old50Id": 39,
+      "interaction": "rest",
+      "position": [
+        4.729064291290989,
+        0.24,
+        6.8053870232990965
+      ],
+      "rotation": 0.15707963267948985
+    },
+    {
+      "id": 59,
+      "index": 59,
+      "displayNumber": 60,
+      "name": "居家復能小目標",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "home-goal"
+      ],
+      "serviceKey": "care",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 58,
+      "next": 60,
+      "educationModule": "E",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        4.884685168547932,
+        0.24,
+        7.787938572795181
+      ],
+      "rotation": 0.4077182638519646
+    },
+    {
+      "id": 60,
+      "index": 60,
+      "displayNumber": 61,
+      "name": "輔具試用站",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "equipment-fit"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 59,
+      "next": 61,
+      "educationModule": "E",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        5.27776636821661,
+        0.24,
+        8.698014926955672
+      ],
+      "rotation": 0.3375136550966582
+    },
+    {
+      "id": 61,
+      "index": 61,
+      "displayNumber": 62,
+      "name": "安心返家門廊",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "safe-home"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "yihe",
+      "color": "#F3B7C7",
+      "previous": 60,
+      "next": 62,
+      "educationModule": "E",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        5.606939707308337,
+        0.24,
+        9.635986048070487
+      ],
+      "rotation": -1.2566370614359168
+    },
+    {
+      "id": 62,
+      "index": 62,
+      "displayNumber": 63,
+      "name": "輔具資源",
+      "type": "SERVICE",
+      "eventIds": [
+        "equipment"
+      ],
+      "serviceKey": "equipment",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 61,
+      "next": 63,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 32,
+      "old50Id": 40,
+      "interaction": "landing-event",
+      "position": [
+        1.1277809807037305,
+        0.24,
+        11.09135294089783
+      ],
+      "rotation": -2.93660580470225
+    },
+    {
+      "id": 63,
+      "index": 63,
+      "displayNumber": 64,
+      "name": "社區共餐",
+      "type": "LIVING",
+      "eventIds": [
+        "meal"
+      ],
+      "serviceKey": "meal",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 62,
+      "next": 64,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 33,
+      "old50Id": 41,
+      "interaction": "landing-event",
+      "position": [
+        0.9252853461255494,
+        0.24,
+        10.117381215008336
+      ],
+      "rotation": -2.835844902947364
+    },
+    {
+      "id": 64,
+      "index": 64,
+      "displayNumber": 65,
+      "name": "喘息服務",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 63,
+      "next": 65,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 34,
+      "old50Id": 42,
+      "interaction": "landing-event",
+      "position": [
+        0.6283384925673284,
+        0.24,
+        9.176619957284665
+      ],
+      "rotation": -2.6703537555513233
+    },
+    {
+      "id": 65,
+      "index": 65,
+      "displayNumber": 66,
+      "name": "健康管理",
+      "type": "LIVING",
+      "eventIds": [
+        "health"
+      ],
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 64,
+      "next": 66,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 35,
+      "old50Id": 43,
+      "interaction": "landing-event",
+      "position": [
+        0.1767091165368161,
+        0.24,
+        8.290247399292447
+      ],
+      "rotation": -2.460274301996395
+    },
+    {
+      "id": 66,
+      "index": 66,
+      "displayNumber": 67,
+      "name": "機會卡",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "opportunity-care",
+        "opportunity-respite"
+      ],
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 65,
+      "next": 67,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 36,
+      "old50Id": 44,
+      "interaction": "landing-event",
+      "position": [
+        -0.4467193650160368,
+        0.24,
+        7.52138390442671
+      ],
+      "rotation": -2.2516669516630623
+    },
+    {
+      "id": 67,
+      "index": 67,
+      "displayNumber": 68,
+      "name": "照顧支持",
+      "type": "SERVICE",
+      "eventIds": [
+        "respite"
+      ],
+      "serviceKey": "respite",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 66,
+      "next": 68,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 37,
+      "old50Id": 45,
+      "interaction": "landing-event",
+      "position": [
+        -1.205720160257555,
+        0.24,
+        6.906515580041343
+      ],
+      "rotation": -2.0268526467580408
+    },
+    {
+      "id": 68,
+      "index": 68,
+      "displayNumber": 69,
+      "name": "生活轉折",
+      "type": "ACCIDENT",
+      "eventIds": [
+        "accident"
+      ],
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 67,
+      "next": 69,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 38,
+      "old50Id": 46,
+      "interaction": "landing-event",
+      "position": [
+        -2.0988471958772954,
+        0.24,
+        6.468395159265874
+      ],
+      "rotation": -1.7438324685723934
+    },
+    {
+      "id": 69,
+      "index": 69,
+      "displayNumber": 70,
+      "name": "資源補給",
+      "type": "RESOURCE",
+      "eventIds": [
+        "resource"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 68,
+      "next": 70,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": 39,
+      "old50Id": 47,
+      "interaction": "landing-event",
+      "position": [
+        -3.078682564955799,
+        0.24,
+        6.297135548912344
+      ],
+      "rotation": -1.5204037156222143
+    },
+    {
+      "id": 70,
+      "index": 70,
+      "displayNumber": 71,
+      "name": "龍山知識花園",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "education-F"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 69,
+      "next": 71,
+      "educationModule": "F",
+      "role": "庭院步道",
+      "legacyId": null,
+      "old50Id": 48,
+      "interaction": "landing-event",
+      "position": [
+        -4.054181587419824,
+        0.24,
+        6.346335144971207
+      ],
+      "rotation": -1.3110575062774712
+    },
+    {
+      "id": 71,
+      "index": 71,
+      "displayNumber": 72,
+      "name": "龍山出口",
+      "type": "REST",
+      "eventIds": [
+        "city-rest-longshan"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 70,
+      "next": 72,
+      "educationModule": "F",
+      "role": "出口轉場",
+      "legacyId": null,
+      "old50Id": 49,
+      "interaction": "rest",
+      "position": [
+        -5.010946440918451,
+        0.24,
+        6.600587653709173
+      ],
+      "rotation": -1.0995574287564274
+    },
+    {
+      "id": 72,
+      "index": 72,
+      "displayNumber": 73,
+      "name": "失智友善街角",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "dementia-neighbor"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 71,
+      "next": 73,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -5.897318998910671,
+        0.24,
+        7.052217029739686
+      ],
+      "rotation": -0.8489187975839506
+    },
+    {
+      "id": 73,
+      "index": 73,
+      "displayNumber": 74,
+      "name": "記憶與創作",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "memory-art"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 72,
+      "next": 74,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -6.641384274994225,
+        0.24,
+        7.707288525732083
+      ],
+      "rotation": -0.9191234063392613
+    },
+    {
+      "id": 74,
+      "index": 74,
+      "displayNumber": 75,
+      "name": "社會參與廣場",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "social-invite"
+      ],
+      "serviceKey": "community",
+      "centerId": "longshan",
+      "color": "#C9B5DF",
+      "previous": 73,
+      "next": 75,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -7.4317276659526526,
+        0.24,
+        8.310199991523303
+      ],
+      "rotation": -2.4446517664143035
+    },
+    {
+      "id": 75,
+      "index": 75,
+      "displayNumber": 76,
+      "name": "照顧網絡拼圖",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "network-review"
+      ],
+      "serviceKey": "care",
+      "centerId": "finish",
+      "color": "#d8bb79",
+      "previous": 74,
+      "next": 76,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -8.838782787646366,
+        0.24,
+        6.629275958821216
+      ],
+      "rotation": 1.9031295333623026
+    },
+    {
+      "id": 76,
+      "index": 76,
+      "displayNumber": 77,
+      "name": "費用確認站",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "budget-review"
+      ],
+      "serviceKey": "care",
+      "centerId": "finish",
+      "color": "#d8bb79",
+      "previous": 75,
+      "next": 77,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -6.281859066297198,
+        0.24,
+        5.746794894218828
+      ],
+      "rotation": 1.8100279267585573
+    },
+    {
+      "id": 77,
+      "index": 77,
+      "displayNumber": 78,
+      "name": "綜合情境挑戰",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "family-challenge"
+      ],
+      "serviceKey": "respite",
+      "centerId": "finish",
+      "color": "#d8bb79",
+      "previous": 76,
+      "next": 78,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -3.5969006071950873,
+        0.24,
+        5.091926977364655
+      ],
+      "rotation": 1.9171223464197407
+    },
+    {
+      "id": 78,
+      "index": 78,
+      "displayNumber": 79,
+      "name": "明天的照顧計畫",
+      "type": "OPPORTUNITY",
+      "eventIds": [
+        "next-plan"
+      ],
+      "serviceKey": "community",
+      "centerId": "finish",
+      "color": "#d8bb79",
+      "previous": 77,
+      "next": 79,
+      "educationModule": "F",
+      "role": "城市互動",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "landing-event",
+      "position": [
+        -1.0092971630312193,
+        0.24,
+        4.158137152168255
+      ],
+      "rotation": 2.0032041023654346
+    },
+    {
+      "id": 79,
+      "index": 79,
+      "displayNumber": 80,
+      "name": "抵達樂活終點",
+      "type": "FINISH",
+      "eventIds": [
+        "journey-finish"
+      ],
+      "serviceKey": "community",
+      "centerId": "finish",
+      "color": "#d8bb79",
+      "previous": 78,
+      "next": 79,
+      "educationModule": "F",
+      "role": "終點回顧",
+      "legacyId": null,
+      "old50Id": null,
+      "interaction": "finish",
+      "position": [
+        1.5,
+        0.24,
+        3
+      ],
+      "rotation": 2.0032041023654346
+    }
+  ]
+}

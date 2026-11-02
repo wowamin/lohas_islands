@@ -8,6 +8,8 @@ import '../public/senior-ui/senior-ui.css'
 import './dice.css'
 import './toolbar.css'
 import './characters.css'
+import './diorama.css'
+import './mobile-layout.css'
 
 ReactDOM.createRoot(document.querySelector('.app-root')!).render(
   <React.StrictMode>

@@ -25,7 +25,7 @@ export const ResultScreen = () => {
             </article>
           ))}
         </div>
-        <div className="score-rule"><Activity size={15} /> 分數依金錢、健康與照顧壓力計算</div>
+        <div className="score-rule"><Activity size={15} /> 有人抵達第 80 格，全員完成該輪後結算；分數依金錢、健康與照顧壓力計算</div>
         <div className="journey-recap">{players.map((player) => <section key={player.id}><h2>{player.name} 的照顧足跡</h2><p>認識的服務：{player.learnedServices?.length ? player.learnedServices.map((key) => getResource(key).shortTitle).join('、') : '這次尚未完成服務事件'}</p><ul>{missionSummary(player.learnedServices, player.health, player.stress, player.completedActivities).map((mission) => <li key={mission.label}>{mission.done ? '✓ 已達成' : '○ 下次再挑戰'} · {mission.label}</li>)}</ul></section>)}</div>
         <button className="primary-button restart-button" type="button" onClick={resetGame}><RotateCcw size={18} /> 再走一次</button>
       </section>

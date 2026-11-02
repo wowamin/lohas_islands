@@ -6,6 +6,8 @@ export interface GameSnapshot {
   players:Player[];currentPlayerIndex:number;round:number;phase:GamePhase;diceValue:number;
   selectedEvent:GameEvent|null;eventResultText:string|null;eventLesson?:string;
   eventOutcome?:{money:number;health:number;stress:number};
+  // Only used to resume an old in-flight move after inserting new route stops.
+  pendingMoveTarget?:number;
 }
 // Intents only. A command never contains a dice result, balance, world coordinate or destination.
 export type GameCommand=(

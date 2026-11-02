@@ -1,5 +1,5 @@
 ﻿import { create } from 'zustand';
-export type CameraMode='overview'|'follow'|'focus';
+export type CameraMode='overview'|'follow'|'focus'|'free';
 // Animation and camera preferences never alter authoritative game positions.
 export const useJourney=create<{
   playerId:number|null;position:number|null;follow:boolean;mode:CameraMode;focusIndex:number|null;

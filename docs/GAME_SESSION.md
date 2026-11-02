@@ -8,7 +8,7 @@
 
 ## 穩定邊界
 
-- `mapDefinition.ts` 固定 mapId、mapVersion、rulesVersion、50 格與五中心資料。
+- `mapDefinition.ts` 固定 mapId、mapVersion、rulesVersion、80 格、入口／終點與五中心資料。
 - `rules/boardRules.ts` 保存邏輯格子與事件對應，不依賴 Three.js 世界座標。
 - `cityLayout.ts` 保存固定座標與種子，`board.ts` 將邏輯格子與座標組合給渲染使用。
 - `rules/engine.ts` 接收 snapshot、骰子樣本／事件樣本，回傳新 snapshot。測試可注入樣本；正式本機遊戲由 LocalGameSession 產生樣本。動畫只提交 COMPLETE_MOVEMENT，不決定骰數與事件效果。
@@ -37,7 +37,7 @@
 
 學習記錄、探索與畫質偏好仍保留原本瀏覽器層級儲存，並非各分頁獨立。它們不改變回合、骰子或玩家數值。
 
-版本 1 的 40 格位置使用 `floor(p/8)*10+p%8` 轉為 50 格；版本 2 保留原有 50 格位置；兩者轉成版本 3，原鍵及原始 JSON 備份均保留。ROLLING 中斷以原骰數恢復 MOVING，不重新擲骰。事件以既有事件表重新識別，拒絕未知事件。未知版本、地圖／規則不相容或損壞自動存檔會停止寫入並保留原文，允許記憶體暫玩及匯出。瀏覽器拒絕儲存也仍可暫玩。
+目前存檔版本為 4，地圖 lohas-city-80（版本 2），規則版本 2；仍沿用 v3 槽位鍵以保留各分頁身分。v1 先由 40 格對應至舊 50 格，v2/v3 直接套用 FIFTY_TO_CURRENT，再轉成新版位置。遷移前保留來源 JSON 至 -backup-before-v4；未知版本、地圖／規則不相容或損壞時阻止自動寫入並提示，可匯出或另開新槽。移動中保存映射後的原定落點 pendingMoveTarget，保留原骰數；事件以原 ID 恢復，不重複套用。詳見 [80 格報告](CITY_BOARD_80.md)。
 
 ## 未來 Phase C
 

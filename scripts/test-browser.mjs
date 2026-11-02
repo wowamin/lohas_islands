@@ -67,8 +67,121 @@ try{
  await click('開始人生旅程');await waitFor('儲存進度');await delay(1200);
  assert.ok(await evaluate(`document.querySelector('.online-count')!==null`),'online count remains visible during gameplay');
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players.length`),4);
- assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),50);
- if(process.argv.includes('--night-titles')){
+ assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),80);
+ if(process.argv.includes('--mobile-layout')){
+   const original=await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),measurements=[];
+   let safeAreaSupported=true;
+   try{await call('Emulation.setSafeAreaInsets',{insets:{top:0,left:0,right:0,bottom:0}});}catch{safeAreaSupported=false;}
+   const cases=[[320,568,0],[390,664,0],[390,844,0],[768,1024,0],[844,390,44],[844,300,44],[667,300,0],[390,664,0],[1440,1000,0]];
+   for(const [width,height,inset] of cases){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<901,screenOrientation:{type:width>height?'landscapePrimary':'portraitPrimary',angle:width>height?90:0}});
+     if(safeAreaSupported)await call('Emulation.setSafeAreaInsets',{insets:{top:0,left:inset,right:inset,bottom:inset?21:0}});
+     else await evaluate(`(()=>{for(const [side,value] of Object.entries({top:0,left:${inset},right:${inset},bottom:${inset?21:0}}))document.documentElement.style.setProperty('--mobile-safe-'+side,value+'px');})()`);
+     await evaluate('window.scrollTo(0,0)');await delay(400);
+     const layout=await evaluate(`(()=>{const rect=n=>{const r=n.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};},b=document.querySelector('.dice-button'),r=b.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{width:innerWidth,height:innerHeight,scroll:document.documentElement.scrollWidth,brand:rect(document.querySelector('.brand-lockup')),title:rect(document.querySelector('.brand-lockup strong')),scene:rect(document.querySelector('.scene-city')),roll:rect(b),rollHit:!!hit&&b.contains(hit),header:rect(document.querySelector('.game-topbar')),route:rect(document.querySelector('.city-route-progress')),player:rect(document.querySelector('.player-card')),hud:rect(document.querySelector('.journey-hud')),canvas:rect(document.querySelector('.island-render canvas')),pins:[...document.querySelectorAll('.island-stations>button')].filter(b=>getComputedStyle(b).visibility==='visible').length};})()`);
+     assert.ok(layout.scroll<=width,'no horizontal overflow '+JSON.stringify(layout));assert.ok(layout.brand.w>=130&&layout.brand.h<=80&&layout.title.h<30,'horizontal brand '+JSON.stringify(layout));
+     assert.ok(layout.player.w>=170&&layout.player.h>=76,'player cards not collapsed');assert.ok(layout.roll.w>=120&&layout.roll.h>=44&&layout.rollHit,'real dice hit '+JSON.stringify(layout));
+     if(width<=900){assert.ok(layout.scene.y>=layout.header.bottom-1,'header is above city');assert.ok(layout.canvas.y>=layout.scene.y&&layout.canvas.bottom<=layout.scene.bottom,'canvas inside scene');assert.ok(layout.route.w>=layout.hud.w-30,'progress takes whole HUD row');assert.ok(layout.pins>=76,'whole route fits overview '+JSON.stringify(layout));if(inset)assert.ok(layout.scene.x>=inset&&layout.roll.right<=width-inset,'notch safe area is respected');}
+     assert.equal(await evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`),original,'rotation preserves exact save');
+     measurements.push({width,height,inset,...layout});await screenshot('mobile-fix-'+width+'x'+height);
+   }
+   await call('Emulation.setDeviceMetricsOverride',{width:390,height:664,deviceScaleFactor:1,mobile:true});if(safeAreaSupported)await call('Emulation.setSafeAreaInsets',{insets:{top:0,left:0,right:0,bottom:0}});else await evaluate(`['top','left','right','bottom'].forEach(side=>document.documentElement.style.setProperty('--mobile-safe-'+side,'0px'))`);await evaluate('window.scrollTo(0,0)');await delay(200);
+   const point=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...point});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...point});await delay(70);assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'ROLLING');
+   await call('Emulation.setDeviceMetricsOverride',{width:844,height:300,deviceScaleFactor:1,mobile:true});await delay(200);await click('跳過動畫');
+   for(let n=0;n<160;n++){if(await evaluate(`!!document.querySelector('.event-dialog[open]')`))break;await delay(30);}assert.ok(await evaluate(`!!document.querySelector('.event-dialog[open]')`));
+   const modal=await evaluate(`(()=>{const r=document.querySelector('.event-dialog').getBoundingClientRect();return{x:r.x,y:r.y,right:r.right,bottom:r.bottom};})()`);assert.ok(modal.x>=0&&modal.y>=0&&modal.right<=844&&modal.bottom<=300,'landscape event within viewport');await screenshot('mobile-fix-landscape-event');
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);await writeFile('artifacts/mobile-layout-review.json',JSON.stringify({browser:'Chromium desktop emulation',safeAreaSupported,safeAreaMode:safeAreaSupported?'native':'CSS safe-area inset simulation',measurements,modal,errors,failedRequests},null,2));
+   console.log('PASS: portrait/landscape and address-bar heights, safe areas, normal-flow header/dice, full-width HUD, full overview, actual roll, rotation during movement and landscape event.');
+ }else if(process.argv.includes('--diorama')){
+   const saved=()=>evaluate(`localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))`);
+   const original=await saved(),measurements=[];
+   await delay(1800);await screenshot('diorama-desktop');
+   assert.equal(await evaluate(`document.querySelector('.island-render canvas').dataset.visualStyle`),'cozy-diorama');
+   assert.ok(await evaluate(`Number(document.querySelector('.island-render canvas').dataset.terrainDepth)>2`));
+   for(const [width,height] of [[1440,1000],[1024,768],[768,1024],[390,844],[320,740]]){
+     await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<900});await delay(200);
+     const layout=await evaluate(`(()=>{const rect=n=>{const r=n.getBoundingClientRect();return{x:r.x,y:r.y,w:r.width,h:r.height,right:r.right,bottom:r.bottom};};const roll=document.querySelector('.dice-button'),r=roll.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{width:innerWidth,scroll:document.documentElement.scrollWidth,roll:rect(roll),hit:!!hit&&roll.contains(hit),brand:rect(document.querySelector('.brand-lockup')),route:rect(document.querySelector('.city-route-progress')),camera:rect(document.querySelector('.camera-modes')),buttons:[...document.querySelectorAll('.camera-modes button')].map(rect)};})()`);
+     if(layout.scroll>width){await screenshot('diorama-overflow');console.log(await evaluate(`JSON.stringify([...document.querySelectorAll('body *')].filter(n=>n.getBoundingClientRect().right>innerWidth+1&&getComputedStyle(n).position!=='absolute').slice(0,12).map(n=>({tag:n.tagName,cls:n.className,right:n.getBoundingClientRect().right})))`));}
+     assert.ok(layout.scroll<=width,'no horizontal overflow '+width);assert.ok(layout.roll.w>=120&&layout.roll.h>=44,'roll touch target '+JSON.stringify(layout));assert.ok(layout.hit,'roll button is actually tappable '+JSON.stringify(layout));
+     assert.ok(layout.brand.w>130&&layout.brand.h<80,'brand remains horizontal '+width);if(width<900)assert.ok(layout.route.w>width*.8,'route progress spans mobile width');
+     assert.ok(await evaluate(`(()=>{const b=document.querySelector('.city-view-toggle'),r=b.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return r.x>=0&&r.right<=innerWidth&&!!hit&&b.contains(hit);})()`),'3D/2D toggle is visible and tappable '+width);
+     for(const b of layout.buttons)assert.ok(b.w>=34&&b.h>=30&&b.y>=layout.camera.y&&b.bottom<=layout.camera.bottom+1,'camera labels fit '+width);
+     measurements.push({width,height,...layout});await screenshot('diorama-'+width);
+   }
+   await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+   for(const label of ['全景','跟隨','自由探索','聚焦']){await evaluate(`[...document.querySelectorAll('.camera-modes button')].find(b=>b.textContent===${JSON.stringify(label)}).click()`);await delay(180);}
+   await evaluate(`document.querySelector('[aria-label="切換為 2D 地圖"]').click()`);await delay(300);assert.equal(await evaluate(`document.querySelectorAll('.city-map-80 [data-tile-id]').length`),80);await screenshot('diorama-2d');assert.equal(await saved(),original,'view switching never changes game');
+   await evaluate(`document.querySelector('[aria-label="切換為 3D 城市"]').click()`);await delay(800);assert.equal(await evaluate(`document.querySelectorAll('.island-stations>button').length`),80);assert.equal(await saved(),original);
+   await evaluate(`document.querySelector('.city-toolbar-toggle').click()`);await delay(100);await click('白天');await delay(400);await screenshot('diorama-night');await click('夜晚');
+   const performance=[];for(const quality of ['low','medium','high']){await evaluate(`(()=>{const s=document.querySelector('[aria-label="城市畫質"]');s.value=${JSON.stringify(quality)};s.dispatchEvent(new Event('change',{bubbles:true}));})()`);await delay(3200);performance.push(await evaluate(`(()=>{const c=document.querySelector('.island-render canvas');return{quality:c.dataset.quality,fps:Number(c.dataset.fps),calls:Number(c.dataset.calls),triangles:Number(c.dataset.triangles),dpr:c.dataset.dpr};})()`));}
+   await click('擲骰子');await click('跳過動畫');for(let i=0;i<120;i++){if(await evaluate(`!!document.querySelector('.event-dialog[open]')`))break;await delay(40);}await screenshot('diorama-event');
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   await writeFile('artifacts/diorama-review.json',JSON.stringify({measurements,performance,errors,failedRequests},null,2));
+   console.log('PASS: true 3D layered terrain, 80 stops, five viewports, tappable dice, non-wrapping camera controls, 3D/2D state-preserving switch, day/night, three quality measurements and event card.');
+ }else if(process.argv.includes('--journey')){
+   const state=()=>evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state`);
+   const waitPhase=async phase=>{for(let n=0;n<400;n++){if((await state()).phase===phase)return;await delay(25);}throw Error('Missing journey phase '+phase);};
+   const completeEvent=async()=>{
+     const before=await state();
+     for(let n=0;n<150;n++){if(await evaluate(`!!document.querySelector('.event-dialog[open] button')`))break;await delay(40);}
+     if(before.selectedEvent){
+       await evaluate(`(()=>{const b=document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm');b.click();b.click();})()`);
+       await delay(40);const after=await state();assert.equal(after.revision,before.revision+1,'choice commits once');assert.equal(after.selectedEvent,null);
+     }
+     await evaluate(`document.querySelector('.continue-button').click()`);await delay(50);
+   };
+   // A first finisher still waits for the three later players, including after a pending-event reload.
+   await evaluate(`(()=>{const key=sessionStorage.getItem('lohas-auto-save-key'),v=JSON.parse(localStorage.getItem(key)),s=v.state;s.players.forEach((p,i)=>{p.position=[78,30,50,73][i];p.reachedFinish=false;});Object.assign(s,{currentPlayerIndex:0,round:15,phase:'WAITING_ROLL',selectedEvent:null,eventResultText:null,eventOutcome:null});delete s.pendingMoveTarget;localStorage.setItem(key,JSON.stringify(v));location.reload();})()`);
+   await waitFor('儲存進度');
+   for(let i=0;i<4;i++){
+     const before=await state();assert.equal(before.currentPlayerIndex,i);await click('擲骰子');await click('跳過動畫');await waitPhase('EVENT');
+     const landed=await state();assert.equal(landed.players[i].position,Math.min(79,before.players[i].position+landed.diceValue));
+     if(i===0){assert.equal(landed.selectedEvent.id,'journey-finish');await call('Page.reload');await waitPhase('EVENT');assert.equal((await state()).selectedEvent.id,'journey-finish');}
+     await completeEvent();assert.equal((await state()).phase,i===3?'RESULT':'WAITING_ROLL');
+   }
+   await waitFor('人生旅程結算');assert.equal(await evaluate(`document.querySelectorAll('.score-card').length`),4);assert.equal(await evaluate(`!!document.querySelector('.dice-button')`),false);await screenshot('city80-four-player-result');
+   const settled=await state();await delay(1800);assert.deepEqual(await state(),settled,'settlement remains unchanged');
+   await click('再走一次');await waitFor('一人開始體驗');
+   const journeys=[];
+   for(const fallback of [false,true]){
+     if(fallback){
+       await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
+       await call('Page.reload');await waitFor('一人開始體驗');
+     }
+     await click('一人開始體驗');await waitFor('儲存進度');
+     if(fallback){await waitFor('WebGL 不可用');assert.equal(await evaluate(`document.querySelectorAll('.city-map-80 [data-tile-id]').length`),80);}
+     for(const [width,height] of [[1440,1000],[768,1024],[390,844],[320,740]]){
+       await call('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:width<900});await delay(90);
+       assert.ok(await evaluate(`document.documentElement.scrollWidth<=innerWidth`),'no horizontal overflow at '+width);
+     }
+     await screenshot(fallback?'city80-mobile-2d':'city80-mobile-3d');
+     let turns=0;
+     while((await state()).phase!=='RESULT'&&turns<80){
+       const before=await state();assert.equal(before.phase,'WAITING_ROLL');await click('擲骰子');
+       if(turns===0){
+         const observed=new Set();
+         for(let n=0;n<300;n++){
+           const s=await state();if(s.phase==='EVENT')break;
+           if(s.phase==='MOVING'){const index=await evaluate(`document.querySelector('.journey-footer small').textContent.match(/第\\s*(\\d+)/)?.[1]`);if(index)observed.add(Number(index)-1);}
+           await delay(20);
+         }
+         await waitPhase('EVENT');const after=await state();for(let n=before.players[0].position+1;n<after.players[0].position;n++)assert.ok(observed.has(n),'intermediate stop visible: '+n);
+       }else{await click('跳過動畫');await waitPhase('EVENT');}
+       const after=await state();assert.equal(after.players[0].position,Math.min(79,before.players[0].position+after.diceValue));assert.equal(after.players[0].money,before.players[0].money,'event waits for a choice');
+       await completeEvent();turns++;
+     }
+     const final=await state();assert.equal(final.phase,'RESULT');assert.equal(final.players[0].position,79);assert.equal(final.players[0].reachedFinish,true);assert.ok(turns>12);await screenshot(fallback?'city80-solo-2d-result':'city80-solo-3d-result');journeys.push({mode:fallback?'2D':'3D',turns,position:79});
+     await click('再走一次');await waitFor('一人開始體驗');
+   }
+   const corrupt=await evaluate(`(()=>{const key=sessionStorage.getItem('lohas-auto-save-key'),v=JSON.parse(localStorage.getItem(key));v.version=999;const raw=JSON.stringify(v);localStorage.setItem(key,raw);return{key,raw};})()`);
+   await call('Page.reload');await waitFor('存檔無法讀取');await click('保留原檔，另開新旅程');await waitFor('一人開始體驗');
+   assert.notEqual(await evaluate(`sessionStorage.getItem('lohas-auto-save-key')`),corrupt.key);
+   assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(corrupt.key)})`),corrupt.raw,'fresh journey preserves corrupt original');
+   await click('一人開始體驗');await click('擲骰子');await click('跳過動畫');await waitPhase('EVENT');await completeEvent();assert.equal((await state()).phase,'WAITING_ROLL');assert.equal(await evaluate(`localStorage.getItem(${JSON.stringify(corrupt.key)})`),corrupt.raw);
+   assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
+   await writeFile('artifacts/city80-journeys.json',JSON.stringify({journeys,fourPlayers:true,pendingFinishReload:true,blockedSaveFreshSlot:true,viewports:[1440,768,390,320],errors,failedRequests},null,2));
+   console.log('PASS: four-player end-of-round settlement, pending finish reload, duplicate choice guards, complete solo journeys from 1 to 80 in 3D and 2D, visible intermediate steps, restart and 1440/768/390/320px layouts.');
+ }else if(process.argv.includes('--night-titles')){
    const selector='.journey-title h1,.journey-title h1 small,.journey-title p,.journey-hud .brand-lockup strong,.journey-hud .brand-lockup small,.journey-hud .brand-lockup em';
    const colors=()=>evaluate(`Array.from(document.querySelectorAll(${JSON.stringify(selector)}),node=>getComputedStyle(node).color)`);
    for(const [width,height] of [[1440,1000],[390,844]]){
@@ -77,6 +190,7 @@ try{
      await click('白天');await delay(150);
      assert.deepEqual(await colors(),Array(6).fill('rgb(255, 255, 255)'),'night title, subtitle and brand are white');
      await screenshot(width<800?'mobile-night-titles':'desktop-night-titles');
+     if(width===1440)await screenshot('diorama-night');
      await click('夜晚');await delay(150);assert.deepEqual(await colors(),day,'daytime colors restored');
    }
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
@@ -109,7 +223,7 @@ try{
    const state=()=>evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state`);
    const until=async expression=>{for(let n=0;n<240;n++){if(await evaluate(expression))return;await delay(25);}throw Error('Timed out: '+expression);};
    const waitPhase=phase=>until(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase===${JSON.stringify(phase)}`);
-   const realRoll=async()=>{const r=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...r});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...r});};
+   const realRoll=async()=>{await evaluate(`document.querySelector('.dice-button').scrollIntoView({block:'center'})`);await delay(80);const r=await evaluate(`(()=>{const r=document.querySelector('.dice-button').getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);await call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,...r});await call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,...r});};
    const finishEvent=async()=>{
      const before=await state();
      if(!before.selectedEvent){await evaluate(`document.querySelector('.continue-button').click()`);await waitPhase('WAITING_ROLL');assert.equal((await state()).revision,before.revision+1);return;}
@@ -121,7 +235,7 @@ try{
      assert.deepEqual(chosen.eventOutcome,{money:player.money-original.money,health:player.health-original.health,stress:player.stress-original.stress});
      await evaluate(`document.querySelector('.continue-button').click()`);await waitPhase('WAITING_ROLL');assert.equal((await state()).revision,chosen.revision+1);
    };
-   const assertLanding=(before,after)=>{const p=after.players[before.currentPlayerIndex];assert.equal(p.position,(before.players[before.currentPlayerIndex].position+after.diceValue)%50);assert.equal(after.currentPlayerIndex,before.currentPlayerIndex);};
+   const assertLanding=(before,after)=>{const p=after.players[before.currentPlayerIndex];assert.equal(p.position,Math.min(79,before.players[before.currentPlayerIndex].position+after.diceValue));assert.equal(after.currentPlayerIndex,before.currentPlayerIndex);};
    const changePreferences=async({speed,muted,vibration})=>{
      await click('動畫與音效');await until(`document.querySelector('.dice-preferences').open`);
      await evaluate(`(()=>{const inputs=document.querySelectorAll('.dice-preferences input');if(inputs[0].checked===${JSON.stringify(muted)})inputs[0].click();if(inputs[1].checked!==${JSON.stringify(vibration)})inputs[1].click();inputs[${speed==='quick'?3:2}].click();})()`);
@@ -151,7 +265,7 @@ try{
    // Reload an interrupted roll: migration resumes its existing dice result, not another random roll.
    const beforeReload=await state();await realRoll();const interrupted=await state();await call('Page.reload');await waitFor('儲存進度');await waitPhase('EVENT');const recovered=await state();assertLanding(beforeReload,recovered);assert.equal(recovered.diceValue,interrupted.diceValue);await finishEvent();
    await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
-   await call('Page.reload');await waitFor('WebGL 不可用');assert.equal(await evaluate(`document.querySelectorAll('.city-map-50 [data-tile-id]').length`),50);
+   await call('Page.reload');await waitFor('WebGL 不可用');assert.equal(await evaluate(`document.querySelectorAll('.city-map-80 [data-tile-id]').length`),80);
    const before2D=await state();await realRoll();await waitPhase('EVENT');assertLanding(before2D,await state());await finishEvent();
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
    console.log('PASS: real dice click, repeat lock, reveal-before-move, skip-roll cancellation, one movement/event/turn, after-choice values, renderer/audio context reuse, mute, vibration opt-in, quick/reduced modes, reload and 2D fallback.');
@@ -161,21 +275,21 @@ try{
    const roles=['grandma','grandma','grandpa','grandma'];assert.deepEqual((await state()).players.map(p=>p.characterId),roles);assert.deepEqual(await evaluate(`Array.from(document.querySelectorAll('.journey-avatar'),e=>e.dataset.characterId)`),roles);
    assert.equal(new Set((await state()).players.map(p=>p.color)).size,4);
    await click('聚焦');for(let n=0;n<4;n++)await evaluate(`document.querySelector('[aria-label="放大城市"]').click()`);await delay(800);await screenshot('characters-city-closeup');
-   const before=await state();await click('擲骰子');const roll=await state();await waitPhase('EVENT');const after=await state();assert.equal(after.players[0].position,(before.players[0].position+roll.diceValue)%50);assert.deepEqual(after.players.map(p=>p.characterId),roles);
+   const before=await state();await click('擲骰子');const roll=await state();await waitPhase('EVENT');const after=await state();assert.equal(after.players[0].position,Math.min(79,before.players[0].position+roll.diceValue));assert.deepEqual(after.players.map(p=>p.characterId),roles);
    const finish=async()=>{await evaluate(`document.querySelector('.event-dialog .choice-button,.event-dialog .event-confirm')?.click()`);await delay(60);await evaluate(`document.querySelector('.continue-button').click()`);await waitPhase('WAITING_ROLL');};await finish();
    await click('儲存進度');assert.deepEqual(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-manual-save-key'))).state.players.map(p=>p.characterId)`),roles);await call('Page.reload');await waitFor('儲存進度');assert.deepEqual((await state()).players.map(p=>p.characterId),roles);
    await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await screenshot('characters-city-mobile');await click('擲骰子');const skippedDice=(await state()).diceValue;await click('跳過動畫');await waitPhase('EVENT');assert.equal((await state()).players[1].position,skippedDice);assert.deepEqual((await state()).players.map(p=>p.characterId),roles);await finish();
    // Resume old v3 progress without character IDs; keep balances and map positions intact.
-   const legacy=await evaluate(`(()=>{const key=sessionStorage.getItem('lohas-auto-save-key'),value=JSON.parse(localStorage.getItem(key));value.state.players.forEach(p=>delete p.characterId);value.state.currentPlayerIndex=0;value.state.players[0].position=49;value.state.phase='MOVING';value.state.diceValue=2;value.state.selectedEvent=null;value.state.eventResultText=null;localStorage.setItem(key,JSON.stringify(value));return value.state;})()`);
-   await call('Page.reload');await waitPhase('EVENT');const restored=await state();assert.equal(restored.players[0].position,1);assert.equal(restored.players[0].money,legacy.players[0].money+1000);assert.deepEqual(restored.players.map(p=>p.characterId),['grandpa','grandma','grandpa','grandma']);await finish();
+   const legacy=await evaluate(`(()=>{const key=sessionStorage.getItem('lohas-auto-save-key'),value=JSON.parse(localStorage.getItem(key));value.version=3;Object.assign(value.state,{mapId:'lohas-city-50',mapVersion:1,rulesVersion:1});value.state.players.forEach(p=>delete p.characterId);value.state.currentPlayerIndex=0;value.state.players[0].position=49;value.state.phase='MOVING';value.state.diceValue=2;value.state.selectedEvent=null;value.state.eventResultText=null;localStorage.setItem(key,JSON.stringify(value));return value.state;})()`);
+   await call('Page.reload');await waitPhase('EVENT');const restored=await state();assert.equal(restored.players[0].position,71);assert.equal(restored.players[0].money,legacy.players[0].money);assert.deepEqual(restored.players.map(p=>p.characterId),['grandpa','grandma','grandpa','grandma']);await finish();
    await call('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await click('擲骰子');await waitPhase('EVENT');await finish();
    // Fresh isolated game with WebGL blocked: the picker and city both use explicit 2D alternatives.
    await evaluate(`localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));localStorage.removeItem('lohas-recent-session-v3')`);
    await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
-   await call('Page.reload');await waitFor('一人開始體驗');await evaluate(`document.querySelector('.character-trigger').click()`);await waitFor('確認選擇爺爺');await delay(200);assert.ok(await evaluate(`!!document.querySelector('.character-preview-fallback')`));await screenshot('characters-picker-2d');await evaluate(`document.querySelectorAll('.character-option')[1].click()`);await click('確認選擇奶奶');await click('一人開始體驗');await waitFor('WebGL 不可用');assert.equal((await state()).players[0].characterId,'grandma');assert.equal((await state()).players.length,1);assert.equal(await evaluate(`document.querySelector('.city-map-50 [data-character-id]').dataset.characterId`),'grandma');await screenshot('characters-city-2d');
+   await call('Page.reload');await waitFor('一人開始體驗');await evaluate(`document.querySelector('.character-trigger').click()`);await waitFor('確認選擇爺爺');await delay(200);assert.ok(await evaluate(`!!document.querySelector('.character-preview-fallback')`));await screenshot('characters-picker-2d');await evaluate(`document.querySelectorAll('.character-option')[1].click()`);await click('確認選擇奶奶');await click('一人開始體驗');await waitFor('WebGL 不可用');assert.equal((await state()).players[0].characterId,'grandma');assert.equal((await state()).players.length,1);assert.equal(await evaluate(`document.querySelector('.city-map-80 [data-character-id]').dataset.characterId`),'grandma');await screenshot('characters-city-2d');
    await click('擲骰子');await waitPhase('EVENT');assert.equal((await state()).players[0].characterId,'grandma');
    assert.equal(errors.length,0,errors.join('\n'));assert.deepEqual(failedRequests,[]);
-   console.log('PASS: desktop/mobile real 3D picker, separate/repeated player choices, role-aware HUD, walk/skip/wrap, manual/reloaded/legacy saves, reduced motion, solo and 2D picker/pawn fallback.');
+   console.log('PASS: desktop/mobile real 3D picker, separate/repeated player choices, role-aware HUD, walk/skip/finish, manual/reloaded/legacy saves, reduced motion, solo and 2D picker/pawn fallback.');
  }else if(process.argv.includes('--isolation')){
    const appUrl='http://127.0.0.1:4178'+testBase;
    async function connect(url){
@@ -232,9 +346,9 @@ try{
    }
    await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await delay(200);
    for(let index=0;index<5;index++){
-     const point=await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-50 g[role="button"][aria-label]'),pin=pins[${index}];if(!pin)return{missing:true,count:pins.length};const r=pin.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+     const point=await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-80 g[role="button"][aria-label]'),pin=pins[${index}];if(!pin)return{missing:true,count:pins.length};const r=pin.getBoundingClientRect();return{x:r.x+r.width/2,y:r.y+r.height/2};})()`);
      assert.ok(!point.missing,'center pins are rendered: '+JSON.stringify(point));
-     await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-50 g[role="button"][aria-label]');pins[${index}].dispatchEvent(new MouseEvent('click',{bubbles:true,clientX:${point.x},clientY:${point.y}}));})()`);
+     await evaluate(`(()=>{const pins=document.querySelectorAll('.island-center-pins button,.city-map-80 g[role="button"][aria-label]');pins[${index}].dispatchEvent(new MouseEvent('click',{bubbles:true,clientX:${point.x},clientY:${point.y}}));})()`);
      for(let attempt=0;attempt<20&&!await evaluate(`!!document.querySelector('.center-education')`);attempt++)await delay(50);
      const placement=await evaluate(`(()=>{const r=document.querySelector('.center-education').getBoundingClientRect();return{left:r.left,top:r.top,right:r.right,bottom:r.bottom,containsClick:r.left<=${point.x}&&r.right>=${point.x}&&r.top<=${point.y}&&r.bottom>=${point.y},withinViewport:r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight};})()`);
      assert.ok(placement.containsClick&&placement.withinViewport,'center education opens at clicked center and stays in the viewport: '+JSON.stringify({index,point,placement}));
@@ -311,15 +425,15 @@ try{
  await evaluate(`document.querySelector('[aria-label="關閉學習中心"]').click()`);await delay(100);
  await click('開始人生旅程');await delay(1000);
  const oldRaw=await evaluate(`(()=>{const s=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state;s.players[0].position=39;s.currentPlayerIndex=0;s.phase='WAITING_ROLL';s.selectedEvent=null;s.eventResultText=null;const raw=JSON.stringify({version:1,state:s});localStorage.setItem('long-care-game-save-v1',raw);localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));return raw;})()`);
- await evaluate('location.reload()');await waitFor('已將舊進度轉為獨立體驗版本');
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),47);
+ await evaluate('location.reload()');await waitFor('已將舊進度轉為 80 格城市旅程');
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),69);
  assert.equal(await evaluate(`localStorage.getItem('long-care-game-save-v1-backup-before-50')`),oldRaw);
  await click('知道了');
- await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=48;v.state.diceValue=4;v.state.phase='MOVING';localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
+ await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=77;v.state.diceValue=4;v.state.phase='MOVING';localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
  for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='EVENT'`))break;await delay(100);}
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),2);
- assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].money`),11000);
- await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=6;v.state.diceValue=2;v.state.phase='MOVING';v.state.selectedEvent=null;v.state.eventResultText=null;localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].position`),79);
+ assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0].money`),10000);
+ await evaluate(`(()=>{const v=JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key')));v.state.players[0].position=16;v.state.players[0].reachedFinish=false;v.state.diceValue=2;v.state.phase='MOVING';v.state.selectedEvent=null;v.state.eventResultText=null;localStorage.setItem(sessionStorage.getItem('lohas-auto-save-key'),JSON.stringify(v));location.reload();})()`);
  await waitFor('知識機會卡');
  const beforeKnowledge=await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.players[0]`);
  await evaluate(`document.querySelector('.event-dialog .choice-button').click()`);await delay(100);
@@ -328,14 +442,14 @@ try{
  // Simulate unavailable WebGL at startup, without changing product code or using a test-only product flag.
  await call('Page.addScriptToEvaluateOnNewDocument',{source:`(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'||type==='webgl2'?null:original.call(this,type,...args);};})()`});
  await evaluate(`localStorage.removeItem(sessionStorage.getItem('lohas-auto-save-key'));localStorage.removeItem('long-care-game-save-v1');location.reload()`);await waitFor('開始人生旅程');await click('先逛逛照顧城市');await waitFor('WebGL 不可用');
- assert.equal(await evaluate(`document.querySelectorAll('.city-map-50 [data-tile-id]').length`),50);
- await evaluate(`document.querySelector('.city-map-50 [aria-label="大和日照中心"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);await waitFor('健康管理與生活照顧');
+ assert.equal(await evaluate(`document.querySelectorAll('.city-map-80 [data-tile-id]').length`),80);
+ await evaluate(`document.querySelector('.city-map-80 [aria-label="大和日照中心"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);await waitFor('健康管理與生活照顧');
  await screenshot('mobile-2d-fallback');
  await evaluate(`document.querySelector('[aria-label="關閉中心介紹並返回城市"]').click()`);await delay(100);await screenshot('mobile-2d-overview');await click('開始 2–4 人旅程');await click('開始人生旅程');await click('擲骰子');
  for(let i=0;i<80;i++){if(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase==='EVENT'`))break;await delay(100);}
  assert.equal(await evaluate(`JSON.parse(localStorage.getItem(sessionStorage.getItem('lohas-auto-save-key'))).state.phase`),'EVENT','2D fallback is playable');
  assert.equal(errors.length,0,errors.join('\n'));
  assert.deepEqual(failedRequests,[],`no missing deployment assets at ${testBase}`);
- console.log('PASS: 50 stops, four players, five courtyard interactions and isolation, all camera modes, three quality levels, skip animation, wrap recovery, legacy backup/migration, training and manual saves, desktop/mobile layouts, playable no-WebGL fallback. Performance samples: artifacts/performance.json.');
+ console.log('PASS: 80 stops, four players, five courtyard interactions and isolation, all camera modes, three quality levels, skip animation, finish recovery, legacy backup/migration, training and manual saves, desktop/mobile layouts, playable no-WebGL fallback. Performance samples: artifacts/performance.json.');
  }
 }finally{for(const ws of extraSockets)ws.close();for(const process of extraBrowsers)process.kill();socket?.close();chrome.kill();await new Promise(r=>server.close(r));}

@@ -7,6 +7,7 @@ import { ResourceDetails } from './ResourceBook';
 import { BOARD_DATA } from '../../game/board';
 
 const CATEGORY: Record<TileType, { title: string; icon: string; color: string }> = {
+  FINISH: { title: '終點回顧', icon: '⚑', color: '#aa9148' },
   START: { title: '人生起點', icon: '⌂', color: '#d88c65' },
   LIVING: { title: '生活日常', icon: '♡', color: '#bb8b69' },
   SERVICE: { title: '長照服務', icon: '✚', color: '#65968e' },

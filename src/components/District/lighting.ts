@@ -7,8 +7,8 @@ export type LightingLayout = 'island' | 'district';
 export function createLightingRig(scene:T.Scene,night:boolean,layout:LightingLayout,compact=false) {
   const group=new T.Group();group.name='CareSoftLighting';scene.add(group);
   const ambient=new T.AmbientLight('#fff3db',night?.12:.22);group.add(ambient);
-  const sky=new T.HemisphereLight(night?'#9dbdde':'#d7eeff',night?'#5f7269':'#a2b98b',night?.8:1.25);group.add(sky);
-  const sun=new T.DirectionalLight(night?'#b6cff2':'#fff0cf',night?.8:3.0);
+  const sky=new T.HemisphereLight(night?'#9dbdde':'#e5f2ff',night?'#5f7269':'#a2b98b',night?.8:.65);group.add(sky);
+  const sun=new T.DirectionalLight(night?'#b6cff2':'#fff0dc',night?.8:1.8);
   sun.position.set(layout==='island'?-13:-7,layout==='island'?26:16,layout==='island'?16:10);
   sun.target.position.set(0,.2,0);sun.castShadow=true;
   const extent=layout==='island'?26:10;
@@ -53,11 +53,11 @@ export function upgradeLightingMaterials(root:T.Object3D,night:boolean){
 
 export function configureWebGLLighting(renderer:T.WebGLRenderer,scene:T.Scene,root:T.Object3D,night:boolean,layout:LightingLayout,compact=false,quality:Quality='high'){
   renderer.outputColorSpace=T.SRGBColorSpace;
-  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=night?1.08:.98;
+  renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=night?1.08:.82;
   renderer.shadowMap.enabled=quality!=='low';
   // One PCF shadow pass with a bounded map size; low quality disables shadows.
   renderer.shadowMap.type=T.PCFShadowMap;
-  scene.background=new T.Color(night?'#1c3442':'#d8eae7');
+  scene.background=new T.Color(night?'#1c3442':'#dcebf1');
   const restoreMaterials=upgradeLightingMaterials(root,night);
   const rig=createLightingRig(scene,night,layout,compact);
   rig.sun.castShadow=quality!=='low';
@@ -65,5 +65,5 @@ export function configureWebGLLighting(renderer:T.WebGLRenderer,scene:T.Scene,ro
   const previousEnvironment=scene.environment;
   const room=new RoomEnvironment(),pmrem=new T.PMREMGenerator(renderer);
   try{if(quality!=='low'){environment=pmrem.fromScene(room,.04,.1,100,{size:quality==='high'?256:128});scene.environment=environment.texture;scene.environmentIntensity=night?.32:.6;}}catch{scene.environment=previousEnvironment;}finally{room.dispose();pmrem.dispose();}
-  return {set(brightness:number,shadow:number){renderer.toneMappingExposure=(night?1.08:.98)*T.MathUtils.clamp(brightness,.7,1.3);rig.setShadow(shadow);},dispose(){scene.environment=previousEnvironment;environment?.dispose();restoreMaterials();rig.dispose();}};
+  return {set(brightness:number,shadow:number){renderer.toneMappingExposure=(night?1.08:.82)*T.MathUtils.clamp(brightness,.7,1.3);rig.setShadow(shadow);},dispose(){scene.environment=previousEnvironment;environment?.dispose();restoreMaterials();rig.dispose();}};
 }
