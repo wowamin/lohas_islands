@@ -20,6 +20,11 @@ import { OnlineCount } from './components/UI/OnlineCount';
 
 
 function App() {
+  useEffect(()=>{
+    const sync=()=>{if(!window.visualViewport||window.visualViewport.scale===1)document.documentElement.style.setProperty('--app-visible-height',`${Math.round(window.visualViewport?.height??window.innerHeight)}px`);};
+    sync();window.addEventListener('resize',sync);window.visualViewport?.addEventListener('resize',sync);
+    return()=>{window.removeEventListener('resize',sync);window.visualViewport?.removeEventListener('resize',sync);};
+  },[]);
   const phase = useGameStore((state) => state.phase);
   useEffect(()=>{if(phase==='RESULT'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)confetti();},[phase]);
   const [view, setView] = useState<'board' | '3d'>('board');
@@ -33,7 +38,7 @@ function App() {
 
   return (
     <main className={'game-app' + (phase === 'SETUP' ? ' is-setup' : '')}>
-      <OnlineCount />
+      <div className="game-topbar" inert={overlay}><div id="mobile-game-header"/><OnlineCount /></div>
       <DiceController />
       <MovementController />
       <DiceResult />
@@ -42,13 +47,14 @@ function App() {
       </div>
 
       <div className="ambient ambient-one" aria-hidden="true" />
+      <div id="mobile-turn-slot" className="mobile-turn-slot" inert={overlay}/>
       <div className="ambient ambient-two" aria-hidden="true" />
 
       {phase === 'SETUP' && !exploring && <SetupScreen onResource={() => setResource('community')} onExplore={() => setExploring(true)} onLearn={()=>setLearning('training')} />}
       {phase === 'SETUP' && exploring && <button className="city-start primary-button" onClick={() => setExploring(false)}>開始 2–4 人旅程 →</button>}
       {phase !== 'SETUP' && phase !== 'RESULT' && (
         <>
-          <div inert={overlay}><HUD boardView={view} exploring={exploringOnly} /></div>
+          <div className="game-hud-host" inert={overlay}><HUD boardView={view} exploring={exploringOnly} /></div>
           <EventModal />
         </>
       )}

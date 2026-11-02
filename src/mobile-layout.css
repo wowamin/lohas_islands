@@ -1,0 +1,103 @@
+/* Mobile chrome has its own DOM hosts. No negative coordinates or implicit grid columns. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{--mobile-safe-top:env(safe-area-inset-top,0px);--mobile-safe-right:env(safe-area-inset-right,0px);--mobile-safe-bottom:env(safe-area-inset-bottom,0px);--mobile-safe-left:env(safe-area-inset-left,0px)}
+.game-topbar{display:contents}
+#mobile-game-header,.mobile-turn-slot{display:none}
+
+@media(max-width:900px){
+ .game-app:not(.is-setup){display:block!important;height:auto!important;min-height:100vh;min-width:0;overflow:visible;padding:var(--mobile-safe-top) var(--mobile-safe-right) var(--mobile-safe-bottom) var(--mobile-safe-left)!important}
+ .game-app:not(.is-setup) .game-topbar{display:block;position:relative;min-width:0;z-index:5;background:#dcebf1}
+ .game-app #mobile-game-header{display:grid;grid-template-columns:minmax(0,1fr);gap:7px;padding:12px;min-width:0;width:100%;box-sizing:border-box}
+ .game-app #mobile-game-header .hud-header,.game-app #mobile-game-header .journey-title,.game-app #mobile-game-header .turn-banner{position:static!important;inset:auto!important;width:auto!important;max-width:none!important;min-width:0;transform:none!important;margin:0!important;grid-column:1;grid-row:auto;justify-self:start}
+ .game-app #mobile-game-header .hud-header{display:block!important;width:160px!important;max-width:100%!important}
+ .game-app #mobile-game-header .brand-lockup{display:flex;align-items:center;gap:8px;padding:8px 10px;width:160px;max-width:100%;min-width:0;white-space:nowrap;flex-shrink:0;box-sizing:border-box}
+ .game-app #mobile-game-header .brand-lockup>span:last-child{min-width:0;flex:1 1 auto}
+ .game-app #mobile-game-header .brand-lockup strong{font-size:14px;letter-spacing:0;line-height:1.3;white-space:nowrap}
+ .game-app #mobile-game-header .brand-lockup small{font-size:6px;letter-spacing:.5px;white-space:nowrap}
+ .game-app #mobile-game-header .brand-lockup em{font-size:7px;letter-spacing:0;white-space:nowrap}
+ .game-app #mobile-game-header .group-mark{width:28px;height:32px;font-size:19px;flex:0 0 28px}
+ .game-app #mobile-game-header .journey-title h1{font-size:22px;letter-spacing:0;white-space:nowrap;line-height:1.3}
+ .game-app #mobile-game-header .journey-title h1 small{font-size:11px;padding:3px 6px;vertical-align:middle}
+ .game-app #mobile-game-header .journey-title p{display:none}
+ .game-app #mobile-game-header .hud-header{grid-row:1;order:0}.game-app #mobile-game-header .journey-title{grid-row:2;order:1}.game-app #mobile-game-header .turn-banner{grid-row:3;order:2}
+ .game-app #mobile-game-header .turn-banner{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:16px;max-width:calc(100% - 125px)!important;font-size:10px;white-space:nowrap;overflow:hidden;box-sizing:border-box}
+ .game-app #mobile-game-header .turn-banner strong{font-size:12px;min-width:0;overflow:hidden;text-overflow:ellipsis;max-width:85px}
+ .game-app #mobile-game-header .turn-banner span{font-size:9px;flex-shrink:0}
+ .game-app:not(.is-setup) .game-topbar .online-count{position:absolute;inset:auto 12px 12px auto!important;max-width:120px;min-width:0;min-height:30px;font-size:9px;padding:6px 9px;margin:0;gap:5px;white-space:nowrap}
+
+ .game-app:not(.is-setup)>.scene-city{position:relative!important;inset:auto!important;display:block!important;z-index:0;height:350px!important;height:clamp(310px,calc(var(--app-visible-height,100vh)*.46),420px)!important;min-height:0!important;width:100%;min-width:0;padding:0!important}
+ .game-app:not(.is-setup) .island-render{inset:48px 0 62px!important}
+ .game-app .city-world .city-toolbar,.game-app .city-world .city-toolbar.is-toolbar-collapsed{position:absolute;top:5px!important;left:auto!important;right:10px!important;bottom:auto;transform:none!important;width:max-content!important;max-width:calc(100% - 20px)!important;padding:4px;border-radius:13px;flex-wrap:nowrap}
+ .game-app .city-world .city-toolbar>button{min-height:36px;padding:6px 8px;font-size:10px;white-space:nowrap}
+ .game-app .city-world .city-toolbar .city-view-toggle{min-width:80px}
+ .game-app .city-world .city-toolbar .city-toolbar-toggle{display:inline-flex!important;min-width:45px;font-size:10px}
+ .game-app .city-world .city-toolbar .city-toolbar-help{display:none}
+ .game-app .city-world .city-toolbar .city-toolbar-actions{top:47px;width:280px;max-width:calc(100vw - 24px);max-height:60vh;overflow:auto}
+ .game-app .quality-control{top:8px!important;bottom:auto!important;left:10px;right:auto!important;padding:5px 7px;gap:5px;font-size:9px;max-width:calc(100% - 155px)}
+ .game-app .quality-control select{padding:3px;font-size:10px}
+ .game-app .quality-control>span{font-size:8px}
+ .game-app .camera-modes{left:10px!important;right:auto;bottom:8px!important;top:auto;transform:none!important;width:max-content!important;max-width:calc(100% - 96px);display:flex;flex-wrap:nowrap;gap:2px;padding:4px}
+ .game-app .camera-modes button{min-height:36px;min-width:38px;padding:6px 8px;font-size:10px;white-space:nowrap}
+ .game-app .island-zoom,.game-app .city-zoom{position:absolute;left:auto;right:10px!important;bottom:8px!important;top:auto;display:flex;padding:3px}
+ .game-app .island-zoom button,.game-app .city-zoom button{width:32px;min-width:32px;height:36px;min-height:36px;padding:3px;font-size:18px}
+ .game-app .island-menu{right:10px!important;top:58px!important;bottom:auto!important;width:32px;height:32px;min-height:0;font-size:17px}
+ .game-app .island-navigation{right:10px;top:96px;bottom:auto;width:160px;max-height:calc(100% - 110px);overflow-y:auto}
+ .game-app .city-performance{left:10px!important;right:auto!important;top:auto;bottom:50px!important;font-size:8px}
+ .game-app .island-stations>button{font-size:8px!important;width:15px;height:14px}
+ .game-app .island-center-pins>button{font-size:8px;padding:4px 6px;max-width:108px}
+ .game-app .island-center-pins i{width:5px;height:5px}
+ .game-app .fallback-notice{top:51px!important;left:10px;right:10px;bottom:auto;max-width:none;padding:5px 8px;font-size:9px}
+
+ .game-app:not(.is-setup) .mobile-turn-slot:not(:empty){display:flex;justify-content:center;align-items:center;padding:10px 12px;background:#dcebf1;min-width:0}
+ .game-app .mobile-turn-slot .turn-panel{position:relative!important;inset:auto!important;transform:none!important;zoom:1!important;display:grid!important;grid-template-columns:76px minmax(0,1fr);grid-template-rows:minmax(44px,auto) auto;gap:3px 12px;width:100%!important;max-width:360px!important;height:auto!important;min-height:94px!important;padding:9px 12px!important;margin:0!important;border:2px solid #fff;border-radius:20px;background:#fff7e8;box-sizing:border-box}
+ .game-app .mobile-turn-slot .turn-panel .illustrated-dice{position:relative!important;inset:auto!important;transform:none!important;grid-column:1;grid-row:1/span 2;width:76px!important;height:76px!important;margin:0!important;align-self:center}
+ .game-app .mobile-turn-slot .illustrated-dice>svg{width:100%;height:100%}
+ .game-app .mobile-turn-slot .diorama-dice{inset:-17px}
+ .game-app .mobile-turn-slot .dice-button{grid-column:2;grid-row:1;display:flex;width:100%;height:auto!important;min-height:44px!important;margin:0!important;padding:9px 10px!important;border-radius:13px;font-size:16px!important;line-height:1.3;min-width:0;white-space:nowrap}
+ .game-app .mobile-turn-slot .dice-label-full{display:inline}
+ .game-app .mobile-turn-slot .dice-label-compact{display:none}
+ .game-app .mobile-turn-slot .turn-panel>p{grid-column:2;grid-row:2;display:flex;flex-wrap:wrap;justify-content:center;gap:4px;min-width:0;margin:3px 0 0;font-size:10px;line-height:1.5}
+ .game-app .mobile-turn-slot .turn-player-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .game-app .mobile-turn-slot .skip-animation{font-size:10px;padding:1px 3px;white-space:nowrap}
+
+ .game-app .game-hud-host{display:block;min-width:0;width:100%;max-width:100%}
+ .game-app .game-hud-host .journey-hud{position:relative!important;inset:auto!important;display:flex!important;flex-direction:column!important;align-items:stretch;gap:10px;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:12px!important;background:#edf1df;box-sizing:border-box}
+ .game-app .game-hud-host .journey-hud>*{min-width:0;grid-column:auto!important;grid-row:auto!important;flex-shrink:0}
+ .game-app .game-hud-host .player-panel{position:static!important;inset:auto!important;order:0;display:block;width:100%!important;max-width:100%!important;margin:0!important;padding:0!important}
+ .game-app .game-hud-host .player-list{display:flex;flex-direction:row;justify-content:flex-start;gap:8px;width:100%;min-width:0;max-width:100%;padding:3px;overflow-x:auto!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ .game-app .game-hud-host .player-card{flex:0 0 178px!important;width:178px!important;min-width:178px!important;min-height:82px!important;height:82px!important;padding:10px!important;box-sizing:border-box}
+ .game-app .game-hud-host .journey-footer{position:static!important;inset:auto!important;display:flex;order:1;width:100%!important;max-width:100%!important;height:auto!important;min-height:84px!important;padding:12px!important;transform:none!important;margin:0!important}
+ .game-app .game-hud-host .journey-footer .location-illustration{width:36px;height:47px;font-size:28px}
+ .game-app .game-hud-host .journey-footer small{font-size:10px}.game-app .game-hud-host .journey-footer strong{font-size:15px}
+ .game-app .game-hud-host .city-route-progress{position:static!important;inset:auto!important;display:flex;order:2;justify-content:space-between;gap:2px;width:100%;min-width:0;max-width:100%;padding:8px;overflow-x:auto;box-sizing:border-box}
+ .game-app .city-route-progress button{min-width:36px;padding:5px 3px}.game-app .city-route-progress strong{font-size:9px}.game-app .city-route-progress small{font-size:8px}.game-app .city-route-progress button>span{font-size:18px}
+ .game-app .game-hud-host .journey-actions{position:static!important;inset:auto!important;order:3;display:flex!important;flex-direction:row;flex-wrap:wrap;gap:6px;width:100%;min-width:0;margin:0}
+ .game-app .journey-actions>button,.game-app .journey-actions .dice-settings-trigger{flex:1 0 30%;min-height:42px;font-size:11px}
+ .game-app .education-launch{position:relative!important;inset:auto!important;display:flex;flex-wrap:wrap;flex-direction:row;gap:7px;width:100%;max-width:100%;padding:10px 12px;background:#edf1df;box-sizing:border-box}
+ .game-app .education-launch button{flex:1 0 40%;min-height:43px;font-size:11px}.game-app .education-launch small{font-size:9px}
+ .game-app .disclaimer{position:relative!important;inset:auto!important;transform:none!important;width:auto;max-width:100%;padding:6px;margin:0;background:#edf1df;font-size:9px;white-space:normal;text-align:center}
+ .event-dialog[open]{inset:auto max(12px,var(--mobile-safe-right)) max(12px,var(--mobile-safe-bottom)) max(12px,var(--mobile-safe-left))!important;width:auto!important;max-width:none!important;max-height:calc(var(--app-visible-height,100vh) - 24px)!important;overflow-y:auto;border-radius:20px!important}
+ .event-dialog .event-art{height:64px}.event-dialog .event-content,.event-dialog .result-feedback{padding:18px!important}.event-dialog .event-content h2,.event-dialog .result-feedback h2{font-size:22px}
+ .game-app.is-setup .game-topbar{display:contents}.game-app.is-setup #mobile-game-header{display:none}.game-app.is-setup .mobile-turn-slot{display:none}
+}
+
+@media(max-width:900px) and (orientation:landscape) and (max-height:500px){
+ .game-app:not(.is-setup){display:grid!important;grid-template-columns:minmax(0,1fr) 220px;gap:0 8px;align-items:start}
+ .game-app:not(.is-setup) .game-topbar{grid-column:1/-1;grid-row:1}
+ .game-app #mobile-game-header{display:flex;align-items:center;gap:12px;padding:8px 130px 8px 10px;min-height:76px}
+ .game-app #mobile-game-header .journey-title h1{font-size:17px}.game-app #mobile-game-header .journey-title{flex:1;min-width:0}
+ .game-app #mobile-game-header .turn-banner{max-width:160px!important;flex-shrink:1}
+ .game-app:not(.is-setup) .game-topbar .online-count{top:20px!important;bottom:auto!important;right:10px!important}
+ .game-app:not(.is-setup)>.scene-city{grid-column:1;grid-row:2;height:max(190px,calc(var(--app-visible-height,100vh) - 76px))!important}
+ .game-app:not(.is-setup) .mobile-turn-slot:not(:empty){grid-column:2;grid-row:2;align-self:start;padding:10px 8px}
+ .game-app .mobile-turn-slot .turn-panel{grid-template-columns:1fr;gap:8px;padding:12px!important;max-width:210px!important}
+ .game-app .mobile-turn-slot .turn-panel .illustrated-dice{grid-column:1;grid-row:1;justify-self:center}
+ .game-app .mobile-turn-slot .dice-button{grid-column:1;grid-row:2}.game-app .mobile-turn-slot .turn-panel>p{grid-column:1;grid-row:3}
+ .game-app .game-hud-host,.game-app .education-launch,.game-app .disclaimer{grid-column:1/-1}
+ .game-app .island-center-pins>button{font-size:7px;padding:3px 5px}
+}
+@media(max-width:740px) and (orientation:landscape) and (max-height:500px){
+ .game-app:not(.is-setup){grid-template-columns:minmax(0,1fr) 180px}
+ .game-app #mobile-game-header .journey-title{display:none!important}
+ .game-app #mobile-game-header{gap:10px}
+}
